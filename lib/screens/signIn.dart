@@ -1,6 +1,7 @@
 import 'package:artist_icon/screens/components/myButton.dart';
 import 'package:artist_icon/screens/components/myTextField.dart';
 import 'package:artist_icon/screens/home.dart';
+import 'package:artist_icon/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -62,7 +63,7 @@ class SignInPage extends StatelessWidget {
                     Navigator.push(context, MaterialPageRoute(builder:(context) {
                       return HomePage();
                     },));
-                  },
+                  }, text: 'Sign In',
                 ),
 
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -136,16 +137,16 @@ class SignInPage extends StatelessWidget {
                                   
                   GestureDetector(
                     onTap: () {
-                      // Navigator.push(context, 
-                      //   MaterialPageRoute(
-                      //     builder: (context){
-                      //       return SignUpPage();
-                      //   })
-                      // );
+                      Navigator.push(context, 
+                        MaterialPageRoute(
+                          builder: (context){
+                            return SignUpPage();
+                        })
+                      );
                     },
                     child: Text('Sign up',
                     style: GoogleFonts.nunito(
-                      textStyle:TextStyle(
+                      textStyle:const TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
