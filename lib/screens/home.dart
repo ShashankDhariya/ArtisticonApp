@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'artistpage.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,54 +15,30 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Hey!",
-                style: GoogleFonts.pacifico(
-                  textStyle: TextStyle(
-                    fontSize: 30
-                  )
-                ),
-              ),
-
-              Text("User",
-                style: GoogleFonts.nunito(
-                  textStyle: TextStyle(
-                    fontSize: 35,
-                  )
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: SizedBox(
-                  height: 500,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 4, 
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25)
-                        ),
-                        width: MediaQuery.of(context).size.width/1.2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 5),
-                          child: Center(
-                            child:Image.network('https://atelierdanse-albi.fr/wp-content/uploads/2015/12/ainsidanse_2016_tableau12_1ere_partie_19.jpg'),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Color(0xff2dbdc0),
+        unselectedItemColor: Color(0xffaab2ca),
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(right: 36),
+              child: Icon(Icons.home),
+            ),
+            label: 'Home',
           ),
-        ),
-      )
+          BottomNavigationBarItem(icon: Icon(Icons.add_card), label: 'Add'),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(left: 36),
+                child: Icon(Icons.person),
+              ),
+              label: 'Profile')
+        ],
+      ),
+      body: Artistpage(),
     );
   }
 }
