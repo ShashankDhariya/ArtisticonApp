@@ -103,7 +103,7 @@ class SignInPage extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
-                        child: Image.network('https://pluspng.com/img-png/google-logo-png-open-2000.png',
+                        child: Image.asset('assets/images/google.png',
                           height: MediaQuery.of(context).size.height * 0.04,
                         ),
                       ),
@@ -116,7 +116,7 @@ class SignInPage extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
-                        child: Image.network('https://sguru.org/wp-content/uploads/2018/02/2000px-Apple_Logo.svg_.png',
+                        child: Image.asset('assets/images/apple.png',
                           height: MediaQuery.of(context).size.height * 0.04,
                         ),
                       ),

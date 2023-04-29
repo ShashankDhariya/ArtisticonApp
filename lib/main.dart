@@ -1,10 +1,9 @@
-import 'package:artist_icon/screens/signIn.dart';
+import 'package:artist_icon/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SignInPage(),
+      home: Splash(),
     );
   }
 }
