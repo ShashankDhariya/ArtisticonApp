@@ -25,12 +25,11 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
                 Image.asset('assets/images/artistIcon.jpeg',
                   height: MediaQuery.of(context).size.height * 0.12,
                 ),
 
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.075),
                 Text(
                   'Please login to your account',
                   style: GoogleFonts.nunito(
@@ -50,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 MyTextField(hintText: 'Confirm Password', obsecure: false, icon: Icon(Icons.lock_person, size: MediaQuery.of(context).size.height * 0.027),),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                 MyTextField(hintText: 'Name', obsecure: true, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027),),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 MyButton(
                   onTap: () {  
                     // check();
