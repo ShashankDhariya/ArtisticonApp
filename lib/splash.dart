@@ -1,6 +1,6 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:artist_icon/screens/signIn.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,10 +13,43 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   @override
+  void initState() {
+    super.initState();
+    _navigatetohome();
+  }
+
+  _navigatetohome() async {
+   await Future.delayed(Duration(milliseconds: 2500), (){});
+    Navigator.pushReplacement(
+      context, 
+      MaterialPageRoute(
+        builder:(context) {
+          return SignInPage();
+        },
+      )
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-      splash: Lottie.asset('assets/images/loadingCircles.json'), 
-      nextScreen: SignInPage(),
+    return Scaffold(
+      body: Center(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.99,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/artistIcon.jpeg',
+                height: MediaQuery.of(context).size.height * 0.18,
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2,),
+              Lottie.asset('assets/images/loadingCircles.json', 
+                height: MediaQuery.of(context).size.height * 0.15,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
