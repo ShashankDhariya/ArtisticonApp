@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'artistpage.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
