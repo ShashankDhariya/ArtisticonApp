@@ -15,10 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Splash(),
-      routes: {
-        'home': (context) => SignInPage(),
-      },
+      home: const Splash(),
     );
   }
 }

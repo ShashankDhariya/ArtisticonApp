@@ -1,6 +1,5 @@
+import 'package:artist_icon/screens/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'package:artist_icon/screens/signIn.dart';
 import 'package:lottie/lottie.dart';
 
@@ -19,7 +18,7 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetohome() async {
-   await Future.delayed(Duration(milliseconds: 2500), (){});
+   await Future.delayed(const Duration(milliseconds: 2500), (){});
     Navigator.pushReplacement(
       context, 
       MaterialPageRoute(

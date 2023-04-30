@@ -1,3 +1,4 @@
+import 'package:artist_icon/screens/profile.dart';
 import 'package:artist_icon/screens/signIn.dart';
 import 'package:artist_icon/screens/signup.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOptions = [Artistpage(), SignUpPage(), SignInPage()];
+  List<Widget> _widgetOptions = [Artistpage(), SignUpPage(), Profile()];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: Container(
         color: Colors.black,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
           child: GNav(
             selectedIndex: _selectedIndex,
             onTabChange: (index) {
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
             tabBackgroundColor: Colors.grey,
             gap: 8,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(10),
             tabs: [
               GButton(
                 icon: LineIcons.home,
@@ -48,8 +49,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               GButton(
-                icon: LineIcons.home,
-                text: 'Home',
+                icon: CupertinoIcons.add,
+                text: 'Post',
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -58,12 +59,12 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               GButton(
-                icon: LineIcons.home,
-                text: 'Home',
+                icon: CupertinoIcons.person,
+                text: 'Profile',
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                    MaterialPageRoute(builder: (context) => Profile()),
                   );
                 },
               ),

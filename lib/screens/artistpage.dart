@@ -2,14 +2,12 @@ import 'package:artist_icon/screens/signIn.dart';
 import 'package:artist_icon/screens/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'widgets/category_card.dart';
 
 class Artistpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context)
-        .size; //this gonna give us total height and with of our device
+    var size = MediaQuery.of(context).size; //this gonna give us total height and with of our device
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -20,7 +18,7 @@ class Artistpage extends StatelessWidget {
               color: Color(0xFFF5CEB8),
               image: DecorationImage(
                 alignment: Alignment.centerLeft,
-                image: AssetImage("assets/images/undraw_pilates_gpdb.png"),
+                image: AssetImage("assets/images/dance.png"),
               ),
             ),
           ),
@@ -40,7 +38,7 @@ class Artistpage extends StatelessWidget {
                         color: Color(0xFFF2BEA1),
                         shape: BoxShape.circle,
                       ),
-                      child: SvgPicture.asset("assets/images/menu.svg"),
+                      child: SvgPicture.asset("assets/images/test.svg"),
                     ),
                   ),
                   const Text(
@@ -57,17 +55,17 @@ class Artistpage extends StatelessWidget {
                       children: <Widget>[
                         CategoryCard(
                           title: "Dance",
-                          svgSrc: "assets/images/Meditation.svg",
+                          svgSrc: "assets/images/test.svg",
                           press: () {},
                         ),
                         CategoryCard(
                           title: "Singing",
-                          svgSrc: "assets/images/yoga.svg",
+                          svgSrc: "assets/images/test.svg",
                           press: () {},
                         ),
                         CategoryCard(
                           title: "Costumes",
-                          svgSrc: "assets/images/gym.svg",
+                          svgSrc: "assets/images/test.svg",
                           press: () {
                             Navigator.push(
                               context,
@@ -79,7 +77,7 @@ class Artistpage extends StatelessWidget {
                         ),
                         CategoryCard(
                           title: "Studios",
-                          svgSrc: "assets/images/Hamburger.svg",
+                          svgSrc: "assets/images/test.svg",
                           press: () {},
                         ),
                       ],

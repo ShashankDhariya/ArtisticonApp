@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({super.key});
+  const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -28,10 +28,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 Image.asset('assets/images/artistIcon.jpeg',
                   height: MediaQuery.of(context).size.height * 0.12,
                 ),
-
+                // CircleAvatar(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.075),
                 Text(
-                  'Please login to your account',
+                  'Create your account',
                   style: GoogleFonts.nunito(
                     textStyle: TextStyle(
                       fontSize: 14,
@@ -54,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   onTap: () {  
                     // check();
                     Navigator.push(context, MaterialPageRoute(builder:(context) {
-                      return HomePage();
+                      return const HomePage();
                     },));
                   }, text: 'Sign Up',
                 ),
