@@ -38,35 +38,17 @@ class _HomePageState extends State<HomePage> {
             gap: 8,
             padding: const EdgeInsets.all(10),
             tabs: [
-              GButton(
+               GButton(
                 icon: LineIcons.home,
                 text: 'Home',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Artistpage()),
-                  );
-                },
               ),
-              GButton(
+              const GButton(
                 icon: CupertinoIcons.add,
                 text: 'Post',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignInPage()),
-                  );
-                },
               ),
               GButton(
                 icon: CupertinoIcons.person,
                 text: 'Profile',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Profile()),
-                  );
-                },
               ),
             ],
           ),
