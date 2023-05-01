@@ -15,13 +15,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOptions = [Artistpage(), SignUpPage(), Profile()];
+  final List<Widget> _widgetOptions = [const Artistpage(), const SignUpPage(), const Profile()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        color: Colors.black,
+        color: const Color(0xFFF5CEB8),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
           child: GNav(
@@ -31,17 +31,17 @@ class _HomePageState extends State<HomePage> {
                 _selectedIndex = index;
               });
             },
-            backgroundColor: Colors.black,
-            color: Colors.white,
-            tabBackgroundColor: Colors.grey,
+            backgroundColor: const Color(0xFFF5CEB8),
+            color: Colors.black,
+            tabBackgroundColor: Colors.white,
             gap: 8,
             padding: const EdgeInsets.all(10),
-            tabs: [
+            tabs: const [
                GButton(
                 icon: LineIcons.home,
                 text: 'Home',
               ),
-              const GButton(
+              GButton(
                 icon: CupertinoIcons.add,
                 text: 'Post',
               ),

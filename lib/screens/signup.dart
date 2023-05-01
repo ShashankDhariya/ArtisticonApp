@@ -1,6 +1,7 @@
 import 'package:artist_icon/screens/components/myButton.dart';
 import 'package:artist_icon/screens/components/myTextField.dart';
 import 'package:artist_icon/screens/home.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,11 +26,16 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/artistIcon.jpeg',
-                  height: MediaQuery.of(context).size.height * 0.12,
+                CupertinoButton(
+                  onPressed: () {
+                  },
+                  child: const CircleAvatar(
+                    backgroundColor: Color(0xFFF5CEB8),
+                    foregroundColor: Colors.white,
+                    radius: 50,
+                    child: Icon(Icons.person, size: 70,),
+                  ),
                 ),
-                // CircleAvatar(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.075),
                 Text(
                   'Create your account',
                   style: GoogleFonts.nunito(
@@ -40,7 +46,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     )
                   ),
                 ),
-
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015,),
                 MyTextField(hintText: 'Username', obsecure: false, icon: Icon(Icons.person,size: MediaQuery.of(context).size.height * 0.027),),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),

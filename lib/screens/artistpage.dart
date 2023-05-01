@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'widgets/category_card.dart';
 
 class Artistpage extends StatelessWidget {
+  const Artistpage({super.key});
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size; //this gonna give us total height and with of our device
@@ -16,10 +18,6 @@ class Artistpage extends StatelessWidget {
             height: size.height * .45,
             decoration: const BoxDecoration(
               color: Color(0xFFF5CEB8),
-              image: DecorationImage(
-                alignment: Alignment.centerLeft,
-                image: AssetImage("assets/images/dance.png"),
-              ),
             ),
           ),
           SafeArea(
@@ -38,7 +36,7 @@ class Artistpage extends StatelessWidget {
                         color: Color(0xFFF2BEA1),
                         shape: BoxShape.circle,
                       ),
-                      child: SvgPicture.asset("assets/images/test.svg"),
+                      child: SvgPicture.asset("assets/images/dancing.svg"),
                     ),
                   ),
                   const Text(
@@ -55,17 +53,17 @@ class Artistpage extends StatelessWidget {
                       children: <Widget>[
                         CategoryCard(
                           title: "Dance",
-                          svgSrc: "assets/images/test.svg",
+                          svgSrc: "assets/images/dancing.svg",
                           press: () {},
                         ),
                         CategoryCard(
                           title: "Singing",
-                          svgSrc: "assets/images/test.svg",
+                          svgSrc: "assets/images/drummer.svg",
                           press: () {},
                         ),
                         CategoryCard(
                           title: "Costumes",
-                          svgSrc: "assets/images/test.svg",
+                          svgSrc: "assets/images/costume.svg",
                           press: () {
                             Navigator.push(
                               context,
@@ -77,7 +75,12 @@ class Artistpage extends StatelessWidget {
                         ),
                         CategoryCard(
                           title: "Studios",
-                          svgSrc: "assets/images/test.svg",
+                          svgSrc: "assets/images/shop.svg",
+                          press: () {},
+                        ),
+                        CategoryCard(
+                          title: "Photography",
+                          svgSrc: "assets/images/camera.svg",
                           press: () {},
                         ),
                       ],

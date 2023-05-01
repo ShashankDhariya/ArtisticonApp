@@ -1,4 +1,3 @@
-import 'package:artist_icon/screens/signIn.dart';
 import 'package:artist_icon/splash.dart';
 import 'package:flutter/material.dart';
 

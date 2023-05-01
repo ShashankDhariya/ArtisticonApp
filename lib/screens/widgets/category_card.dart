@@ -18,11 +18,10 @@ class CategoryCard extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(13),
       child: Container(
-        // padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               offset: Offset(0, 17),
               blurRadius: 17,
@@ -39,12 +38,12 @@ class CategoryCard extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: <Widget>[
-                  Spacer(),
-                  SvgPicture.asset(svgSrc),
-                  Spacer(),
+                  const Spacer(),
+                  SvgPicture.asset(svgSrc, height: 75,),
+                  const Spacer(),
                   Text(title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold))
+                      style: const TextStyle(fontWeight: FontWeight.bold))
                 ],
               ),
             ),

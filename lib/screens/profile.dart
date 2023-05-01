@@ -44,7 +44,7 @@ class Profile extends StatelessWidget {
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-              Text("Sdhariya"),
+              const Text("Sdhariya"),
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               
               const Divider(),

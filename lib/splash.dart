@@ -1,4 +1,3 @@
-import 'package:artist_icon/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/screens/signIn.dart';
 import 'package:lottie/lottie.dart';
