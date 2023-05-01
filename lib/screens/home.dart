@@ -1,5 +1,4 @@
 import 'package:artist_icon/screens/profile.dart';
-import 'package:artist_icon/screens/signIn.dart';
 import 'package:artist_icon/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
