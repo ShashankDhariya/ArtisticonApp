@@ -1,5 +1,5 @@
+import 'package:artist_icon/screens/jobPosting.dart';
 import 'package:artist_icon/screens/profile.dart';
-import 'package:artist_icon/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  final List<Widget> _widgetOptions = [const Artistpage(), const SignUpPage(), const Profile()];
+  final List<Widget> _widgetOptions = [const Artistpage(), const JobPosting(), const Profile()];
 
   @override
   Widget build(BuildContext context) {
