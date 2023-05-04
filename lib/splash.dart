@@ -1,5 +1,5 @@
+import 'package:artist_icon/screens/landScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:artist_icon/screens/signIn.dart';
 import 'package:lottie/lottie.dart';
 
 class Splash extends StatefulWidget {
@@ -22,7 +22,7 @@ class _SplashState extends State<Splash> {
       context, 
       MaterialPageRoute(
         builder:(context) {
-          return SignInPage();
+          return LandScreen();
         },
       )
     );

@@ -63,7 +63,7 @@ class SignInPage extends StatelessWidget {
                     Navigator.push(context, MaterialPageRoute(builder:(context) {
                       return const HomePage();
                     },));
-                  }, text: 'Sign In',
+                  }, text: 'Sign In', width: 175,
                 ),
 
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),

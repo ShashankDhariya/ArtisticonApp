@@ -61,7 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Navigator.push(context, MaterialPageRoute(builder:(context) {
                       return const HomePage();
                     },));
-                  }, text: 'Sign Up',
+                  }, text: 'Sign Up', width: 175,
                 ),
               ],
             ),
