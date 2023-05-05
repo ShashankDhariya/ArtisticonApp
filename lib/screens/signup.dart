@@ -1,26 +1,48 @@
+import 'dart:developer';
+
 import 'package:artist_icon/screens/components/myButton.dart';
 import 'package:artist_icon/screens/components/myTextField.dart';
 import 'package:artist_icon/screens/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
-
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
+class SignUpPage extends StatelessWidget {
+  SignUpPage({super.key});
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController cPasswordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+
+  void check() async {
+    String username = usernameController.text.trim();
+    String password = passwordController.text.trim();
+    String cpassword = cPasswordController.text.trim();
+    String name = nameController.text.trim();
+    
+    try {
+  final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: username,
+    password: password,
+  );
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'weak-password') {
+    print('The password provided is too weak.');
+  } else if (e.code == 'email-already-in-use') {
+    print('The account already exists for that email.');
+  }
+} catch (e) {
+  print(e);
+}
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: SafeArea(
             child: Column(
@@ -47,21 +69,19 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015,),
-                MyTextField(hintText: 'Username', obsecure: false, icon: Icon(Icons.person,size: MediaQuery.of(context).size.height * 0.027),),
+                MyTextField(hintText: 'Username', obsecure: false, icon: Icon(Icons.person,size: MediaQuery.of(context).size.height * 0.027), controller: usernameController,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-                MyTextField(hintText: 'Password', obsecure: true, icon: Icon(Icons.lock, size: MediaQuery.of(context).size.height * 0.027),),
+                MyTextField(hintText: 'Password', obsecure: true, icon: Icon(Icons.lock, size: MediaQuery.of(context).size.height * 0.027), controller: passwordController,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-                MyTextField(hintText: 'Confirm Password', obsecure: false, icon: Icon(Icons.lock_person, size: MediaQuery.of(context).size.height * 0.027),),
+                MyTextField(hintText: 'Confirm Password', obsecure: false, icon: Icon(Icons.lock_person, size: MediaQuery.of(context).size.height * 0.027), controller: cPasswordController,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-                MyTextField(hintText: 'Name', obsecure: true, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027),),
+                MyTextField(hintText: 'Name', obsecure: false, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027), controller: nameController,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 MyButton(
                   onTap: () {  
-                    // check();
-                    Navigator.push(context, MaterialPageRoute(builder:(context) {
-                      return const HomePage();
-                    },));
-                  }, text: 'Sign Up', width: 175,
+                    check();
+                  },
+                  text: 'Sign Up', width: 175,
                 ),
               ],
             ),

@@ -49,9 +49,9 @@ class Profile extends StatelessWidget {
               
               const Divider(),
               const SizedBox(height: 20,),
-              const ListOption(icon: Icon(Icons.book), text: 'Manage Portfolio', color: Colors.black, ),
-              const ListOption(icon: Icon(CupertinoIcons.pen), text: 'Edit Profile', color: Colors.black, ),
-              const ListOption(icon: Icon(CupertinoIcons.settings), text: 'Setting', color: Colors.black, ),
+              const ListOption(icon: Icon(Icons.book), text: 'My Applictions', color: Colors.black, ),
+              const ListOption(icon: Icon(CupertinoIcons.pen), text: 'My Listings', color: Colors.black, ),
+              const ListOption(icon: Icon(CupertinoIcons.settings), text: 'Edit Profile', color: Colors.black, ),
               const ListOption(icon: Icon(Icons.info), text: 'Information', color: Colors.black, ),
               const ListOption(icon: Icon(Icons.exit_to_app), text: 'Log out', color: Colors.red, ),
             ],

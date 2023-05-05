@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:artist_icon/screens/components/myButton.dart';
 import 'package:artist_icon/screens/components/myTextField.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:artist_icon/screens/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,11 +13,29 @@ class SignInPage extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   SignInPage({super.key});
 
+  Future<void> check() async {
+    String username = usernameController.text.trim();
+    String password = passwordController.text.trim();
+
+    try {
+  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: username,
+    password: password
+  );
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'user-not-found') {
+    print('No user found for that email.');
+  } else if (e.code == 'wrong-password') {
+    print('Wrong password provided for that user.');
+  }
+}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: SafeArea(
             child: Column(
@@ -38,9 +59,9 @@ class SignInPage extends StatelessWidget {
                 ),
 
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015,),
-                MyTextField(hintText: 'Username', obsecure: false, icon: Icon(Icons.person,size: MediaQuery.of(context).size.height * 0.035),),
+                MyTextField(hintText: 'Username', obsecure: false, icon: Icon(Icons.person,size: MediaQuery.of(context).size.height * 0.035), controller: usernameController,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-                MyTextField(hintText: 'Password', obsecure: true, icon: Icon(Icons.lock, size: MediaQuery.of(context).size.height * 0.035),),
+                MyTextField(hintText: 'Password', obsecure: true, icon: Icon(Icons.lock, size: MediaQuery.of(context).size.height * 0.035), controller: passwordController,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
                 
                 Padding(
@@ -59,10 +80,7 @@ class SignInPage extends StatelessWidget {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 MyButton(
                   onTap: () {  
-                    // check();
-                    Navigator.push(context, MaterialPageRoute(builder:(context) {
-                      return const HomePage();
-                    },));
+                    check();
                   }, text: 'Sign In', width: 175,
                 ),
 
@@ -140,7 +158,7 @@ class SignInPage extends StatelessWidget {
                       Navigator.push(context, 
                         MaterialPageRoute(
                           builder: (context){
-                            return const SignUpPage();
+                            return SignUpPage();
                         })
                       );
                     },

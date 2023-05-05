@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class JobPosting extends StatelessWidget {
-  const JobPosting({super.key});
+  JobPosting({super.key});
+  TextEditingController nameController= TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class JobPosting extends StatelessWidget {
                     hintText: 'Category',
                     obsecure: false,
                     icon: Icon(Icons.person,
-                        size: MediaQuery.of(context).size.height * 0.030),
+                        size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
                   ),
                   SizedBox(height: size.height * 0.018),
                   Padding(
@@ -69,35 +70,35 @@ class JobPosting extends StatelessWidget {
                     hintText: 'Phone',
                     obsecure: false,
                     icon: Icon(CupertinoIcons.phone,
-                        size: MediaQuery.of(context).size.height * 0.030),
+                        size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
                   ),
                   SizedBox(height: size.height * 0.018),
                   MyTextField(
                     hintText: 'City',
                     obsecure: false,
                     icon: Icon(Icons.location_city,
-                        size: MediaQuery.of(context).size.height * 0.030),
+                        size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
                   ),
                   SizedBox(height: size.height * 0.018),
                   MyTextField(
                     hintText: 'State',
                     obsecure: false,
                     icon: Icon(Icons.location_on,
-                        size: MediaQuery.of(context).size.height * 0.030),
+                        size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
                   ),
                   SizedBox(height: size.height * 0.018),
                   MyTextField(
                     hintText: 'Expected Salary',
                     obsecure: false,
                     icon: Icon(CupertinoIcons.money_dollar,
-                        size: MediaQuery.of(context).size.height * 0.030),
+                        size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
                   ),
                   SizedBox(height: size.height * 0.018),
                   MyTextField(
                     hintText: 'Anything Else',
                     obsecure: false,
                     icon: Icon(CupertinoIcons.option,
-                        size: MediaQuery.of(context).size.height * 0.030),
+                        size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
                   ),
                   SizedBox(height: size.height * 0.025),
                   MyButton(

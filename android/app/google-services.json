@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "796105886392",
+    "project_id": "aryisticicon2",
+    "storage_bucket": "aryisticicon2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796105886392:android:0228e8cc2bd3fb36efc24d",
+        "android_client_info": {
+          "package_name": "com.example.artist_icon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796105886392-gvid2f7p0b9e6pvmf45s23e349a980p6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB55Kr53qYn_FWsPiA5nbvRq3J3S7Bh6XI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796105886392-gvid2f7p0b9e6pvmf45s23e349a980p6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
