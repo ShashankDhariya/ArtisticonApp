@@ -8,15 +8,14 @@ class JobList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 25),
+      margin: EdgeInsets.symmetric(vertical: 25),
       height: 160,
       child: ListView.separated(
-          padding: EdgeInsets.symmetric(),
-          scrollDirection: Axis.vertical,
+          padding: EdgeInsets.symmetric(horizontal: 25),
+          scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => JobItem(jobList[index]),
           separatorBuilder: (_, index) => const SizedBox(
                 width: 15,
-                height: 15,
               ),
           itemCount: jobList.length),
     );
