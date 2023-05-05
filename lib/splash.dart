@@ -22,7 +22,7 @@ class _SplashState extends State<Splash> {
       context, 
       MaterialPageRoute(
         builder:(context) {
-          return LandScreen();
+          return const LandScreen();
         },
       )
     );
@@ -32,7 +32,7 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.99,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

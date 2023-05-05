@@ -1,8 +1,9 @@
 import 'package:artist_icon/screens/profile.dart';
-import 'package:artist_icon/screens/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 
 class Artistpage extends StatelessWidget {
+  const Artistpage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -23,19 +24,22 @@ class Artistpage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
+            
             const Spacer(),
             GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                const Profile();
+              onTap:() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const Profile();
+                    },
+                  )
+                );
               },
-              child: AbsorbPointer(
-                child: ClipOval(
-                  child: Image.asset(
-                    'assets/images/avatar.png',
-                    width: 50,
-                  ),
-                ),
+              child: Image.asset(
+                'assets/images/avatar.png',
+                width: 50,
               ),
             ),
           ],

@@ -21,6 +21,35 @@ class Job {
           'Experienced candidates are preferable',
         ],
       ),
+
+      Job(
+        'Dance pvt Ltd',
+        'Choreographer',
+        'Rohini Sec 18\nNew delhi',
+        'Part time',
+        '3000',
+        [
+          'A Choreographer needed for a wedding events',
+          'Wedding will last for 3-4 days',
+          'Food and accomodation is covered',
+          'Experienced candidates are preferable',
+        ],
+      ),
+
+      Job(
+        'Dance pvt Ltd',
+        'Choreographer',
+        'Rohini Sec 18\nNew delhi',
+        'Part time',
+        '3000',
+        [
+          'A Choreographer needed for a wedding events',
+          'Wedding will last for 3-4 days',
+          'Food and accomodation is covered',
+          'Experienced candidates are preferable',
+        ],
+      ),
+
       Job(
         'Media Entertainment',
         'Photographer',

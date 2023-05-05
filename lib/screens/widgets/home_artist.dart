@@ -1,7 +1,6 @@
 import 'package:artist_icon/screens/widgets/job_list.dart';
 import 'package:artist_icon/screens/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
-
 import '../artistpage.dart';
 
 class HomeArtist extends StatefulWidget {
@@ -31,9 +30,11 @@ class _HomeArtistState extends State<HomeArtist> {
               ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Artistpage(), SearchBar(), JobList()],
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [const Artistpage(), const SearchBar(), JobList()],
+            ),
           )
         ],
       ),
