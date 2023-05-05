@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchBar extends StatefulWidget {
+  const SearchBar({super.key});
+
   @override
   _SearchBarState createState() => _SearchBarState();
 }
