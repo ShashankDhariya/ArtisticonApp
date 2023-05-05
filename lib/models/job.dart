@@ -21,46 +21,17 @@ class Job {
           'Experienced candidates are preferable',
         ],
       ),
-
-      Job(
-        'Dance pvt Ltd',
-        'Choreographer',
-        'Rohini Sec 18\nNew delhi',
-        'Part time',
-        '3000',
-        [
-          'A Choreographer needed for a wedding events',
-          'Wedding will last for 3-4 days',
-          'Food and accomodation is covered',
-          'Experienced candidates are preferable',
-        ],
-      ),
-
-      Job(
-        'Dance pvt Ltd',
-        'Choreographer',
-        'Rohini Sec 18\nNew delhi',
-        'Part time',
-        '3000',
-        [
-          'A Choreographer needed for a wedding events',
-          'Wedding will last for 3-4 days',
-          'Food and accomodation is covered',
-          'Experienced candidates are preferable',
-        ],
-      ),
-
       Job(
         'Media Entertainment',
         'Photographer',
-        'Gtb Nagar\nOld Delhi',
+        'Patel Chest, Mukherjee Nagar\nOld Delhi',
         'Part time',
         '2600',
         [
-          'Photographer needed for a professional shoot',
-          'Must be experienced',
-          'Shoot will last for a day',
-          'Travelling expense will be covered'
+          'A Photographer needed for a photoshoot',
+          'Photoshoot will last for a single day',
+          'Experienced candidates are preferable',
+          'Food expenses will be reimbursed',
         ],
       ),
     ];

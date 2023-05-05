@@ -1,6 +1,7 @@
 import 'package:artist_icon/screens/jobPosting.dart';
 import 'package:artist_icon/screens/profile.dart';
 import 'package:artist_icon/screens/widgets/home_artist.dart';
+import 'package:artist_icon/screens/widgets/rent_artist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _widgetOptions = [
     const HomeArtist(),
     const JobPosting(),
-    const Profile()
+    const RentArtist(),
   ];
 
   @override
@@ -42,16 +43,16 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(10),
             tabs: const [
               GButton(
-                icon: LineIcons.home,
+                icon: Icons.work,
                 text: 'Home',
               ),
               GButton(
-                icon: CupertinoIcons.add,
+                icon: CupertinoIcons.add_circled_solid,
                 text: 'Post',
               ),
               GButton(
-                icon: CupertinoIcons.person,
-                text: 'Profile',
+                icon: Icons.monetization_on,
+                text: 'Rent',
               ),
             ],
           ),

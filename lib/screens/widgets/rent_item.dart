@@ -1,12 +1,12 @@
-import 'package:artist_icon/models/job.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/rent.dart';
 import 'icon_text.dart';
 
-class JobItem extends StatelessWidget {
-  final Job job;
+class RentItem extends StatelessWidget {
+  final Rent rent;
   final bool showTime;
-  const JobItem(this.job, {super.key, this.showTime = false});
+  const RentItem(this.rent, {super.key, this.showTime = false});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +24,7 @@ class JobItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(job.provider,
+                    Text(rent.provider,
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 18,
@@ -37,7 +37,7 @@ class JobItem extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            Text(job.title,
+            Text(rent.title,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             SizedBox(
               height: 15,
@@ -45,7 +45,7 @@ class JobItem extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconText(Icons.location_on_outlined, job.location),
+                IconText(Icons.location_on_outlined, rent.location),
               ],
             )
           ],

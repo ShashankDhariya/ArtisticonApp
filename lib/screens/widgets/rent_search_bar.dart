@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({super.key});
+class RentSearchBar extends StatefulWidget {
+  const RentSearchBar({super.key});
 
   @override
-  _SearchBarState createState() => _SearchBarState();
+  _RentSearchBarState createState() => _RentSearchBarState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _RentSearchBarState extends State<RentSearchBar> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -45,7 +45,7 @@ class _SearchBarState extends State<SearchBar> {
           ),
           const SizedBox(height: 12),
           const Text(
-            'You can search quickly for the job you want',
+            'You can search quickly for any service you want',
             style: TextStyle(
               height: 1.8,
               color: Colors.white,

@@ -1,11 +1,11 @@
-import 'package:artist_icon/screens/widgets/job_item.dart';
+import 'package:artist_icon/screens/widgets/rent_item.dart';
 import 'package:flutter/material.dart';
-import 'package:artist_icon/models/job.dart';
+import '../../models/rent.dart';
 
-class JobList extends StatelessWidget {
-  final jobList = Job.generateJobs();
+class RentList extends StatelessWidget {
+  final rentList = Rent.generateRent();
 
-  JobList({super.key});
+  RentList({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,11 +14,11 @@ class JobList extends StatelessWidget {
       child: ListView.separated(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => JobItem(jobList[index]),
+          itemBuilder: (context, index) => RentItem(rentList[index]),
           separatorBuilder: (_, index) => const SizedBox(
                 width: 15,
               ),
-          itemCount: jobList.length),
+          itemCount: rentList.length),
     );
   }
 }
