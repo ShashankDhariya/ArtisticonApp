@@ -28,9 +28,6 @@ class _SignInPageState extends State<SignInPage> {
         email: username,
         password: password
       );
-      if(credential != Null){
-        Navigator.push(context, MaterialPageRoute(builder:(context) => const HomePage()));
-      }
     } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       log('No user found for that email.');
@@ -38,6 +35,9 @@ class _SignInPageState extends State<SignInPage> {
       log('Wrong password provided for that user.');
     }
   } 
+  if(credential != null){
+      Navigator.push(context, MaterialPageRoute(builder:(context) => const HomePage()));
+    }
 }
 
   @override

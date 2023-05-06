@@ -1,12 +1,11 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class RentSearchBar extends StatefulWidget {
   const RentSearchBar({super.key});
 
   @override
-  _RentSearchBarState createState() => _RentSearchBarState();
+  State<RentSearchBar> createState() => _RentSearchBarState();
 }
 
 class _RentSearchBarState extends State<RentSearchBar> {

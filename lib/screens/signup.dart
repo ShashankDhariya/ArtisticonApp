@@ -26,6 +26,10 @@ class _SignUpPageState extends State<SignUpPage> {
     String cpassword = cPasswordController.text.trim();
     String name = nameController.text.trim();
     
+    if(name.isEmpty && cpassword.isEmpty && password.isEmpty && username.isEmpty){
+      log('Empty Fields');
+    }
+
     UserCredential? credential;
     try {
         credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
