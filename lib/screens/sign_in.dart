@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'package:artist_icon/screens/components/myButton.dart';
 import 'package:artist_icon/screens/components/myTextField.dart';
+import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:artist_icon/screens/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,9 +30,9 @@ class _SignInPageState extends State<SignInPage> {
       );
     } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      log('No user found for that email.');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No user found for that email.')));
     } else if (e.code == 'wrong-password') {
-      log('Wrong password provided for that user.');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Wrong password provided for that user.')));
     }
   } 
   if(credential != null){

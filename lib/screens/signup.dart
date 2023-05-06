@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'package:artist_icon/screens/components/myButton.dart';
 import 'package:artist_icon/screens/components/myTextField.dart';
+import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,13 +38,12 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        log('The password provided is too weak.');
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
       } else if (e.code == 'email-already-in-use') {
-        log('The account already exists for that email.');
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
       }
       } catch (e) {
-    // ignore: avoid_print
-    print(e);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
   }
   if(credential != null)
     Navigator.push(context, MaterialPageRoute(builder:(context) {

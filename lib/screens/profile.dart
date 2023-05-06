@@ -1,4 +1,7 @@
-import 'package:artist_icon/screens/components/listOptions.dart';
+import 'package:artist_icon/screens/components/list_options.dart';
+import 'package:artist_icon/screens/profileOptions/edit.dart';
+import 'package:artist_icon/screens/profileOptions/my_applications.dart';
+import 'package:artist_icon/screens/profileOptions/my_listings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,14 +33,17 @@ class Profile extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width * 0.1),
+          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width * 0.05),
           child: Column(
             children: [
-              CircleAvatar(
-                radius: MediaQuery.of(context).size.height * 0.09,
-                backgroundImage: const AssetImage('assets/images/dance.jpg'),  
+              CupertinoButton(
+                onPressed: () {  },
+                child: CircleAvatar(
+                  radius: MediaQuery.of(context).size.height * 0.09,
+                  backgroundImage: const AssetImage('assets/images/dance.jpg'),  
+                ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.010),
               Text('Shashank', 
                 style: GoogleFonts.montserrat(
                   
@@ -48,12 +54,15 @@ class Profile extends StatelessWidget {
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               
               const Divider(),
-              const SizedBox(height: 20,),
-              const ListOption(icon: Icon(Icons.book), text: 'My Applictions', color: Colors.black, ),
-              const ListOption(icon: Icon(CupertinoIcons.pen), text: 'My Listings', color: Colors.black, ),
-              const ListOption(icon: Icon(CupertinoIcons.settings), text: 'Edit Profile', color: Colors.black, ),
-              const ListOption(icon: Icon(Icons.info), text: 'Information', color: Colors.black, ),
-              const ListOption(icon: Icon(Icons.exit_to_app), text: 'Log out', color: Colors.red, ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.025,),
+              ListOption(icon: const Icon(Icons.book), text: 'My Applictions', color: Colors.black, 
+              ontap: () { Navigator.push(context, MaterialPageRoute(builder:(context) {return const MyApplications();},)); }, ),
+              ListOption(icon: const Icon(CupertinoIcons.book_circle), text: 'My Listings', color: Colors.black, 
+              ontap: () { Navigator.push(context, MaterialPageRoute(builder:(context) {return const MyListings();},)); }, ),
+              ListOption(icon: const Icon(CupertinoIcons.pen), text: 'Edit Profile', color: Colors.black, 
+              ontap: () { Navigator.push(context, MaterialPageRoute(builder:(context) {return const EditProfile();},)); }, ),
+              ListOption(icon: const Icon(Icons.info), text: 'Information', color: Colors.black, ontap: () {  }, ),
+              ListOption(icon: const Icon(Icons.exit_to_app), text: 'Log out', color: Colors.red, ontap: () {  }, ),
             ],
           ),
         ),

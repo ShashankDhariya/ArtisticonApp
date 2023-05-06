@@ -1,4 +1,4 @@
-import 'package:artist_icon/screens/landScreen.dart';
+import 'package:artist_icon/screens/land_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

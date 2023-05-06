@@ -1,4 +1,4 @@
-import 'package:artist_icon/screens/jobPosting.dart';
+import 'package:artist_icon/screens/job_posting.dart';
 import 'package:flutter/material.dart';
 
 class JobPost extends StatefulWidget {

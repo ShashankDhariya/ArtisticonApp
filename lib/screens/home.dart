@@ -1,4 +1,4 @@
-import 'package:artist_icon/screens/jobPosting.dart';
+import 'package:artist_icon/screens/job_posting.dart';
 import 'package:artist_icon/screens/widgets/home_artist.dart';
 import 'package:artist_icon/screens/widgets/rent_artist.dart';
 import 'package:flutter/material.dart';

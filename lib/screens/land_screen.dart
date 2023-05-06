@@ -1,5 +1,5 @@
-import 'package:artist_icon/screens/components/myButton.dart';
-import 'package:artist_icon/screens/signIn.dart';
+import 'package:artist_icon/screens/components/my_button.dart';
+import 'package:artist_icon/screens/sign_in.dart';
 import 'package:artist_icon/screens/signup.dart';
 import 'package:flutter/material.dart';
 
