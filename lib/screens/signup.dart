@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:artist_icon/screens/components/myButton.dart';
 import 'package:artist_icon/screens/components/myTextField.dart';
 import 'package:artist_icon/screens/home.dart';
@@ -8,8 +7,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController cPasswordController = TextEditingController();
@@ -21,25 +26,30 @@ class SignUpPage extends StatelessWidget {
     String cpassword = cPasswordController.text.trim();
     String name = nameController.text.trim();
     
+    UserCredential? credential;
     try {
-  final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-    email: username,
-    password: password,
-  );
-} on FirebaseAuthException catch (e) {
-  if (e.code == 'weak-password') {
-    print('The password provided is too weak.');
-  } else if (e.code == 'email-already-in-use') {
-    print('The account already exists for that email.');
+        credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: username,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        log('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        log('The account already exists for that email.');
+      }
+      } catch (e) {
+    // ignore: avoid_print
+    print(e);
   }
-} catch (e) {
-  print(e);
+  if(credential != null)
+    Navigator.push(context, MaterialPageRoute(builder:(context) {
+      return const HomePage();
+  },));
 }
 
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(

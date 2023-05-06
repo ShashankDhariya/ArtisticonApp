@@ -5,7 +5,7 @@ class Artistpage extends StatelessWidget {
   const Artistpage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Material(
       color: Colors.transparent,
       child: Container(

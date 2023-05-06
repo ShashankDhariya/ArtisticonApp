@@ -7,7 +7,7 @@ class Profile extends StatelessWidget {
   const Profile({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

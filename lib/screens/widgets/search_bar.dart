@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({super.key});
+
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -17,7 +20,7 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Container(
       margin: const EdgeInsets.all(25),
       padding: const EdgeInsets.symmetric(
@@ -73,7 +76,7 @@ class _SearchBarState extends State<SearchBar> {
                 GestureDetector(
                   onTap: () {
                     // Perform search with query
-                    print('Searching for ${_searchController.text}');
+                    log('Searching for ${_searchController.text}');
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),

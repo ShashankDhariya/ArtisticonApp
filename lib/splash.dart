@@ -29,7 +29,7 @@ class _SplashState extends State<Splash> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       body: Center(
         child: SizedBox(

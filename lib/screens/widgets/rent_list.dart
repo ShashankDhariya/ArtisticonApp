@@ -7,7 +7,7 @@ class RentList extends StatelessWidget {
 
   RentList({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 25),
       height: 160,

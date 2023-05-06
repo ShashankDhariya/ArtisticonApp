@@ -12,7 +12,7 @@ class HomeArtist extends StatefulWidget {
 
 class _HomeArtistState extends State<HomeArtist> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       body: Stack(
         children: [

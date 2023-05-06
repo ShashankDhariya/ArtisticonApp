@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:artist_icon/screens/components/myButton.dart';
 import 'package:artist_icon/screens/components/myTextField.dart';
 import 'package:artist_icon/screens/home.dart';
@@ -8,31 +7,41 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  SignInPage({super.key});
 
-  Future<void> check() async {
+  void check() async {
     String username = usernameController.text.trim();
     String password = passwordController.text.trim();
 
+    UserCredential? credential;
     try {
-  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: username,
-    password: password
-  );
-} on FirebaseAuthException catch (e) {
-  if (e.code == 'user-not-found') {
-    print('No user found for that email.');
-  } else if (e.code == 'wrong-password') {
-    print('Wrong password provided for that user.');
-  }
+      credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: username,
+        password: password
+      );
+      if(credential != Null){
+        Navigator.push(context, MaterialPageRoute(builder:(context) => const HomePage()));
+      }
+    } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      log('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      log('Wrong password provided for that user.');
+    }
+  } 
 }
-  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(

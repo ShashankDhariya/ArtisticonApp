@@ -1,4 +1,3 @@
-import 'package:artist_icon/screens/widgets/job_list.dart';
 import 'package:artist_icon/screens/widgets/rent_list.dart';
 import 'package:artist_icon/screens/widgets/rent_search_bar.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class RentArtist extends StatefulWidget {
 
 class _RentArtistState extends State<RentArtist> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       body: Stack(
         children: [

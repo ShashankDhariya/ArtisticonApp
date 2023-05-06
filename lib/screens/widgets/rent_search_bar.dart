@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class RentSearchBar extends StatefulWidget {
@@ -17,7 +19,7 @@ class _RentSearchBarState extends State<RentSearchBar> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Container(
       margin: const EdgeInsets.all(25),
       padding: const EdgeInsets.symmetric(
@@ -73,7 +75,7 @@ class _RentSearchBarState extends State<RentSearchBar> {
                 GestureDetector(
                   onTap: () {
                     // Perform search with query
-                    print('Searching for ${_searchController.text}');
+                    log('Searching for ${_searchController.text}');
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),

@@ -8,7 +8,7 @@ class JobItem extends StatelessWidget {
   final bool showTime;
   const JobItem(this.job, {super.key, this.showTime = false});
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Container(
         width: 250,
         padding: const EdgeInsets.all(20),
@@ -34,14 +34,10 @@ class JobItem extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             Text(job.title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            SizedBox(
-              height: 15,
-            ),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
