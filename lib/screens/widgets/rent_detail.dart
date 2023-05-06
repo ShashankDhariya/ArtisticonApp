@@ -1,4 +1,5 @@
 import 'package:artist_icon/screens/widgets/icon_text.dart';
+import 'package:artist_icon/screens/widgets/rent_now.dart';
 import 'package:flutter/material.dart';
 import '../../models/rent.dart';
 
@@ -125,7 +126,13 @@ class RentDetail extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         )),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return RentNowPage();
+                        },
+                      ));
+                    },
                     child: const Text('Apply Now'),
                   ),
                 )
