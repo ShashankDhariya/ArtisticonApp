@@ -7,7 +7,7 @@ class ApplyNowScreen extends StatefulWidget {
   const ApplyNowScreen({super.key});
 
   @override
-  _ApplyNowScreenState createState() => _ApplyNowScreenState();
+  State<ApplyNowScreen> createState() => _ApplyNowScreenState();
 }
 
 class _ApplyNowScreenState extends State<ApplyNowScreen> {

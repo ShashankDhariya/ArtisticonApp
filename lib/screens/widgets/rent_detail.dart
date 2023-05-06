@@ -129,7 +129,7 @@ class RentDetail extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return RentNowPage();
+                          return const RentNowPage();
                         },
                       ));
                     },

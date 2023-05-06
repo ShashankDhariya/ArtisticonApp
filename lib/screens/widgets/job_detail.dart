@@ -1,13 +1,12 @@
 import 'package:artist_icon/screens/apply_now.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../../models/job.dart';
 
 class JobDetail extends StatelessWidget {
   final Job job;
-  JobDetail(this.job);
+  const JobDetail(this.job, {super.key});
 
   @override
   Widget build(BuildContext context) {

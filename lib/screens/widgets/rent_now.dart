@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class RentNowPage extends StatefulWidget {
+  const RentNowPage({super.key});
+
   @override
-  _RentNowPageState createState() => _RentNowPageState();
+  State<RentNowPage> createState() => _RentNowPageState();
 }
 
 class _RentNowPageState extends State<RentNowPage> {
   late DateTime _selectedDate;
-  TextEditingController _dateController = TextEditingController();
-  TextEditingController _hoursController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController hoursController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _selectedDate = DateTime.now();
-    _dateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate);
+    dateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate);
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -28,7 +30,7 @@ class _RentNowPageState extends State<RentNowPage> {
     if (picked != null && picked != _selectedDate)
       setState(() {
         _selectedDate = picked;
-        _dateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate);
+        dateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate);
       });
   }
 
@@ -56,7 +58,7 @@ class _RentNowPageState extends State<RentNowPage> {
               onTap: () => _selectDate(context),
               child: AbsorbPointer(
                 child: TextFormField(
-                  controller: _dateController,
+                  controller: dateController,
                   keyboardType: TextInputType.datetime,
                   decoration: const InputDecoration(
                     hintText: 'Select date',
@@ -68,7 +70,7 @@ class _RentNowPageState extends State<RentNowPage> {
             const SizedBox(height: 16.0),
             const Text('Number of hours'),
             TextFormField(
-              controller: _hoursController,
+              controller: hoursController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 hintText: 'Enter number of hours',
@@ -77,7 +79,7 @@ class _RentNowPageState extends State<RentNowPage> {
             const SizedBox(height: 16.0),
             const Text('Phone Number'),
             TextFormField(
-              controller: _phoneController,
+              controller: phoneController,
               keyboardType: TextInputType.phone,
               decoration: const InputDecoration(
                 hintText: 'Enter phone number',

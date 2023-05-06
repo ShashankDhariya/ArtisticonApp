@@ -1,5 +1,4 @@
 import 'package:artist_icon/screens/jobPosting.dart';
-import 'package:artist_icon/screens/jobPosting.dart';
 import 'package:flutter/material.dart';
 
 class JobPost extends StatefulWidget {
@@ -32,7 +31,7 @@ class _JobPostState extends State<JobPost> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [JobPosting()],
+              children: const [JobPosting()],
             ),
           )
         ],

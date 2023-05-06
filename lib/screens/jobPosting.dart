@@ -4,8 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class JobPosting extends StatelessWidget {
-  JobPosting({super.key});
+class JobPosting extends StatefulWidget {
+  const JobPosting({super.key});
+
+  @override
+  State<JobPosting> createState() => _JobPostingState();
+}
+
+class _JobPostingState extends State<JobPosting> {
   TextEditingController nameController= TextEditingController();
 
   @override
