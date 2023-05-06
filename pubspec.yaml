@@ -44,6 +44,8 @@ dependencies:
   line_icons: ^2.0.1
   firebase_auth: ^4.5.0
   firebase_core: ^2.11.0
+  image_picker: ^0.8.7+4
+  file_picker: ^5.2.11
 
 dev_dependencies:
   flutter_test:
