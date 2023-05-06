@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:artist_icon/screens/components/myTextField.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/home.dart';
