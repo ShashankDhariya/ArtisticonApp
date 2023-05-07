@@ -27,11 +27,12 @@ class _RentNowPageState extends State<RentNowPage> {
         initialDate: _selectedDate,
         firstDate: DateTime.now(),
         lastDate: DateTime(2100));
-    if (picked != null && picked != _selectedDate)
+    if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
         dateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate);
       });
+    }
   }
 
   @override

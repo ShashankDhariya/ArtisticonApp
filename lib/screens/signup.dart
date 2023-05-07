@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:artist_icon/screens/components/myTextField.dart';
+import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,10 +45,11 @@ class _SignUpPageState extends State<SignUpPage> {
       } catch (e) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
   }
-  if(credential != null)
+  if(credential != null) {
     Navigator.push(context, MaterialPageRoute(builder:(context) {
       return const HomePage();
   },));
+  }
 }
 
   @override

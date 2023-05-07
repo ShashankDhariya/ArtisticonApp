@@ -1,4 +1,4 @@
-import 'package:artist_icon/screens/components/myTextField.dart';
+import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:artist_icon/screens/signup.dart';
@@ -35,8 +35,8 @@ class _SignInPageState extends State<SignInPage> {
     }
   } 
   if(credential != null){
-      Navigator.push(context, MaterialPageRoute(builder:(context) => const HomePage()));
-    }
+    Navigator.push(context, MaterialPageRoute(builder:(context) => const HomePage()));
+  }
 }
 
   @override

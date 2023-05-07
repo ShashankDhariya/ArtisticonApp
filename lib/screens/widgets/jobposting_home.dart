@@ -31,7 +31,9 @@ class _JobPostState extends State<JobPost> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [JobPosting()],
+              children: const [
+                JobPosting()
+              ],
             ),
           )
         ],

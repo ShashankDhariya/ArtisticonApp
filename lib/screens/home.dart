@@ -1,5 +1,5 @@
-import 'package:artist_icon/screens/job_posting.dart';
 import 'package:artist_icon/screens/widgets/home_artist.dart';
+import 'package:artist_icon/screens/widgets/jobposting_home.dart';
 import 'package:artist_icon/screens/widgets/rent_artist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = [
     const HomeArtist(),
-    const JobPosting(),
+    const JobPost(),
     const RentArtist(),
   ];
 
