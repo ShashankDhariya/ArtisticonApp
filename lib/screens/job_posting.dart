@@ -1,4 +1,3 @@
-
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +12,7 @@ class JobPosting extends StatefulWidget {
 }
 
 class _JobPostingState extends State<JobPosting> {
-  TextEditingController nameController= TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(context) {
@@ -26,7 +25,6 @@ class _JobPostingState extends State<JobPosting> {
               children: [
                 Container(
                   height: size.height * 0.045,
-                  color: Colors.grey.shade200,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -46,7 +44,8 @@ class _JobPostingState extends State<JobPosting> {
               hintText: 'Category',
               obsecure: false,
               icon: Icon(Icons.person,
-                  size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: nameController,
             ),
             SizedBox(height: size.height * 0.018),
             Padding(
@@ -74,39 +73,43 @@ class _JobPostingState extends State<JobPosting> {
               hintText: 'Phone',
               obsecure: false,
               icon: Icon(CupertinoIcons.phone,
-                  size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: nameController,
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
               hintText: 'City',
               obsecure: false,
               icon: Icon(Icons.location_city,
-                  size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: nameController,
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
               hintText: 'State',
               obsecure: false,
               icon: Icon(Icons.location_on,
-                  size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: nameController,
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
               hintText: 'Expected Salary',
               obsecure: false,
               icon: Icon(CupertinoIcons.money_dollar,
-                  size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: nameController,
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
               hintText: 'Anything Else',
               obsecure: false,
               icon: Icon(CupertinoIcons.option,
-                  size: MediaQuery.of(context).size.height * 0.030), controller: nameController,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: nameController,
             ),
             SizedBox(height: size.height * 0.025),
-            MyButton(
-                onTap: () {}, text: 'Post Job', width: size.width * 0.88)
+            MyButton(onTap: () {}, text: 'Post Job', width: size.width * 0.88)
           ],
         ),
       ),

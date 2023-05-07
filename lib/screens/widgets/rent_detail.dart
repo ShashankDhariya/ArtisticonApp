@@ -1,5 +1,5 @@
 import 'package:artist_icon/screens/widgets/icon_text.dart';
-import 'package:artist_icon/screens/widgets/rent_now.dart';
+import 'package:artist_icon/screens/rent_now.dart';
 import 'package:flutter/material.dart';
 import '../../models/rent.dart';
 
