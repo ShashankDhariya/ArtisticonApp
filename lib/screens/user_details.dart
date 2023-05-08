@@ -90,7 +90,7 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   void uploadData(String name, String phone) async{
-    UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child('uid').putFile(img!);
+    UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(widget.uid.toString()).putFile(img!);
     TaskSnapshot snapshot = await uploadTask;
     String imgUrl = await snapshot.ref.getDownloadURL();
     
