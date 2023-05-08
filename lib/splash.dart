@@ -1,5 +1,4 @@
 import 'package:artist_icon/screens/land_screen.dart';
-import 'package:artist_icon/screens/user_details.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -23,7 +22,7 @@ class _SplashState extends State<Splash> {
       context, 
       MaterialPageRoute(
         builder:(context) {
-          return UserDetails();
+          return LandScreen();
         },
       )
     );
