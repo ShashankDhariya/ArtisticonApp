@@ -2,17 +2,20 @@ class MyApplicationsModel {
   String? organization;
   String? title;
   String? status;
+  DateTime? date;
 
   MyApplicationsModel({
     this.organization,
     this.title,
     this.status,
+    this.date,
   });
 
   MyApplicationsModel.fromMap(Map<String, dynamic>map){
     organization: 'organization';
     title: 'title';
     status: 'status';
+    date: 'date';
   }
 
   Map<String, dynamic> toMap(){
@@ -20,6 +23,7 @@ class MyApplicationsModel {
       'organization': organization,
       'title': title,
       'status': status,
+      'date': date,
     };
   }
 }

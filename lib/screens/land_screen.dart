@@ -16,7 +16,7 @@ class LandScreen extends StatelessWidget {
           height: size.height,
           child: Column(
             children: [
-              SizedBox(height: size.height * 0.21),
+              SizedBox(height: size.height * 0.20),
               Image.asset('assets/images/artistIcon.jpeg', 
                 height: size.height * 0.15,
               ),
