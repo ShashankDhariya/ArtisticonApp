@@ -1,14 +1,18 @@
 import 'dart:io';
+import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UserDetails extends StatefulWidget {
-  // final String? uid;
-  // const UserDetails({super.key, this.uid});
+  final String? uid;
+  final String? username;
+  const UserDetails({super.key, required this.uid, required this.username});
 
   @override
   State<UserDetails> createState() => _UserDetailsState();
@@ -66,43 +70,98 @@ class _UserDetailsState extends State<UserDetails> {
     });    
   }
 
-  void checkValues(){
+  void check(){
     String name = nameController.text.trim();
+    String phone = phoneController.text.trim();
     
-      // uploadData();
+    if(img == null){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Select profile picture')));
+    }
+    else if(name == ''){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter name')));
+    }
+    else if(phone == ''){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter phone number')));
+    }
+    else {
+      uploadData(name, phone);
+    }
+  }
+
+  void uploadData(String name, String phone) async{
+    UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child('uid').putFile(img!);
+    TaskSnapshot snapshot = await uploadTask;
+    String imgUrl = await snapshot.ref.getDownloadURL();
+    
+    UserModel newUser = UserModel(
+      uid: widget.uid,
+      name: name,
+      profilePic: imgUrl,
+      username: widget.username,
+      phone: phone
+    );
+    FirebaseFirestore.instance.collection('Users').doc(widget.uid.toString()).set(newUser.toMap()).then((value){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('New User')));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CupertinoButton(
-            onPressed: () {
-              showInputImgOptions();
-            },
-            child: const CircleAvatar(
-              backgroundColor: Color(0xFFF5CEB8),
-              foregroundColor: Colors.white,
-              radius: 50,
-              child: Icon(Icons.person, size: 70,),
-            ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              CupertinoButton(
+                onPressed: () {
+                  showInputImgOptions();
+                },
+                child: CircleAvatar(
+                  backgroundColor: const Color(0xFFF5CEB8),
+                  foregroundColor: Colors.white,
+                  backgroundImage: img == null? null: FileImage(img!),
+                  radius: 50,
+                  child: img == null? const Icon(Icons.person, size: 70,): null,
+                ),
+              ),
+              const Text('Complete your details'),
+              SizedBox(height: size.height * 0.015),
+              MyTextField(hintText: 'Name', obsecure: false, icon: const Icon(Icons.person, size: 20), controller: nameController),
+              SizedBox(height: size.height * 0.025),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.03,) ,
+                child: TextField(
+                  keyboardType: TextInputType.phone,
+                  controller: phoneController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.phone),
+                    fillColor: Colors.grey.shade200,
+                    filled: true,
+                    hintText: 'Phone',
+                    hintStyle: TextStyle(color: Colors.grey.shade500)
+                  ),
+                ),
+              ),
+
+              SizedBox(height: size.height * 0.025),
+              MyButton(
+                onPressed: () {  
+                  check();
+                },
+                text: 'Sign Up', width: 175,
+              ),
+            ],
           ),
-          const Text('Complete your details'),
-          SizedBox(height: size.height * 0.015),
-          MyTextField(hintText: 'Name', obsecure: false, icon: Icon(Icons.person, size: MediaQuery.of(context).size.height * 0.027), controller: nameController),
-          SizedBox(height: size.height * 0.025),
-          MyTextField(hintText: 'Phone', obsecure: false, icon: Icon(Icons.phone, size: MediaQuery.of(context).size.height * 0.027), controller: phoneController),
-          SizedBox(height: size.height * 0.025),
-          MyButton(
-            onPressed: () {  
-              
-            },
-            text: 'Sign Up', width: 175,
-          ),
-        ],
+        ),
       )
     );
   }

@@ -3,12 +3,14 @@ class UserModel {
   String? username;
   String? name;
   String? profilePic;
+  String? phone;
   
   UserModel({
     this.uid,
     this.username,
-    this.name,
     this.profilePic,
+    this.name,
+    this.phone,
   });
 
   UserModel.fromMap(Map<String,dynamic> map){
@@ -16,6 +18,7 @@ class UserModel {
     username: map['username'];
     name: map['name'];
     profilePic: map['profilePic'];
+    phone: map['phone'];
   }
 
   Map<String, dynamic> toMap(){
@@ -24,6 +27,7 @@ class UserModel {
       'username': username,
       'name': name,
       'profilePic': profilePic,
+      'phone': phone,
     };
   }
 }

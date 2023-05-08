@@ -1,6 +1,7 @@
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/home.dart';
+import 'package:artist_icon/screens/user_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,8 +65,9 @@ class _SignUpPageState extends State<SignUpPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
     if(credential != null) {
+      // ignore: use_build_context_synchronously
       Navigator.push(context, MaterialPageRoute(builder:(context) {
-        return const HomePage();
+        return UserDetails(uid: credential!.user!.uid, username: username);
     },));
     }
   }

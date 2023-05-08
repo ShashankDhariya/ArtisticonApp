@@ -22,7 +22,7 @@ class _SplashState extends State<Splash> {
       context, 
       MaterialPageRoute(
         builder:(context) {
-          return LandScreen();
+          return const LandScreen();
         },
       )
     );
