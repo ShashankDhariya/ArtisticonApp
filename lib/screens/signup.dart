@@ -1,9 +1,7 @@
-import 'dart:developer';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,32 +16,30 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController cPasswordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
 
   void check() async {
     String username = usernameController.text.trim();
     String password = passwordController.text.trim();
     String cpassword = cPasswordController.text.trim();
-    String name = nameController.text.trim();
     
-    if(name.isEmpty && cpassword.isEmpty && password.isEmpty && username.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Details')));
+    if(cpassword.isEmpty && password.isEmpty && username.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter details')));
     }
 
     else if(username.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Username')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter username')));
     }
 
     else if(password.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Password')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter password')));
     }
 
     else if(cpassword.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Confirm Password')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please confirm password')));
     }
 
-    else if(name.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Name')));
+    else if(cpassword != password){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match')));
     }
 
     else {
@@ -76,24 +72,21 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height,
+          height: size.height,
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CupertinoButton(
-                  onPressed: () {
-                  },
-                  child: const CircleAvatar(
-                    backgroundColor: Color(0xFFF5CEB8),
-                    foregroundColor: Colors.white,
-                    radius: 50,
-                    child: Icon(Icons.person, size: 70,),
-                  ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                Image.asset('assets/images/artistIcon.jpeg',
+                  height: MediaQuery.of(context).size.height * 0.12,
                 ),
+
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Text(
                   'Create your account',
                   style: GoogleFonts.nunito(
@@ -104,21 +97,77 @@ class _SignUpPageState extends State<SignUpPage> {
                     )
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.015,),
+                SizedBox(height: size.height * 0.015,),
                 MyTextField(hintText: 'Username', obsecure: false, icon: Icon(Icons.person,size: MediaQuery.of(context).size.height * 0.027), controller: usernameController,),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                SizedBox(height: size.height * 0.015),
                 MyTextField(hintText: 'Password', obsecure: true, icon: Icon(Icons.lock, size: MediaQuery.of(context).size.height * 0.027), controller: passwordController,),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                SizedBox(height: size.height * 0.015),
                 MyTextField(hintText: 'Confirm Password', obsecure: false, icon: Icon(Icons.lock_person, size: MediaQuery.of(context).size.height * 0.027), controller: cPasswordController,),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-                MyTextField(hintText: 'Name', obsecure: false, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027), controller: nameController,),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                SizedBox(height: size.height * 0.025),
                 MyButton(
                   onPressed: () {  
                     check();
                   },
                   text: 'Sign Up', width: 175,
                 ),
+
+                SizedBox(height: size.height * 0.025),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.02),
+                  child: Row(
+                    children: [
+                      const Expanded(
+                        child: Divider(
+                          thickness: 0.6,
+                        )
+                      ),
+                      Text('Or continue with', 
+                        style: TextStyle(
+                          color: Colors.grey.shade700
+                        ),
+                      ),
+                      const Expanded(
+                        child: Divider(
+                          thickness: 0.6,
+                        )
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
+                        child: Image.asset('assets/images/google.png',
+                          height: MediaQuery.of(context).size.height * 0.04,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
+                        child: Image.asset('assets/images/apple.png',
+                          height: MediaQuery.of(context).size.height * 0.04,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                TextButton(onPressed:() => Navigator.pop(context), child: const Text('Back To Sign In'))
               ],
             ),
           ),

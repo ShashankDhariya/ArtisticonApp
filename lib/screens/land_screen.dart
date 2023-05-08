@@ -29,7 +29,7 @@ class LandScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder:(context) {
-                        return const SignUpPage();
+                        return SignUpPage();
                       },
                     )
                   );
