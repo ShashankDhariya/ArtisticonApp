@@ -1,4 +1,5 @@
 import 'package:artist_icon/screens/apply_now.dart';
+import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/models/job.dart';
@@ -27,7 +28,7 @@ class JobDetail extends StatelessWidget {
               width: 60,
               color: Colors.grey.withOpacity(0.3),
             ),
-            SizedBox(height: size.height * 0.055),
+            SizedBox(height: size.height * 0.045),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -102,26 +103,18 @@ class JobDetail extends StatelessWidget {
                           ],
                         )))
                     .toList(),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 25),
-                  height: size.height * 0.06,
-                  width: double.maxFinite,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        )),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
+                SizedBox(height: size.height * 0.025),
+                MyButton(text: 'Apply Now', width: double.infinity, 
+                  onPressed: () {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
                         builder: (context) {
                           return const ApplyNowScreen();
                         },
-                      ));
-                    },
-                    child: const Text('Apply Now'),
-                  ),
+                      )
+                    );
+                  },
                 )
               ],
             )
