@@ -1,7 +1,7 @@
 import 'package:artist_icon/screens/widgets/job_list.dart';
 import 'package:artist_icon/screens/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
-import '../artistpage.dart';
+import 'package:artist_icon/screens/artistpage.dart';
 
 class HomeArtist extends StatefulWidget {
   const HomeArtist({super.key});

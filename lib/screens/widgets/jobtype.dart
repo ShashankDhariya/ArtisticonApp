@@ -1,3 +1,5 @@
+import 'package:artist_icon/screens/components/my_button.dart';
+import 'package:artist_icon/screens/widgets/jobposting_home.dart';
 import 'package:flutter/material.dart';
 
 class PostOrRentModal extends StatelessWidget {
@@ -5,16 +7,49 @@ class PostOrRentModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Container(
-      padding: const EdgeInsets.all(25),
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.009),
+      decoration: BoxDecoration(
+          color: Colors.grey.shade100,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           )),
-      height: 500,
-      child: Text('5327'),
+      height: size.height * 0.22,
+      child: Column(
+        children: [
+          Container(
+            height: 5,
+            width: 60,
+            color: Colors.grey.withOpacity(0.3),
+          ),
+          SizedBox(height: size.height * 0.03),
+          MyButton(text: 'Post a Job', width: double.infinity,
+            onPressed:() {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder:(context) {
+                    return const JobPost();
+                  },
+                )
+              );
+            },),
+          SizedBox(height: size.height * 0.03),
+          MyButton(text: 'Rent a Service', width: double.infinity,
+            onPressed:() {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder:(context) {
+                    return const JobPost();
+                  },
+                )
+              );
+            },),
+        ]
+      )
     );
   }
 }
