@@ -17,10 +17,28 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void check() async {
-    String username = usernameController.text.trim();
-    String password = passwordController.text.trim();
+void check() async {
+  String username = usernameController.text.trim();
+  String password = passwordController.text.trim();
 
+  if(username.isEmpty && password.isEmpty){
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter Details')));
+  }
+
+  else if(username.isEmpty){
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter Username')));
+  }
+
+  else if(password.isEmpty){
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter Password')));
+  }
+
+  else {
+    signIn(username, password);
+  }
+}
+
+  void signIn(String username, String password) async {
     UserCredential? credential;
     try {
       credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -35,9 +53,11 @@ class _SignInPageState extends State<SignInPage> {
     }
   } 
   if(credential != null){
+    Navigator.popUntil(context, (route) => false);
     Navigator.push(context, MaterialPageRoute(builder:(context) => const HomePage()));
   }
 }
+
 
   @override
   Widget build(context) {
