@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserDetails extends StatefulWidget {
-  const UserDetails({super.key});
+  // final String? uid;
+  // const UserDetails({super.key, this.uid});
 
   @override
   State<UserDetails> createState() => _UserDetailsState();
@@ -15,6 +17,7 @@ class UserDetails extends StatefulWidget {
 class _UserDetailsState extends State<UserDetails> {
 
   TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   File? img;
 
   void selectImg(ImageSource source) async{
@@ -63,10 +66,18 @@ class _UserDetailsState extends State<UserDetails> {
     });    
   }
 
+  void checkValues(){
+    String name = nameController.text.trim();
+    
+      // uploadData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CupertinoButton(
             onPressed: () {
@@ -79,8 +90,18 @@ class _UserDetailsState extends State<UserDetails> {
               child: Icon(Icons.person, size: 70,),
             ),
           ),
-          MyTextField(hintText: 'Name', obsecure: false, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027), controller: nameController),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+          const Text('Complete your details'),
+          SizedBox(height: size.height * 0.015),
+          MyTextField(hintText: 'Name', obsecure: false, icon: Icon(Icons.person, size: MediaQuery.of(context).size.height * 0.027), controller: nameController),
+          SizedBox(height: size.height * 0.025),
+          MyTextField(hintText: 'Phone', obsecure: false, icon: Icon(Icons.phone, size: MediaQuery.of(context).size.height * 0.027), controller: phoneController),
+          SizedBox(height: size.height * 0.025),
+          MyButton(
+            onPressed: () {  
+              
+            },
+            text: 'Sign Up', width: 175,
+          ),
         ],
       )
     );

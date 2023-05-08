@@ -13,7 +13,7 @@ class LandScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SizedBox(
-          height: size.height * 0.98,
+          height: size.height,
           child: Column(
             children: [
               SizedBox(height: size.height * 0.21),
@@ -29,7 +29,7 @@ class LandScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder:(context) {
-                        return SignUpPage();
+                        return const SignUpPage();
                       },
                     )
                   );
@@ -51,7 +51,7 @@ class LandScreen extends StatelessWidget {
                 text: 'Sign In', width: size.width * 0.9,
               ),
               SizedBox(height: size.height * 0.035),
-              Text('~ by Artisisticon', 
+              Text('~ by Aditya Aswal', 
                 style: GoogleFonts.pacifico(
                   fontWeight: FontWeight.w700,
                 ),

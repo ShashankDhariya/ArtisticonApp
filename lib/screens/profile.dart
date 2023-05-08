@@ -55,7 +55,7 @@ class Profile extends StatelessWidget {
               
               const Divider(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.025,),
-              ListOption(icon: const Icon(Icons.book), text: 'My Applictions', color: Colors.black, 
+              ListOption(icon: const Icon(Icons.book), text: 'My Applications', color: Colors.black, 
               ontap: () { Navigator.push(context, MaterialPageRoute(builder:(context) {return const MyApplications();},)); }, ),
               ListOption(icon: const Icon(CupertinoIcons.book_circle), text: 'My Listings', color: Colors.black, 
               ontap: () { Navigator.push(context, MaterialPageRoute(builder:(context) {return const MyListings();},)); }, ),

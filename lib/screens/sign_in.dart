@@ -186,7 +186,7 @@ void check() async {
                       Navigator.push(context, 
                         MaterialPageRoute(
                           builder: (context){
-                            return SignUpPage();
+                            return const SignUpPage();
                         })
                       );
                     },
