@@ -50,7 +50,7 @@ class LandScreen extends StatelessWidget {
                 }, 
                 text: 'Sign In', width: size.width * 0.9,
               ),
-              SizedBox(height: size.height * 0.035),
+              SizedBox(height: size.height * 0.030),
               Text('~ by Aditya Aswal', 
                 style: GoogleFonts.pacifico(
                   fontWeight: FontWeight.w700,

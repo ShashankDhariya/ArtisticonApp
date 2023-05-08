@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
+import 'package:artist_icon/screens/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -103,6 +104,14 @@ class _UserDetailsState extends State<UserDetails> {
     FirebaseFirestore.instance.collection('Users').doc(widget.uid.toString()).set(newUser.toMap()).then((value){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('New User')));
     });
+    Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder:(context) {
+          return const HomePage();
+        },
+      )
+    );
   }
 
   @override
