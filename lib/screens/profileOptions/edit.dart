@@ -44,7 +44,7 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.015),
             MyTextField(hintText: 'Name', obsecure: true, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027), controller: nameController,),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            MyButton(onTap:() {}, text: 'Update', width: 200)
+            MyButton(onPressed:() {}, text: 'Update', width: 200)
           ],
         ),
       )

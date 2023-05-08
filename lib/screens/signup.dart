@@ -92,7 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 MyTextField(hintText: 'Name', obsecure: false, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027), controller: nameController,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 MyButton(
-                  onTap: () {  
+                  onPressed: () {  
                     check();
                   },
                   text: 'Sign Up', width: 175,

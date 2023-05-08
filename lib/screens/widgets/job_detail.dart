@@ -1,7 +1,7 @@
 import 'package:artist_icon/screens/apply_now.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
 import 'package:flutter/material.dart';
-import '../../models/job.dart';
+import 'package:artist_icon/models/job.dart';
 
 class JobDetail extends StatelessWidget {
   final Job job;
@@ -9,15 +9,16 @@ class JobDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Container(
-      padding: const EdgeInsets.all(25),
+      padding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.05),
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           )),
-      height: 500,
+      height: size.height * 0.6,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -26,9 +27,7 @@ class JobDetail extends StatelessWidget {
               width: 60,
               color: Colors.grey.withOpacity(0.3),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: size.height * 0.055),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -43,9 +42,7 @@ class JobDetail extends StatelessWidget {
                         color: Colors.grey.withOpacity(0.1),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: size.width * 0.03),
                     Text(
                       job.provider,
                       style: const TextStyle(
@@ -54,17 +51,13 @@ class JobDetail extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: size.height * 0.025),
                 Text(job.title,
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
                     )),
-                const SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: size.height * 0.025),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -72,16 +65,12 @@ class JobDetail extends StatelessWidget {
                     IconText(Icons.access_time_outlined, job.time),
                   ],
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: size.height * 0.030),
                 const Text('Requirements',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     )),
-                const SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: size.height * 0.01),
                 ...job.req
                     .map((e) => Container(
                         margin: const EdgeInsets.symmetric(vertical: 5),
@@ -97,9 +86,7 @@ class JobDetail extends StatelessWidget {
                                 color: Colors.black,
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            SizedBox(width: size.width * 0.025),
                             ConstrainedBox(
                               constraints: const BoxConstraints(
                                 maxWidth: 300,
@@ -117,7 +104,7 @@ class JobDetail extends StatelessWidget {
                     .toList(),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 25),
-                  height: 45,
+                  height: size.height * 0.06,
                   width: double.maxFinite,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(

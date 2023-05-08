@@ -109,7 +109,7 @@ class _JobPostingState extends State<JobPosting> {
               controller: nameController,
             ),
             SizedBox(height: size.height * 0.025),
-            MyButton(onTap: () {}, text: 'Post Job', width: size.width * 0.88)
+            MyButton(text: 'Post Job', width: size.width * 0.88, onPressed: () {  },)
           ],
         ),
       ),
