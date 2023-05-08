@@ -16,13 +16,13 @@ class LandScreen extends StatelessWidget {
           height: size.height * 0.98,
           child: Column(
             children: [
-              SizedBox(height: size.height * 0.2),
+              SizedBox(height: size.height * 0.21),
               Image.asset('assets/images/artistIcon.jpeg', 
                 height: size.height * 0.15,
               ),
-              SizedBox(height: size.height * 0.2),
-              const Text('Search, Post Jobs'),
-              SizedBox(height: size.height * 0.2),
+              SizedBox(height: size.height * 0.15),
+              const Text('Search Job\nPost Job\nGet Job\nRent Servives\n'),
+              SizedBox(height: size.height * 0.15),
               MyButton(
                 onPressed:() {
                   Navigator.push(

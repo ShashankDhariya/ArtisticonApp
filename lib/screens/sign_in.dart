@@ -22,15 +22,15 @@ void check() async {
   String password = passwordController.text.trim();
 
   if(username.isEmpty && password.isEmpty){
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter Details')));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Details')));
   }
 
   else if(username.isEmpty){
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter Username')));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Username')));
   }
 
   else if(password.isEmpty){
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter Password')));
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Password')));
   }
 
   else {

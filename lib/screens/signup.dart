@@ -27,9 +27,31 @@ class _SignUpPageState extends State<SignUpPage> {
     String name = nameController.text.trim();
     
     if(name.isEmpty && cpassword.isEmpty && password.isEmpty && username.isEmpty){
-      log('Empty Fields');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Details')));
     }
 
+    else if(username.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Username')));
+    }
+
+    else if(password.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Password')));
+    }
+
+    else if(cpassword.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Confirm Password')));
+    }
+
+    else if(name.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Name')));
+    }
+
+    else {
+      signUp(username, password);
+    }
+  }
+
+  void signUp(String username, String password) async {
     UserCredential? credential;
     try {
         credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -43,14 +65,14 @@ class _SignUpPageState extends State<SignUpPage> {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
       }
       } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+    if(credential != null) {
+      Navigator.push(context, MaterialPageRoute(builder:(context) {
+        return const HomePage();
+    },));
+    }
   }
-  if(credential != null) {
-    Navigator.push(context, MaterialPageRoute(builder:(context) {
-      return const HomePage();
-  },));
-  }
-}
 
   @override
   Widget build(context) {
