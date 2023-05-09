@@ -1,24 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/widgets/home_artist.dart';
 import 'package:artist_icon/screens/widgets/jobposting_home.dart';
 import 'package:artist_icon/screens/widgets/jobtype.dart';
 import 'package:artist_icon/screens/widgets/rent_artist.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  final UserModel? userModel;
+  final User? firebaseUser;
+  const HomePage({super.key, required this.userModel, required this.firebaseUser});
+  
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  final List<Widget> _widgetOptions = [const HomeArtist(), const JobPost(), const RentArtist()];
 
   @override
   Widget build(context) {
+    final List<Widget> widgetOptions = [HomeArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel,), const JobPost(), const RentArtist()];
     return Scaffold(
       bottomNavigationBar: Container(
         color: Colors.white,
@@ -62,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: _widgetOptions[_selectedIndex],
+      body: widgetOptions[_selectedIndex],
     );
   }
 }

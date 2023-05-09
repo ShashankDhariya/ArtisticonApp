@@ -1,5 +1,4 @@
 import 'package:artist_icon/screens/components/my_button.dart';
-import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
 import 'package:artist_icon/screens/rent_now.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,9 @@
+import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:artist_icon/screens/signup.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,8 +55,13 @@ void check() async {
     }
   } 
   if(credential != null){
-    Navigator.popUntil(context, (route) => false);
-    Navigator.push(context, MaterialPageRoute(builder:(context) => const HomePage()));
+    String uid = credential.user!.uid;
+
+    DocumentSnapshot userData = await FirebaseFirestore.instance.collection("users").doc(uid).get();
+    UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
+
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)));
   }
 }
 

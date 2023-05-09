@@ -3,6 +3,7 @@ import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -11,9 +12,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class UserDetails extends StatefulWidget {
-  final String? uid;
+  final String? password;
   final String? username;
-  const UserDetails({super.key, required this.uid, required this.username});
+  const UserDetails({super.key, required this.password, required this.username});
 
   @override
   State<UserDetails> createState() => _UserDetailsState();
@@ -34,7 +35,11 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   void cropImg(XFile file) async {
-    CroppedFile? croppedImg =  (await ImageCropper().cropImage(sourcePath: file.path));
+    CroppedFile? croppedImg =  await ImageCropper().cropImage(
+      sourcePath: file.path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      compressQuality: 20
+    );
     if(croppedImg != null){
       setState(() {
         img = File(croppedImg.path);
@@ -85,30 +90,55 @@ class _UserDetailsState extends State<UserDetails> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter phone number')));
     }
     else {
-      uploadData(name, phone);
+      signUp(widget.username!, widget.password!);
     }
   }
 
-  void uploadData(String name, String phone) async{
-    UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(widget.uid.toString()).putFile(img!);
+  void signUp(String username, String password) async {
+    UserCredential? credential;
+    try {
+        credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: username,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
+      }
+      } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+
+    String name = nameController.text.trim();
+    String phone = phoneController.text.trim();
+
+    if(credential != null) {
+      uploadData(name, phone, credential.user!.uid, credential.user as User);
+    }
+  }
+
+  void uploadData(String name, String phone, String uid, User firebaseUser) async{
+    UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(uid).putFile(img!);
     TaskSnapshot snapshot = await uploadTask;
     String imgUrl = await snapshot.ref.getDownloadURL();
     
     UserModel newUser = UserModel(
-      uid: widget.uid,
+      uid: uid,
       name: name,
       profilePic: imgUrl,
       username: widget.username,
       phone: phone
     );
-    FirebaseFirestore.instance.collection('Users').doc(widget.uid.toString()).set(newUser.toMap()).then((value){
+    FirebaseFirestore.instance.collection('Users').doc(uid).set(newUser.toMap()).then((value){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('New User')));
     });
     Navigator.push(
       context, 
       MaterialPageRoute(
         builder:(context) {
-          return const HomePage();
+          return HomePage(firebaseUser: firebaseUser, userModel: newUser,);
         },
       )
     );

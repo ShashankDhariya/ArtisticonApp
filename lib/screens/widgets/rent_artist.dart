@@ -33,7 +33,7 @@ class _RentArtistState extends State<RentArtist> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [const Artistpage(), const RentSearchBar(), RentList()],
+              // children: [Artistpage(), const RentSearchBar(), RentList()],
             ),
           )
         ],

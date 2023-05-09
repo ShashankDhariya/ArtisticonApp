@@ -44,31 +44,14 @@ class _SignUpPageState extends State<SignUpPage> {
     }
 
     else {
-      signUp(username, password);
-    }
-  }
-
-  void signUp(String username, String password) async {
-    UserCredential? credential;
-    try {
-        credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: username,
-        password: password,
+      Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder:(context) {
+            return UserDetails(password: password, username: username);
+          },
+        )
       );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
-      } else if (e.code == 'email-already-in-use') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
-      }
-      } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-    }
-    if(credential != null) {
-      // ignore: use_build_context_synchronously
-      Navigator.push(context, MaterialPageRoute(builder:(context) {
-        return UserDetails(uid: credential!.user!.uid, username: username);
-    },));
     }
   }
 

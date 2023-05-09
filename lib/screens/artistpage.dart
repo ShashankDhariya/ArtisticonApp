@@ -1,8 +1,12 @@
+import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Artistpage extends StatelessWidget {
-  const Artistpage({super.key});
+  final UserModel? userModel;
+  final User? firebaseUser;
+  const Artistpage({super.key, required this.userModel, required this.firebaseUser});
 
   @override
   Widget build(context) {
@@ -17,9 +21,9 @@ class Artistpage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text(
-              'Welcome Groot',
-              style: TextStyle(
+            Text(
+              'Welcome ${userModel!.name}',
+              style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
@@ -37,8 +41,8 @@ class Artistpage extends StatelessWidget {
                   )
                 );
               },
-              child: Image.asset(
-                'assets/images/avatar.png',
+              child: Image.network(
+                userModel!.profilePic!,
                 width: 50,
               ),
             ),
