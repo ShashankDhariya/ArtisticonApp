@@ -15,7 +15,7 @@ class Profile extends StatelessWidget {
   const Profile({super.key, required this.userModel, required this.firebaseUser});
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade100,

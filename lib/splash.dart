@@ -84,7 +84,7 @@ class _SplashLoggedInState extends State<SplashLoggedIn> {
   }
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: SizedBox(

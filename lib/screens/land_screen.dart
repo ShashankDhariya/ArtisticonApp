@@ -8,7 +8,7 @@ class LandScreen extends StatelessWidget {
   const LandScreen({super.key});
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(

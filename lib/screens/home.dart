@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     final List<Widget> widgetOptions = [HomeArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel,), const JobPost(), const RentArtist()];
     return Scaffold(
       appBar: AppBar(

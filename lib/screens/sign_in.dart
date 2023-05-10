@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
@@ -53,12 +51,7 @@ void check() async {
       if(credential != null){
         String uid = credential.user!.uid;
         DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-        log('fsd');
-        print(userData.data().runtimeType);
         UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
-        log('fsd');
-        log(userModel.profilePic.toString());
-        log(userModel.name.toString());
         Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)));
       }
@@ -74,7 +67,7 @@ void check() async {
 
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(

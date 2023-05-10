@@ -7,7 +7,7 @@ class MyButton extends StatelessWidget {
   const MyButton({super.key, required this.text, required this.width, required this.onPressed});
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return SizedBox(
       height: 45,
       width: width,
