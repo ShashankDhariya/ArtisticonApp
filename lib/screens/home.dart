@@ -1,6 +1,8 @@
+import 'package:artist_icon/screens/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/widgets/home_artist.dart';
@@ -24,6 +26,35 @@ class _HomePageState extends State<HomePage> {
   Widget build(context) {
     final List<Widget> widgetOptions = [HomeArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel,), const JobPost(), const RentArtist()];
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        title: Text('Welocome\n${widget.userModel.name}',
+          style: GoogleFonts.nunito(),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:(context) {
+                    return const Profile();
+                  },
+                )
+              );
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: CircleAvatar(
+                maxRadius: 23,
+                backgroundImage: NetworkImage(widget.userModel.profilePic.toString(),)
+              ),
+            ),
+          ),
+        ],
+      ),
       bottomNavigationBar: Container(
         color: Colors.white,
         child: Padding(

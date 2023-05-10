@@ -45,9 +45,7 @@ class Profile extends StatelessWidget {
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.010),
               Text('Shashank', 
-                style: GoogleFonts.montserrat(
-                  
-                ),
+                style: GoogleFonts.montserrat(),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               const Text("Sdhariya"),
