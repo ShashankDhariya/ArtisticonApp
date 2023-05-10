@@ -56,13 +56,13 @@ class _SignUpPageState extends State<SignUpPage> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
     }
 
-    else{
+    else if(cpassword.isNotEmpty && password.isNotEmpty && username.isNotEmpty){
       setState(() {
         state = true;
       });
     }
 
-    if(await isEmailTaken(username)){
+    else if(await isEmailTaken(username)){
       setState(() {
         state = false;
       });
