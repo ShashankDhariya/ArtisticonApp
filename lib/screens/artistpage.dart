@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Artistpage extends StatelessWidget {
-  final UserModel? userModel;
-  final User? firebaseUser;
+  final UserModel userModel;
+  final User firebaseUser;
   const Artistpage({super.key, required this.userModel, required this.firebaseUser});
 
   @override
@@ -22,7 +22,7 @@ class Artistpage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Welcome ${userModel!.name}',
+              'Welcome ${userModel.name}',
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -30,22 +30,22 @@ class Artistpage extends StatelessWidget {
             ),
             
             const Spacer(),
-            GestureDetector(
-              onTap:() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const Profile();
-                    },
-                  )
-                );
-              },
-              child: Image.network(
-                userModel!.profilePic!,
-                width: 50,
-              ),
-            ),
+            // GestureDetector(
+            //   onTap:() {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) {
+            //           return const Profile();
+            //         },
+            //       )
+            //     );
+            //   },
+            //   child: Image.network(
+            //   userModel.profilePic.toString(),
+            //     width: 50,
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -16,10 +16,10 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    _navigatetohome();
+    _navigatetoland();
   }
 
-  _navigatetohome() async {
+  _navigatetoland() async {
    await Future.delayed(const Duration(milliseconds: 2500), (){});
     Navigator.pushReplacement(
       context, 
@@ -56,8 +56,8 @@ class _SplashState extends State<Splash> {
 }
 
 class SplashLoggedIn extends StatefulWidget {
-  final UserModel? userModel;
-  final User? firebaseUser;
+  final UserModel userModel;
+  final User firebaseUser;
   const SplashLoggedIn({super.key, required this.userModel, required this.firebaseUser});
 
   @override

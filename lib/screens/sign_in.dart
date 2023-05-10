@@ -57,9 +57,9 @@ void check() async {
   if(credential != null){
     String uid = credential.user!.uid;
 
-    DocumentSnapshot userData = await FirebaseFirestore.instance.collection("users").doc(uid).get();
+    DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
     UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
-
+    print(userModel);
     Navigator.popUntil(context, (route) => route.isFirst);
     Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)));
   }

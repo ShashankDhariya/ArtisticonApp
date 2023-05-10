@@ -9,8 +9,8 @@ import 'package:artist_icon/screens/widgets/jobtype.dart';
 import 'package:artist_icon/screens/widgets/rent_artist.dart';
 
 class HomePage extends StatefulWidget {
-  final UserModel? userModel;
-  final User? firebaseUser;
+  final UserModel userModel;
+  final User firebaseUser;
   const HomePage({super.key, required this.userModel, required this.firebaseUser});
   
   @override

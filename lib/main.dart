@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:artist_icon/models/get_firebase_user.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/splash.dart';
@@ -9,16 +10,20 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  User? currentUser = FirebaseAuth.instance.currentUser;
-  if(currentUser != null){
-    UserModel? fetchUserModel = await FirebaseHelper.getuserModelById(currentUser.uid);
-    if(fetchUserModel != null){
-      runApp(MyAppLoggedIn(userModel: fetchUserModel, firebaseUser: currentUser));
-    }
-    else {
-      runApp(const MyApp());
-    }
-  }
+  // User? currentUser = FirebaseAuth.instance.currentUser;
+  // if(currentUser != null){
+  //   UserModel? fetchUserModel = await FirebaseHelper.getuserModelById(currentUser.uid);
+  //   log(currentUser.uid);
+  //   if(fetchUserModel != null){
+  //     runApp(MyAppLoggedIn(userModel: fetchUserModel, firebaseUser: currentUser));
+  //   }
+  //   else {
+  //     runApp(const MyApp());
+  //   }
+  // }
+  // else {
+    runApp(const MyApp());
+  // }
 }
 
 class MyApp extends StatelessWidget {

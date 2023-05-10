@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:artist_icon/screens/artistpage.dart';
 
 class HomeArtist extends StatefulWidget {
-  final UserModel? userModel;
-  final User? firebaseUser;
+  final UserModel userModel;
+  final User firebaseUser;
   const HomeArtist({super.key, required this.userModel, required this.firebaseUser});
 
   @override
