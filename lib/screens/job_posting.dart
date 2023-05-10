@@ -15,7 +15,7 @@ class _JobPostingState extends State<JobPosting> {
   TextEditingController nameController = TextEditingController();
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Center(

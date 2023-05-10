@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
@@ -20,6 +18,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool state = false;
 
 void check() async {
   String username = usernameController.text.trim();
@@ -38,6 +37,9 @@ void check() async {
   }
 
   else {
+    setState(() {
+      state = true;
+    });
     signIn(username, password);
   }
 }
@@ -49,32 +51,25 @@ void check() async {
         email: username,
         password: password
       );
-
-      if(credential != null){
-        String uid = credential.user!.uid;
-        DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-        log('fsd');
-        print(userData.data().runtimeType);
-        UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
-        log('fsd');
-        log(userModel.profilePic.toString());
-        log(userModel.name.toString());
-        Navigator.popUntil(context, (route) => route.isFirst);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)));
-      }
-
     } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No user found for that email.')));
     } else if (e.code == 'wrong-password') {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Wrong password provided for that user.')));
     }
+  }
+  if(credential != null){
+    String uid = credential.user!.uid;
+    DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
+    UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)));
   } 
 }
 
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -120,6 +115,7 @@ void check() async {
                 ),
                   
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                state? const CircularProgressIndicator():
                 MyButton(
                   onPressed: () {  
                     check();

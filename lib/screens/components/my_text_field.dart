@@ -8,7 +8,7 @@ class MyTextField extends StatelessWidget {
   const MyTextField({super.key, required this.controller, required this.hintText, required this.obsecure, required this.icon});
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.03,) ,
       child: TextField(

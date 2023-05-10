@@ -3,7 +3,6 @@ import 'package:artist_icon/screens/widgets/job_list.dart';
 import 'package:artist_icon/screens/widgets/search_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:artist_icon/screens/artistpage.dart';
 
 class HomeArtist extends StatefulWidget {
   final UserModel userModel;
@@ -37,7 +36,7 @@ class _HomeArtistState extends State<HomeArtist> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Artistpage(firebaseUser: widget.firebaseUser, userModel: widget.userModel), const SearchBar(), JobList()],
+              children: [const SearchBar(), JobList()],
             ),
           )
         ],

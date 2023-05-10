@@ -7,15 +7,14 @@ class MyButton extends StatelessWidget {
   const MyButton({super.key, required this.text, required this.width, required this.onPressed});
 
   @override
-  Widget build(context) {
-    var size = MediaQuery.of(context).size;
+  Widget build(BuildContext context) {
     return SizedBox(
       height: 45,
       width: width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).primaryColorDark,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           )),

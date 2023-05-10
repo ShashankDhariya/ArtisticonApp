@@ -61,7 +61,7 @@ class SplashLoggedIn extends StatefulWidget {
   const SplashLoggedIn({super.key, required this.userModel, required this.firebaseUser});
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<SplashLoggedIn> createState() => _SplashLoggedInState();
 }
 
 class _SplashLoggedInState extends State<SplashLoggedIn> {
@@ -84,7 +84,7 @@ class _SplashLoggedInState extends State<SplashLoggedIn> {
   }
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: SizedBox(

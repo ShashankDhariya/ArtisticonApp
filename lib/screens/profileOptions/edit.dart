@@ -12,14 +12,22 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   TextEditingController nameController = TextEditingController();
+  bool state = false;
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade100,
         foregroundColor: Colors.black,
-        elevation: 0.0,
+        elevation: 0.4,
+        leading: IconButton(icon: const Icon(CupertinoIcons.left_chevron), 
+          onPressed: () {
+            Navigator.pop(context);
+          },),
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         centerTitle: true,
         title: const Text('Edit Profile'),
       ),
@@ -30,7 +38,7 @@ class _EditProfileState extends State<EditProfile> {
           children: [
             CupertinoButton(
               onPressed: () {
-              
+                
               },
               child: const CircleAvatar(
                 backgroundColor: Color(0xFFF5CEB8),
@@ -44,7 +52,11 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.015),
             MyTextField(hintText: 'Name', obsecure: true, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027), controller: nameController,),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            MyButton(onPressed:() {}, text: 'Update', width: 200)
+            state? const CircularProgressIndicator(): MyButton(onPressed:() {
+              setState(() {
+                state = true;
+              });
+            }, text:'Update', width: 200)
           ],
         ),
       )

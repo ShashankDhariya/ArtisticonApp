@@ -1,7 +1,6 @@
 import 'package:artist_icon/screens/widgets/rent_list.dart';
 import 'package:artist_icon/screens/widgets/rent_search_bar.dart';
 import 'package:flutter/material.dart';
-import '../artistpage.dart';
 
 class RentArtist extends StatefulWidget {
   const RentArtist({super.key});
@@ -33,7 +32,7 @@ class _RentArtistState extends State<RentArtist> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              // children: [Artistpage(), const RentSearchBar(), RentList()],
+              children: [const RentSearchBar(), RentList()],
             ),
           )
         ],

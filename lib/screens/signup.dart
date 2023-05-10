@@ -1,8 +1,6 @@
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
-import 'package:artist_icon/screens/home.dart';
 import 'package:artist_icon/screens/user_details.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -56,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(

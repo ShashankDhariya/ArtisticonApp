@@ -134,6 +134,8 @@ class _UserDetailsState extends State<UserDetails> {
     FirebaseFirestore.instance.collection('Users').doc(uid).set(newUser.toMap()).then((value){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('New User')));
     });
+
+    Navigator.popUntil(context, (route) => false);
     Navigator.push(
       context, 
       MaterialPageRoute(
