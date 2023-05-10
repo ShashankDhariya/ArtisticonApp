@@ -1,6 +1,7 @@
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/widgets/jobposting_home.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class PostOrRentModal extends StatelessWidget {
   const PostOrRentModal({super.key});
@@ -16,7 +17,7 @@ class PostOrRentModal extends StatelessWidget {
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           )),
-      height: size.height * 0.22,
+      height: size.height * 0.45,
       child: Column(
         children: [
           Container(
@@ -24,7 +25,7 @@ class PostOrRentModal extends StatelessWidget {
             width: 60,
             color: Colors.grey.withOpacity(0.3),
           ),
-          SizedBox(height: size.height * 0.03),
+          Lottie.asset('assets/images/addIcon.json', height: size.height * 0.25),
           MyButton(text: 'Post a Job', width: double.infinity,
             onPressed:() {
               Navigator.push(
@@ -35,7 +36,8 @@ class PostOrRentModal extends StatelessWidget {
                   },
                 )
               );
-            },),
+            },
+          ),
           SizedBox(height: size.height * 0.03),
           MyButton(text: 'Rent a Service', width: double.infinity,
             onPressed:() {
