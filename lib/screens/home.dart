@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
-        title: Text('Welocome\n${widget.userModel.name}',
+        title: Text('Welcome\n${widget.userModel.name}',
           style: GoogleFonts.nunito(),
         ),
         actions: [

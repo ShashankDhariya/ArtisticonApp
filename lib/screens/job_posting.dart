@@ -54,18 +54,19 @@ class _JobPostingState extends State<JobPosting> {
               ),
               child: TextField(
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20)),
-                    focusedBorder: OutlineInputBorder(
+                  enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    prefixIcon: const Icon(Icons.description),
-                    fillColor: Colors.grey.shade200,
-                    filled: true,
-                    hintText: 'Description',
-                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+                      borderRadius: BorderRadius.circular(20)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  prefixIcon: const Icon(Icons.description),
+                  fillColor: Colors.grey.shade200,
+                  filled: true,
+                  hintText: 'Description',
+                  hintStyle: TextStyle(color: Colors.grey.shade500)
+                ),
               ),
             ),
             SizedBox(height: size.height * 0.018),
@@ -94,7 +95,7 @@ class _JobPostingState extends State<JobPosting> {
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
-              hintText: 'Expected Salary',
+              hintText: 'Salary',
               obsecure: false,
               icon: Icon(CupertinoIcons.money_dollar,
                   size: MediaQuery.of(context).size.height * 0.030),

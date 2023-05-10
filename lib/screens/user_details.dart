@@ -135,12 +135,12 @@ class _UserDetailsState extends State<UserDetails> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('New User')));
     });
 
-    Navigator.popUntil(context, (route) => false);
+    Navigator.popUntil(context, (route) => route.isFirst);
     Navigator.push(
       context, 
       MaterialPageRoute(
         builder:(context) {
-          return HomePage(firebaseUser: firebaseUser, userModel: newUser,);
+          return HomePage(firebaseUser: firebaseUser, userModel: newUser);
         },
       )
     );
