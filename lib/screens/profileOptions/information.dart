@@ -126,7 +126,7 @@ final List<Info> demo_data = [
   ),
   Info(
     image: 'assets/images/InfoScreen_jobpost.png',
-    title: 'Post any kind of work ',
+    title: 'Post any kind of work/jobs',
     description: 'Hello',
   ),
   Info(
