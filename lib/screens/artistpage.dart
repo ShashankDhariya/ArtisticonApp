@@ -41,9 +41,11 @@ class Artistpage extends StatelessWidget {
                   )
                 );
               },
-              child: Image.asset(
-                'assets/images/avatar.png',
-                width: 50,
+              child: CircleAvatar(
+                child: Image.network(
+                  userModel.profilePic.toString(),
+                  width: 70,
+                ),
               ),
             ),
           ],
