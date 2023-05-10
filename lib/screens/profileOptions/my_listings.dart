@@ -9,6 +9,13 @@ class MyListings extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
+        leading: IconButton(icon: const Icon(CupertinoIcons.left_chevron), 
+          onPressed: () {
+            Navigator.pop(context);
+          },),
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         centerTitle: true,

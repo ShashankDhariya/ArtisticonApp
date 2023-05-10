@@ -17,9 +17,16 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade100,
         foregroundColor: Colors.black,
-        elevation: 0.0,
+        elevation: 0.4,
+        leading: IconButton(icon: const Icon(CupertinoIcons.left_chevron), 
+          onPressed: () {
+            Navigator.pop(context);
+          },),
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         centerTitle: true,
         title: const Text('Edit Profile'),
       ),

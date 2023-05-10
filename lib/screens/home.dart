@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder:(context) {
-                    return const Profile();
+                    return Profile(firebaseUser: widget.firebaseUser, userModel: widget.userModel);
                   },
                 )
               );
