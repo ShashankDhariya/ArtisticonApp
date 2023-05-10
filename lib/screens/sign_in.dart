@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
@@ -37,6 +38,7 @@ void check() async {
   }
 
   else {
+    log(username.toString());
     setState(() {
       state = true;
     });
@@ -54,15 +56,18 @@ void check() async {
       String uid = credential.user!.uid;
       DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
       UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
-      setState(() {
-        state = false;
-      });
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)));
     } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
+      setState(() {
+        state = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No user found for that email.')));
     } else if (e.code == 'wrong-password') {
+      setState(() {
+        state = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Wrong password provided for that user.')));
     }
   }
