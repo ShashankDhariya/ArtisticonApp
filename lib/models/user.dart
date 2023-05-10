@@ -14,20 +14,20 @@ class UserModel {
   });
 
   UserModel.fromMap(Map<String,dynamic> map){
-    uid: map['uid'];
-    username: map['username'];
-    name: map['name'];
-    profilePic: map['profilePic'];
-    phone: map['phone'];
+    this.uid = map["uid"];
+    this.username = map["username"];
+    this.name = map["name"];
+    this.profilePic = map["profilePic"];
+    this.phone = map["phone"];
   }
 
   Map<String, dynamic> toMap(){
     return {
-      'uid': uid,
-      'username': username,
-      'name': name,
-      'profilePic': profilePic,
-      'phone': phone,
+      "uid": uid,
+      "username": username,
+      "name": name,
+      "profilePic": profilePic,
+      "phone": phone,
     };
   }
 }
