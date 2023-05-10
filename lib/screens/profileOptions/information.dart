@@ -34,7 +34,7 @@ class _InformationState extends State<Information> {
             children: [
               Expanded(
                 child: PageView.builder(
-                  itemCount: demo_data.length,
+                  itemCount: demodata.length,
                   controller: _pageController,
                   onPageChanged: (index) {
                     setState(() {
@@ -42,18 +42,18 @@ class _InformationState extends State<Information> {
                     });
                   },
                   itemBuilder: (context, index) => InformationContent(
-                    image: demo_data[index].image,
-                    title: demo_data[index].title,
-                    description: demo_data[index].description,
+                    image: demodata[index].image,
+                    title: demodata[index].title,
+                    description: demodata[index].description,
                   ),
                 ),
               ),
               Row(
                 children: [
                   ...List.generate(
-                      demo_data.length,
+                      demodata.length,
                       (index) => Padding(
-                            padding: EdgeInsets.only(right: 4),
+                            padding: const EdgeInsets.only(right: 4),
                             child: Indicator(isActive: index == _pageIndex),
                           )),
                   const Spacer(),
@@ -118,7 +118,7 @@ class Info {
   });
 }
 
-final List<Info> demo_data = [
+final List<Info> demodata = [
   Info(
     image: 'assets/images/InfoScreen_jobsearch.png',
     title: "Search for the Jobs/work you've been looking for",

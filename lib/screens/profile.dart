@@ -13,8 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Profile extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const Profile(
-      {super.key, required this.userModel, required this.firebaseUser});
+  const Profile({super.key, required this.userModel, required this.firebaseUser});
 
   @override
   Widget build(BuildContext context) {
@@ -39,29 +38,23 @@ class Profile extends StatelessWidget {
               )))),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.width * 0.05),
+          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width * 0.05),
           child: Column(
             children: [
               CupertinoButton(
                 onPressed: () {},
                 child: CircleAvatar(
-                    radius: MediaQuery.of(context).size.height * 0.09,
-                    backgroundImage:
-                        NetworkImage(userModel.profilePic.toString())),
+                    radius: MediaQuery.of(context).size.height * 0.08,
+                    backgroundImage: NetworkImage(userModel.profilePic.toString())),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.010),
-              Text(
-                userModel.name.toString(),
-                style: GoogleFonts.montserrat(),
-              ),
+              Text(userModel.name.toString(),style: GoogleFonts.montserrat(),),
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               Text(userModel.username.toString()),
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+              Text(userModel.profession.toString(),style: GoogleFonts.pacifico(),),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               const Divider(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.025,
-              ),
               ListOption(
                 icon: const Icon(Icons.book),
                 text: 'My Applications',

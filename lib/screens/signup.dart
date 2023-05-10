@@ -1,6 +1,7 @@
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/user_details.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,9 +16,19 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController cPasswordController = TextEditingController();
+  bool state = false;
+
+  Future<bool> isEmailTaken(String email) async {
+  try {
+    final signInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+    return signInMethods.isNotEmpty;
+  } catch (e) {
+    return false;
+  }
+}
 
   void check() async {
-    String username = usernameController.text.trim();
+    String username = '${usernameController.text.trim()}@artistIcon.com';
     String password = passwordController.text.trim();
     String cpassword = cPasswordController.text.trim();
     
@@ -41,7 +52,27 @@ class _SignUpPageState extends State<SignUpPage> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match')));
     }
 
+    else if(password.length <= 5){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
+    }
+
+    else{
+      setState(() {
+        state = true;
+      });
+    }
+
+    if(await isEmailTaken(username)){
+      setState(() {
+        state = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));  
+    }
+    
     else {
+      setState(() {
+        state = false;
+      });
       Navigator.push(
         context, 
         MaterialPageRoute(
@@ -57,10 +88,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: size.height,
-          child: SafeArea(
+      body: SizedBox(
+        height: size.height,
+        child: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -68,7 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 Image.asset('assets/images/artistIcon.jpeg',
                   height: MediaQuery.of(context).size.height * 0.12,
                 ),
-
+          
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Text(
                   'Create your account',
@@ -87,15 +118,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(height: size.height * 0.015),
                 MyTextField(hintText: 'Confirm Password', obsecure: false, icon: Icon(Icons.lock_person, size: MediaQuery.of(context).size.height * 0.027), controller: cPasswordController,),
                 SizedBox(height: size.height * 0.025),
+                state? const CircularProgressIndicator(): 
                 MyButton(
                   onPressed: () {  
                     check();
                   },
                   text: 'Sign Up', width: 175,
                 ),
-
+          
                 SizedBox(height: size.height * 0.025),
-
+          
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.02),
                   child: Row(

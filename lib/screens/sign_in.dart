@@ -21,7 +21,7 @@ class _SignInPageState extends State<SignInPage> {
   bool state = false;
 
 void check() async {
-  String username = usernameController.text.trim();
+  String username = '${usernameController.text.trim()}@artistIcon.com';
   String password = passwordController.text.trim();
 
   if(username.isEmpty && password.isEmpty){
@@ -51,6 +51,14 @@ void check() async {
         email: username,
         password: password
       );
+      String uid = credential.user!.uid;
+      DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
+      UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
+      setState(() {
+        state = false;
+      });
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)));
     } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No user found for that email.')));
@@ -58,23 +66,16 @@ void check() async {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Wrong password provided for that user.')));
     }
   }
-  if(credential != null){
-    String uid = credential.user!.uid;
-    DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-    UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
-    Navigator.popUntil(context, (route) => route.isFirst);
-    Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)));
-  } 
 }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: SafeArea(
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -82,7 +83,7 @@ void check() async {
                 Image.asset('assets/images/artistIcon.jpeg',
                   height: MediaQuery.of(context).size.height * 0.12,
                 ),
-
+          
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Text(
                   'Please login to your account',
@@ -94,7 +95,7 @@ void check() async {
                     )
                   ),
                 ),
-
+          
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015,),
                 MyTextField(hintText: 'Username', obsecure: false, icon: Icon(Icons.person,size: MediaQuery.of(context).size.height * 0.035), controller: usernameController,),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.015),
@@ -121,9 +122,9 @@ void check() async {
                     check();
                   }, text: 'Sign In', width: 175,
                 ),
-
+          
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
+          
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.02),
                   child: Row(
@@ -146,9 +147,9 @@ void check() async {
                     ],
                   ),
                 ),
-
+          
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-
+          
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -179,9 +180,9 @@ void check() async {
                     )
                   ],
                 ),
-
+          
                 SizedBox(height: MediaQuery.of(context).size.height * 0.14),
-
+          
                 Text(
                   'Don\'t have an account?',
                     style: TextStyle(

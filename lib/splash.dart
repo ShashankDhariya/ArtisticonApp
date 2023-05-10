@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetoland() async {
-   await Future.delayed(const Duration(milliseconds: 2500), (){});
+   await Future.delayed(const Duration(milliseconds: 2500), (){
     Navigator.pushReplacement(
       context, 
       MaterialPageRoute(
@@ -29,6 +29,7 @@ class _SplashState extends State<Splash> {
         },
       )
     );
+   });
   }
 
   @override
@@ -72,7 +73,7 @@ class _SplashLoggedInState extends State<SplashLoggedIn> {
   }
 
   _navigatetohome() async {
-   await Future.delayed(const Duration(milliseconds: 2500), (){});
+   await Future.delayed(const Duration(milliseconds: 2500), (){
     Navigator.pushReplacement(
       context, 
       MaterialPageRoute(
@@ -81,6 +82,7 @@ class _SplashLoggedInState extends State<SplashLoggedIn> {
         },
       )
     );
+   });
   }
 
   @override
