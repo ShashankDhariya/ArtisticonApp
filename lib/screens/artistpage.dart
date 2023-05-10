@@ -30,22 +30,22 @@ class Artistpage extends StatelessWidget {
             ),
             
             const Spacer(),
-            // GestureDetector(
-            //   onTap:() {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) {
-            //           return const Profile();
-            //         },
-            //       )
-            //     );
-            //   },
-            //   child: Image.network(
-            //   userModel.profilePic.toString(),
-            //     width: 50,
-            //   ),
-            // ),
+            GestureDetector(
+              onTap:() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const Profile();
+                    },
+                  )
+                );
+              },
+              child: Image.asset(
+                'assets/images/avatar.png',
+                width: 50,
+              ),
+            ),
           ],
         ),
       ),
