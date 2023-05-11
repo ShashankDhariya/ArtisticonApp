@@ -131,12 +131,13 @@ final List<Info> demodata = [
   ),
   Info(
     image: 'assets/images/InfoScree_rentavail2.png',
-    title: 'Hi',
+    title:
+        'Rent any Service ranging from Costumes to Studios on hourly/daily basis',
     description: 'Hello',
   ),
   Info(
     image: 'assets/images/InfoScreen_rentservice.png',
-    title: 'Hi',
+    title: 'Get any kind of Service like Studios, Costumes on rent',
     description: 'Hello',
   )
 ];

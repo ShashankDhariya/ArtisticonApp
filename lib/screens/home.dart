@@ -13,8 +13,9 @@ import 'package:artist_icon/screens/widgets/rent_artist.dart';
 class HomePage extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const HomePage({super.key, required this.userModel, required this.firebaseUser});
-  
+  const HomePage(
+      {super.key, required this.userModel, required this.firebaseUser});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -24,33 +25,43 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> widgetOptions = [HomeArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel,), const JobPost(), const RentArtist()];
+    final List<Widget> widgetOptions = [
+      HomeArtist(
+        firebaseUser: widget.firebaseUser,
+        userModel: widget.userModel,
+      ),
+      const JobPost(),
+      const RentArtist()
+    ];
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
-        title: Text('Welcome\n${widget.userModel.name}',
-          style: GoogleFonts.nunito(),
+        title: Text(
+          'Welcome ${widget.userModel.name}',
+          style: GoogleFonts.nunito(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:(context) {
-                    return Profile(firebaseUser: widget.firebaseUser, userModel: widget.userModel);
-                  },
-                )
-              );
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return Profile(
+                      firebaseUser: widget.firebaseUser,
+                      userModel: widget.userModel);
+                },
+              ));
             },
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: CircleAvatar(
-                maxRadius: 23,
-                backgroundImage: NetworkImage(widget.userModel.profilePic.toString(),)
-              ),
+                  maxRadius: 23,
+                  backgroundImage: NetworkImage(
+                    widget.userModel.profilePic.toString(),
+                  )),
             ),
           ),
         ],

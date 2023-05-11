@@ -12,7 +12,8 @@ class JobDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.05),
+      padding: EdgeInsets.symmetric(
+          vertical: size.height * 0.01, horizontal: size.width * 0.05),
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -53,7 +54,7 @@ class JobDetail extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: size.height * 0.025),
-                Text(job.title,
+                Text(job.category,
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -62,8 +63,8 @@ class JobDetail extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconText(Icons.location_on_outlined, job.location),
-                    IconText(Icons.access_time_outlined, job.time),
+                    IconText(Icons.location_on_outlined, job.city),
+                    IconText(Icons.currency_rupee, job.pay),
                   ],
                 ),
                 SizedBox(height: size.height * 0.030),
@@ -104,16 +105,15 @@ class JobDetail extends StatelessWidget {
                         )))
                     .toList(),
                 SizedBox(height: size.height * 0.025),
-                MyButton(text: 'Apply Now', width: double.infinity, 
+                MyButton(
+                  text: 'Apply Now',
+                  width: double.infinity,
                   onPressed: () {
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const ApplyNowScreen();
-                        },
-                      )
-                    );
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const ApplyNowScreen();
+                      },
+                    ));
                   },
                 )
               ],

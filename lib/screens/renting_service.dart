@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class JobPosting extends StatefulWidget {
-  const JobPosting({super.key});
+class RentingService extends StatefulWidget {
+  const RentingService({super.key});
 
   @override
-  State<JobPosting> createState() => _JobPostingState();
+  State<RentingService> createState() => _RentingServiceState();
 }
 
-class _JobPostingState extends State<JobPosting> {
+class _RentingServiceState extends State<RentingService> {
   TextEditingController nameController = TextEditingController();
 
   @override
@@ -31,7 +31,7 @@ class _JobPostingState extends State<JobPosting> {
                       horizontal: size.width * 0.32,
                       vertical: size.height * 0.03),
                   child: Text(
-                    'Job Details',
+                    'Service Details',
                     style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.bold),
@@ -78,14 +78,6 @@ class _JobPostingState extends State<JobPosting> {
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
-              hintText: 'Address',
-              obsecure: false,
-              icon: Icon(Icons.map,
-                  size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
-            ),
-            SizedBox(height: size.height * 0.025),
-            MyTextField(
               hintText: 'City',
               obsecure: false,
               icon: Icon(Icons.location_city,
@@ -110,15 +102,23 @@ class _JobPostingState extends State<JobPosting> {
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
-              hintText: 'Expected Pay',
+              hintText: 'Cost/hr',
               obsecure: false,
-              icon: Icon(CupertinoIcons.money_dollar,
+              icon: Icon(Icons.currency_rupee,
                   size: MediaQuery.of(context).size.height * 0.030),
               controller: nameController,
             ),
             SizedBox(height: size.height * 0.018),
+            MyTextField(
+              hintText: 'Duration',
+              obsecure: false,
+              icon: Icon(Icons.schedule_rounded,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: nameController,
+            ),
+            SizedBox(height: size.height * 0.025),
             MyButton(
-              text: 'Post Job',
+              text: 'Rent Service',
               width: size.width * 0.48,
               onPressed: () {},
             )

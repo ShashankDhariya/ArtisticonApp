@@ -1,19 +1,27 @@
 class Job {
   String provider;
-  String title;
-  String location;
-  String time;
+  String category;
+  String phone;
+  String address;
+  String city;
+  String State;
+  String Country;
   String pay;
+
   List<String> req;
-  Job(this.provider, this.title, this.location, this.time, this.pay, this.req);
+  Job(this.provider, this.category, this.phone, this.address, this.city,
+      this.State, this.Country, this.pay, this.req);
   static List<Job> generateJobs() {
     return [
       Job(
         'Dance pvt Ltd',
         'Choreographer',
-        'Rohini Sec 18\nNew delhi',
-        'Part time',
-        '3000',
+        '9014527825',
+        'Rohini Sec 18',
+        'Delhi',
+        'New Delhi',
+        'India',
+        '2000',
         [
           'A Choreographer needed for a wedding events',
           'Wedding will last for 3-4 days',
@@ -24,9 +32,12 @@ class Job {
       Job(
         'Media Entertainment',
         'Photographer',
-        'Patel Chest, Mukherjee Nagar\nOld Delhi',
-        'Part time',
-        '2600',
+        '9014527825',
+        'Clement Town',
+        'Dehradun',
+        'Uttarakhand',
+        'India',
+        '4000',
         [
           'A Photographer needed for a photoshoot',
           'Photoshoot will last for a single day',

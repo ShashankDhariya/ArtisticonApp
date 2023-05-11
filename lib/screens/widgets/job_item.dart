@@ -35,13 +35,14 @@ class JobItem extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            Text(job.title,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Text(job.category,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconText(Icons.location_on_outlined, job.location),
+                IconText(Icons.location_on_outlined, job.city),
               ],
             )
           ],
