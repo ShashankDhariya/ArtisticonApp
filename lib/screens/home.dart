@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         firebaseUser: widget.firebaseUser,
         userModel: widget.userModel,
       ),
-      const JobPost(),
+      JobPost(firebaseUser: widget.firebaseUser, userModel: widget.userModel),
       const RentArtist()
     ];
     return Scaffold(
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                   context: context,
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
-                  builder: (context) => const PostOrRentModal(),
+                  builder: (context) => PostOrRentModal(firebaseUser: widget.firebaseUser, userModel: widget.userModel,),
                 );
               } else {
                 setState(() {

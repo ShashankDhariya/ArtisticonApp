@@ -1,18 +1,81 @@
-import 'package:artist_icon/screens/components/my_text_field.dart';
-import 'package:artist_icon/screens/components/my_button.dart';
+import 'package:artist_icon/main.dart';
+import 'package:artist_icon/models/mylistings.dart';
+import 'package:artist_icon/screens/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:artist_icon/models/jobpost.dart';
+import 'package:artist_icon/models/user.dart';
+import 'package:artist_icon/screens/components/my_button.dart';
+import 'package:artist_icon/screens/components/my_text_field.dart';
+
 class JobPosting extends StatefulWidget {
-  const JobPosting({super.key});
+  final UserModel userModel;
+  final User firebaseUser;
+  const JobPosting({Key? key, required this.userModel, required this.firebaseUser,}) : super(key: key);
 
   @override
   State<JobPosting> createState() => _JobPostingState();
 }
 
 class _JobPostingState extends State<JobPosting> {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController citycontroller = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController paycontroller = TextEditingController();
+
+  void check(){
+    String category = categoryController.text.trim();
+    String desc = descController.text.trim();
+    String phone = phoneController.text.trim();
+    String address = addressController.text.trim();
+    String city = citycontroller.text.trim();
+    String state = stateController.text.trim();
+    String country = countryController.text.trim();
+    String pay = paycontroller.text.trim();
+    String jobid = uuid.v1();
+
+    JobPostModel jobpost = JobPostModel(
+      jobid: jobid,
+      provider: widget.userModel.name.toString(),
+      category: category,
+      desc: desc,
+      phone: phone,
+      address: address,
+      city: city,
+      state: state,
+      country: country,
+      pay: pay,
+    );
+
+    MyListingsModel listing = MyListingsModel(
+      category: category,
+      address: address,
+      pay: pay,
+    );
+    
+    FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyListings").doc(jobid).set(listing.toMap());
+
+    FirebaseFirestore.instance.collection("Jobs").doc(jobid).set(jobpost.toMap()).then((value) {
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder:(context) {
+            return HomePage(userModel: widget.userModel, firebaseUser: widget.firebaseUser);
+          },
+        ));
+    });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +108,7 @@ class _JobPostingState extends State<JobPosting> {
               obsecure: false,
               icon: Icon(Icons.person,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: categoryController,
             ),
             SizedBox(height: size.height * 0.018),
             Padding(
@@ -53,6 +116,7 @@ class _JobPostingState extends State<JobPosting> {
                 horizontal: MediaQuery.of(context).size.height * 0.03,
               ),
               child: TextField(
+                controller: descController,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.white),
@@ -74,7 +138,7 @@ class _JobPostingState extends State<JobPosting> {
               obsecure: false,
               icon: Icon(CupertinoIcons.phone,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: phoneController,
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
@@ -82,7 +146,7 @@ class _JobPostingState extends State<JobPosting> {
               obsecure: false,
               icon: Icon(Icons.map,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: addressController,
             ),
             SizedBox(height: size.height * 0.025),
             MyTextField(
@@ -90,7 +154,7 @@ class _JobPostingState extends State<JobPosting> {
               obsecure: false,
               icon: Icon(Icons.location_city,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: citycontroller,
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
@@ -98,7 +162,7 @@ class _JobPostingState extends State<JobPosting> {
               obsecure: false,
               icon: Icon(Icons.location_on,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: stateController,
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
@@ -106,7 +170,7 @@ class _JobPostingState extends State<JobPosting> {
               obsecure: false,
               icon: Icon(Icons.flag,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: countryController,
             ),
             SizedBox(height: size.height * 0.018),
             MyTextField(
@@ -114,13 +178,15 @@ class _JobPostingState extends State<JobPosting> {
               obsecure: false,
               icon: Icon(CupertinoIcons.money_dollar,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: paycontroller,
             ),
             SizedBox(height: size.height * 0.018),
             MyButton(
               text: 'Post Job',
               width: size.width * 0.48,
-              onPressed: () {},
+              onPressed: () {
+                check();
+              },
             )
           ],
         ),

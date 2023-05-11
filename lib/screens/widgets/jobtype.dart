@@ -1,11 +1,15 @@
+import 'package:artist_icon/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/widgets/jobposting_home.dart';
 import 'package:artist_icon/screens/widgets/rentservice_home.dart';
-import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class PostOrRentModal extends StatelessWidget {
-  const PostOrRentModal({super.key});
+  final UserModel userModel;
+  final User firebaseUser;
+  const PostOrRentModal({Key? key,required this.userModel,required this.firebaseUser}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class PostOrRentModal extends StatelessWidget {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return const JobPost();
+                  return JobPost(firebaseUser: firebaseUser, userModel: userModel);
                 },
               ));
             },

@@ -12,7 +12,15 @@ class RentingService extends StatefulWidget {
 }
 
 class _RentingServiceState extends State<RentingService> {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController citycontroller = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController paycontroller = TextEditingController();
+  TextEditingController durationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,7 @@ class _RentingServiceState extends State<RentingService> {
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: size.width * 0.32,
-                      vertical: size.height * 0.03),
+                      vertical: size.height * 0.02),
                   child: Text(
                     'Service Details',
                     style: GoogleFonts.montserrat(
@@ -45,14 +53,15 @@ class _RentingServiceState extends State<RentingService> {
               obsecure: false,
               icon: Icon(Icons.person,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: categoryController,
             ),
-            SizedBox(height: size.height * 0.018),
+            SizedBox(height: size.height * 0.015),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.height * 0.03,
               ),
               child: TextField(
+                controller: descController,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.white),
@@ -68,55 +77,63 @@ class _RentingServiceState extends State<RentingService> {
                     hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
-            SizedBox(height: size.height * 0.018),
+            SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Phone',
               obsecure: false,
               icon: Icon(CupertinoIcons.phone,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: phoneController,
             ),
-            SizedBox(height: size.height * 0.018),
+            SizedBox(height: size.height * 0.015),
+            MyTextField(
+              hintText: 'Address',
+              obsecure: false,
+              icon: Icon(Icons.map,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: addressController,
+            ),
+            SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'City',
               obsecure: false,
               icon: Icon(Icons.location_city,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: citycontroller,
             ),
-            SizedBox(height: size.height * 0.018),
+            SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'State',
               obsecure: false,
               icon: Icon(Icons.location_on,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: stateController,
             ),
-            SizedBox(height: size.height * 0.018),
+            SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Country',
               obsecure: false,
               icon: Icon(Icons.flag,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: countryController,
             ),
-            SizedBox(height: size.height * 0.018),
+            SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Cost/hr',
               obsecure: false,
               icon: Icon(Icons.currency_rupee,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: paycontroller,
             ),
-            SizedBox(height: size.height * 0.018),
+            SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Duration',
               obsecure: false,
               icon: Icon(Icons.schedule_rounded,
                   size: MediaQuery.of(context).size.height * 0.030),
-              controller: nameController,
+              controller: durationController,
             ),
-            SizedBox(height: size.height * 0.025),
+            SizedBox(height: size.height * 0.02),
             MyButton(
               text: 'Rent Service',
               width: size.width * 0.48,

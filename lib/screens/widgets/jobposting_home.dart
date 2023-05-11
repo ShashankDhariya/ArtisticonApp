@@ -1,8 +1,12 @@
-import 'package:artist_icon/screens/job_posting.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:artist_icon/models/user.dart';
+import 'package:artist_icon/screens/job_posting.dart';
 
 class JobPost extends StatefulWidget {
-  const JobPost({super.key});
+  final UserModel userModel;
+  final User firebaseUser;
+  const JobPost({Key? key, required this.userModel, required this.firebaseUser }) : super(key: key);
 
   @override
   State<JobPost> createState() => _JobPostState();
@@ -31,8 +35,8 @@ class _JobPostState extends State<JobPost> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                JobPosting()
+              children: [
+                JobPosting(firebaseUser: widget.firebaseUser, userModel: widget.userModel,)
               ],
             ),
           )

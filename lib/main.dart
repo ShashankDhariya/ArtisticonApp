@@ -6,15 +6,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:uuid/uuid.dart';
 
-Future<void> main() async {
+var uuid = const Uuid();
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   User? currentUser = FirebaseAuth.instance.currentUser;
   if (currentUser != null) {
-    UserModel? fetchUserModel =
-        await FirebaseHelper.getuserModelById(currentUser.uid);
+    UserModel? fetchUserModel = await FirebaseHelper.getuserModelById(currentUser.uid);
     log(currentUser.uid);
     if (fetchUserModel != null) {
       runApp(

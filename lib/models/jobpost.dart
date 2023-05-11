@@ -1,38 +1,53 @@
 class JobPostModel {
-  String? organization;
-  String? title;
+  String? jobid;
+  String? provider;
   String? category;
+  String? desc;
+  String? phone;
+  String? address;
   String? city;
-  num? salary;
-  String? requirements;
+  String? state;
+  String? country;
+  String? pay;
 
   JobPostModel({
-    this.organization,
-    this.title,
+    this.jobid,
+    this.provider,
+    this.desc,
     this.category,
+    this.phone,
+    this.address,
     this.city,
-    this.salary,
-    this.requirements,
+    this.state,
+    this.country,
+    this.pay,
   });
 
   JobPostModel.fromMap(Map<String, dynamic> map){
-    organization: map['organization'];
-    title: map['title'];
-    category: map['category'];
-    city: map['city'];
-    salary: map['salary'];
-    requirements: map['requirements'];
+    jobid: map["jobid"];
+    provider: map["provider"];
+    desc: map["desc"];
+    category: map["category"];
+    phone: map["phone"];
+    address: map["address"];
+    city: map["city"];
+    state: map["state"];
+    country: map["country"];
+    pay: map["pay"];
   }
 
   Map<String, dynamic> toMap(){
     return {
-      'organization': organization,
-      'title': title,
-      'category': category,
-      'city': city,
-      'salary': salary,
-      'requirements': requirements,
+      "jobid": jobid,
+      "provider": provider,
+      "desc": desc,
+      "category": category,
+      "phone": phone,
+      "address": address,
+      "city": city,
+      "state": state,
+      "country": country,
+      "pay": pay,
     };
   }
-
 }

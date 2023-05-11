@@ -50,6 +50,7 @@ dependencies:
   image_cropper: ^3.0.3
   firebase_storage: ^11.1.2
   cloud_firestore: ^4.6.0
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:
