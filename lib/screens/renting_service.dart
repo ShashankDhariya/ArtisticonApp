@@ -69,6 +69,7 @@ class _RentingServiceState extends State<RentingService> {
         country: country,
         pay: pay,
         duration: duration,
+        time: DateTime.now(),
       );
 
       MyListingsModel listing = MyListingsModel(
