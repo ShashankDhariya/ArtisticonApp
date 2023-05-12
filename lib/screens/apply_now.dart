@@ -1,11 +1,5 @@
 import 'dart:io';
-<<<<<<< HEAD
-=======
-
-import 'package:artist_icon/screens/components/my_button.dart';
-import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:flutter/cupertino.dart';
->>>>>>> c0296a03c3fdb3f85d405c2a4805b6e28c60acd3
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -67,8 +61,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF43B1B7),
-<<<<<<< HEAD
-=======
+
         foregroundColor: Colors.black,
         elevation: 0.4,
         leading: IconButton(
@@ -81,7 +74,6 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
           color: Colors.black,
         ),
         centerTitle: true,
->>>>>>> c0296a03c3fdb3f85d405c2a4805b6e28c60acd3
         title: Text(
           'Apply Now',
           style: GoogleFonts.nunito(
