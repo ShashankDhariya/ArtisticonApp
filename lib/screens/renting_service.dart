@@ -3,14 +3,12 @@ import 'package:artist_icon/models/mylistings.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:artist_icon/models/rentpost.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
-import 'package:uuid/uuid.dart';
 
 class RentingService extends StatefulWidget {
   final UserModel userModel;
