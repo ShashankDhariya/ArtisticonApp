@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
@@ -9,16 +8,10 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(context) {
+    String search;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 25),
       padding: const EdgeInsets.symmetric(
@@ -64,7 +57,9 @@ class _SearchBarState extends State<SearchBar> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _searchController,
+                    onChanged: (value) {
+                      search = value;
+                    },
                     decoration: const InputDecoration(
                       hintText: 'Search',
                       border: InputBorder.none,
@@ -74,7 +69,6 @@ class _SearchBarState extends State<SearchBar> {
                 GestureDetector(
                   onTap: () {
                     // Perform search with query
-                    log('Searching for ${_searchController.text}');
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
