@@ -1,12 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
+import 'package:artist_icon/models/rent.dart';
+import 'package:artist_icon/models/rentpost.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/rent_now.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
-import 'package:flutter/material.dart';
-import 'package:artist_icon/models/rent.dart';
 
 class RentDetail extends StatelessWidget {
-  final Rent rent;
-  const RentDetail(this.rent, {super.key});
+  final RentPostModel currRent;
+  const RentDetail({
+    Key? key,
+    required this.currRent,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,7 @@ class RentDetail extends StatelessWidget {
                     ),
                     SizedBox(width: size.width * 0.03),
                     Text(
-                      rent.provider,
+                      currRent.provider.toString(),
                       style: const TextStyle(
                         fontSize: 20,
                       ),
@@ -54,7 +60,7 @@ class RentDetail extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: size.height * 0.025),
-                Text(rent.title,
+                Text(currRent.category.toString(),
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -63,47 +69,16 @@ class RentDetail extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconText(Icons.location_on_outlined, rent.location),
-                    IconText(Icons.access_time_outlined, rent.time),
+                    IconText(Icons.location_on_outlined, currRent.city.toString()),
+                    IconText(Icons.access_time_outlined, currRent.pay.toString()),
                   ],
                 ),
                 SizedBox(height: size.height * 0.030),
                 const Text('Requirements',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
-                SizedBox(height: size.height * 0.01),
-                ...rent.req
-                    .map((e) => Container(
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              height: 5,
-                              width: 5,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(width: size.width * 0.025),
-                            ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxWidth: 300,
-                              ),
-                              child: Text(
-                                e,
-                                style: const TextStyle(
-                                  wordSpacing: 2,
-                                  height: 1.5,
-                                ),
-                              ),
-                            )
-                          ],
-                        )))
-                    .toList(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  )
+                ),
                 SizedBox(height: size.height * 0.025),
                 MyButton(
                   text: 'Rent Now',

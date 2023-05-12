@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:artist_icon/main.dart';
 import 'package:artist_icon/models/mylistings.dart';
 import 'package:artist_icon/screens/home.dart';
@@ -135,6 +134,8 @@ class _RentingServiceState extends State<RentingService> {
               ),
               child: TextField(
                 controller: descController,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.white),
@@ -151,12 +152,27 @@ class _RentingServiceState extends State<RentingService> {
               ),
             ),
             SizedBox(height: size.height * 0.015),
-            MyTextField(
-              hintText: 'Phone',
-              obsecure: false,
-              icon: Icon(CupertinoIcons.phone,
-                  size: MediaQuery.of(context).size.height * 0.030),
-              controller: phoneController,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.height * 0.03,
+              ),
+              child: TextField(
+                controller: phoneController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.phone),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Phone',
+                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+              ),
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
@@ -199,12 +215,27 @@ class _RentingServiceState extends State<RentingService> {
               controller: paycontroller,
             ),
             SizedBox(height: size.height * 0.015),
-            MyTextField(
-              hintText: 'Duration',
-              obsecure: false,
-              icon: Icon(Icons.schedule_rounded,
-                  size: MediaQuery.of(context).size.height * 0.030),
-              controller: durationController,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.height * 0.03,
+              ),
+              child: TextField(
+                controller: durationController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.schedule_rounded),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Duration',
+                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+              ),
             ),
             SizedBox(height: size.height * 0.02),
             MyButton(
