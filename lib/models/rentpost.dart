@@ -10,6 +10,7 @@ class RentPostModel {
   String? country;
   String? pay;
   String? duration;
+  DateTime? time;
 
   RentPostModel({
     this.rentid,
@@ -23,6 +24,7 @@ class RentPostModel {
     this.country,
     this.pay,
     this.duration,
+    this.time,
   });
 
   RentPostModel.fromMap(Map<String, dynamic> map){
@@ -37,6 +39,7 @@ class RentPostModel {
     country = map["country"];
     pay = map["pay"];
     duration = map["duration"];
+    time = map["time"].toDate();
   }
 
   Map<String, dynamic> toMap(){
@@ -52,6 +55,7 @@ class RentPostModel {
       "country": country,
       "pay": pay,
       "duration": duration,
+      "time": time,
     };
   }
 }
