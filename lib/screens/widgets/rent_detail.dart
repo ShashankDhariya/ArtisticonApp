@@ -1,7 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
-import 'package:artist_icon/models/rent.dart';
 import 'package:artist_icon/models/rentpost.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/rent_now.dart';
@@ -16,6 +13,7 @@ class RentDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String location = '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}';
     var size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(
@@ -26,7 +24,7 @@ class RentDetail extends StatelessWidget {
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           )),
-      height: size.height * 0.6,
+      height: size.height * 0.5,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -69,7 +67,7 @@ class RentDetail extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconText(Icons.location_on_outlined, currRent.city.toString()),
+                    IconText(Icons.location_on_outlined, location),
                     IconText(Icons.access_time_outlined, currRent.pay.toString()),
                   ],
                 ),
@@ -77,6 +75,28 @@ class RentDetail extends StatelessWidget {
                 const Text('Requirements',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                  )
+                ),
+                SizedBox(height: size.height * 0.015),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(width: size.width * 0.025),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: 300,
+                        ),
+                        child: Text(
+                          currRent.desc.toString(),
+                          style: const TextStyle(
+                            wordSpacing: 2,
+                            height: 1.5,
+                          ),
+                        ),
+                      )
+                    ],
                   )
                 ),
                 SizedBox(height: size.height * 0.025),
