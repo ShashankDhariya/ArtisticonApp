@@ -74,12 +74,12 @@ class _RentNowPageState extends State<RentNowPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Image.asset(
                   'assets/images/artistIcon.jpeg',
                   height: 105,
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 const SizedBox(height: 16.0),
                 TextField(
                   maxLines: null,
