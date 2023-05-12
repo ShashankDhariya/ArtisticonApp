@@ -4,13 +4,13 @@ class Job {
   String phone;
   String address;
   String city;
-  String State;
-  String Country;
+  String state;
+  String country;
   String pay;
 
   List<String> req;
   Job(this.provider, this.category, this.phone, this.address, this.city,
-      this.State, this.Country, this.pay, this.req);
+      this.state, this.country, this.pay, this.req);
   static List<Job> generateJobs() {
     return [
       Job(
