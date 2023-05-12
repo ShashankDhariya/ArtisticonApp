@@ -1,10 +1,14 @@
 import 'dart:io';
+
+import 'package:artist_icon/screens/components/my_button.dart';
+import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 
 class ApplyNowScreen extends StatefulWidget {
-  const ApplyNowScreen({super.key});
+  const ApplyNowScreen({Key? key}) : super(key: key);
 
   @override
   State<ApplyNowScreen> createState() => _ApplyNowScreenState();
@@ -58,7 +62,16 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Apply Now'),
+        backgroundColor: Color(0xFF43B1B7),
+        title: Text(
+          'Apply Now',
+          style: GoogleFonts.nunito(
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -67,39 +80,133 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextFormField(
+                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                Image.asset(
+                  'assets/images/artistIcon.jpeg',
+                  height: 105,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                TextField(
+                  maxLines: null,
                   controller: _nameController,
-                  decoration: const InputDecoration(labelText: 'Name'),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Name is required';
-                    }
-                    return null;
-                  },
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.person),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Name',
+                    hintStyle:
+                        TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                TextField(
+                  maxLines: null,
+                  controller: _videoLinkController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.videocam),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Video Link (optional)',
+                    hintStyle:
+                        TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                  ),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: _uploadPortfolio,
-                  child: const Text('Upload Portfolio'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    backgroundColor: Colors.teal.shade300,
+                  ),
+                  child: Text(
+                    'Upload Portfolio',
+                    style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
-                if (_portfolioFile != null) Text(_portfolioFile!.path),
-                const SizedBox(height: 16.0),
-                TextFormField(
-                  controller: _videoLinkController,
-                  decoration: const InputDecoration(labelText: 'Video Link'),
-                ),
+                if (_portfolioFile != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      _portfolioFile!.path,
+                      style: const TextStyle(fontSize: 14.0),
+                    ),
+                  ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: _uploadPhoto,
-                  child: const Text('Upload Photograph'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    backgroundColor: Colors.teal.shade300,
+                  ),
+                  child: Text(
+                    'Upload Photograph',
+                    style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
-                if (_photoFile != null) Image.file(_photoFile!, height: 200.0),
-                const SizedBox(height: 16.0),
+                if (_photoFile != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Image.file(
+                      _photoFile!,
+                      height: 200.0,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                const SizedBox(height: 32.0),
                 ElevatedButton(
                   onPressed: _submit,
-                  child: const Text('Submit'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    backgroundColor: const Color(0xFF43B1B7),
+                  ),
+                  child: Text(
+                    'Submit',
+                    style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
+                // MyButton(text: 'Submit', width: 40, onPressed: () {}),
               ],
             ),
           ),

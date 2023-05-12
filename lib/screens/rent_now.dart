@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class RentNowPage extends StatefulWidget {
@@ -10,15 +11,23 @@ class RentNowPage extends StatefulWidget {
 
 class _RentNowPageState extends State<RentNowPage> {
   late DateTime _selectedDate;
-  TextEditingController dateController = TextEditingController();
-  TextEditingController hoursController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController hoursController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _selectedDate = DateTime.now();
     dateController.text = DateFormat('yyyy-MM-dd').format(_selectedDate);
+  }
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      // Implement your submission logic here
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -36,72 +45,178 @@ class _RentNowPageState extends State<RentNowPage> {
   }
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Rent Now'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16.0),
-            const Text('Name'),
-            TextFormField(
-              decoration: const InputDecoration(
-                hintText: 'Enter your name',
-              ),
+        backgroundColor: const Color(0xFF43B1B7),
+        title: Text(
+          'Rent Now',
+          style: GoogleFonts.nunito(
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 16.0),
-            const Text('Date'),
-            GestureDetector(
-              onTap: () => _selectDate(context),
-              child: AbsorbPointer(
-                child: TextFormField(
-                  controller: dateController,
-                  keyboardType: TextInputType.datetime,
-                  decoration: const InputDecoration(
-                    hintText: 'Select date',
-                    suffixIcon: Icon(Icons.calendar_today),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                Image.asset(
+                  'assets/images/artistIcon.jpeg',
+                  height: 105,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                const SizedBox(height: 16.0),
+                TextField(
+                  maxLines: null,
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.person),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Name',
+                    hintStyle:
+                        TextStyle(color: Colors.grey.shade500, fontSize: 14),
                   ),
                 ),
-              ),
+                const SizedBox(height: 16.0),
+                TextField(
+                  maxLines: null,
+                  controller: hoursController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.access_time_outlined),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Enter number of hours',
+                    hintStyle:
+                        TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                TextField(
+                  maxLines: null,
+                  controller: hoursController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.group),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Enter number of people',
+                    hintStyle:
+                        TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                TextField(
+                  maxLines: null,
+                  controller: hoursController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.phone),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Enter phone number',
+                    hintStyle:
+                        TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                GestureDetector(
+                  onTap: () => _selectDate(context),
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      controller: dateController,
+                      keyboardType: TextInputType.datetime,
+                      decoration: InputDecoration(
+                        hintText: 'Select date',
+                        prefixIcon: const Icon(Icons.calendar_today),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(
+                              color: Colors
+                                  .black), // Set the border color to black
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade500),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade500),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: _submit,
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    backgroundColor: const Color(0xFF43B1B7),
+                  ),
+                  child: Text(
+                    'Submit',
+                    style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16.0),
-            const Text('Number of hours'),
-            TextFormField(
-              controller: hoursController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                hintText: 'Enter number of hours',
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            const Text('Phone Number'),
-            TextFormField(
-              controller: phoneController,
-              keyboardType: TextInputType.phone,
-              decoration: const InputDecoration(
-                hintText: 'Enter phone number',
-              ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Phone number cannot be empty';
-                } else if (value.length != 10) {
-                  return 'Please enter a valid 10-digit phone number';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16.0),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Rent Now'),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

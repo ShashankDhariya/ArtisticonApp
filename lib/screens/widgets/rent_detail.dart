@@ -12,7 +12,8 @@ class RentDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.05),
+      padding: EdgeInsets.symmetric(
+          vertical: size.height * 0.01, horizontal: size.width * 0.05),
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -103,9 +104,10 @@ class RentDetail extends StatelessWidget {
                           ],
                         )))
                     .toList(),
-                
                 SizedBox(height: size.height * 0.025),
-                MyButton(text: 'Apply Now', width: double.infinity, 
+                MyButton(
+                  text: 'Rent Now',
+                  width: double.infinity,
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {

@@ -15,7 +15,8 @@ void main() async {
 
   User? currentUser = FirebaseAuth.instance.currentUser;
   if (currentUser != null) {
-    UserModel? fetchUserModel = await FirebaseHelper.getuserModelById(currentUser.uid);
+    UserModel? fetchUserModel =
+        await FirebaseHelper.getuserModelById(currentUser.uid);
     log(currentUser.uid);
     if (fetchUserModel != null) {
       runApp(
@@ -37,7 +38,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         primaryColor: const Color(0xFF43B1B7),
       ),
       home: const Splash(),
@@ -48,8 +48,9 @@ class MyApp extends StatelessWidget {
 class MyAppLoggedIn extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const MyAppLoggedIn({super.key, required this.userModel, required this.firebaseUser});
-  
+  const MyAppLoggedIn(
+      {super.key, required this.userModel, required this.firebaseUser});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
