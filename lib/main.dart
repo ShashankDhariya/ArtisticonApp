@@ -48,9 +48,8 @@ class MyApp extends StatelessWidget {
 class MyAppLoggedIn extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-
-  const MyAppLoggedIn(
-      {super.key, required this.userModel, required this.firebaseUser});
+  const MyAppLoggedIn({super.key, required this.userModel, required this.firebaseUser});
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

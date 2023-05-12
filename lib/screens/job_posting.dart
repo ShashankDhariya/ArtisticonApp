@@ -3,10 +3,8 @@ import 'package:artist_icon/models/mylistings.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:artist_icon/models/jobpost.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
@@ -53,11 +51,14 @@ class _JobPostingState extends State<JobPosting> {
       state: state,
       country: country,
       pay: pay,
+      time: DateTime.now(),
     );
 
     MyListingsModel listing = MyListingsModel(
       category: category,
       address: address,
+      type: "Job",
+      time: DateTime.now(),
       pay: pay,
     );
     
@@ -73,7 +74,6 @@ class _JobPostingState extends State<JobPosting> {
           },
         ));
     });
-
   }
 
 
@@ -116,6 +116,7 @@ class _JobPostingState extends State<JobPosting> {
                 horizontal: MediaQuery.of(context).size.height * 0.03,
               ),
               child: TextField(
+                maxLines: null,
                 controller: descController,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -132,14 +133,31 @@ class _JobPostingState extends State<JobPosting> {
                     hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
+
             SizedBox(height: size.height * 0.018),
-            MyTextField(
-              hintText: 'Phone',
-              obsecure: false,
-              icon: Icon(CupertinoIcons.phone,
-                  size: MediaQuery.of(context).size.height * 0.030),
-              controller: phoneController,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.height * 0.03,
+              ),
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: phoneController,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.description),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Phone',
+                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+              ),
             ),
+
             SizedBox(height: size.height * 0.018),
             MyTextField(
               hintText: 'Address',
@@ -173,12 +191,27 @@ class _JobPostingState extends State<JobPosting> {
               controller: countryController,
             ),
             SizedBox(height: size.height * 0.018),
-            MyTextField(
-              hintText: 'Expected Pay',
-              obsecure: false,
-              icon: Icon(CupertinoIcons.money_dollar,
-                  size: MediaQuery.of(context).size.height * 0.030),
-              controller: paycontroller,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.height * 0.03,
+              ),
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: paycontroller,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.description),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Expected Pay',
+                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+              ),
             ),
             SizedBox(height: size.height * 0.018),
             MyButton(

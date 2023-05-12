@@ -33,11 +33,9 @@ class _HomeArtistState extends State<HomeArtist> {
               ),
             ],
           ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [const SearchBar(), JobList()],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [const SearchBar(), JobList()],
           )
         ],
       ),

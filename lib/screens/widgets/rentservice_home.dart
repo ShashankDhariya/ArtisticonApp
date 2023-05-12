@@ -1,9 +1,16 @@
-import 'package:artist_icon/screens/job_posting.dart';
-import 'package:artist_icon/screens/renting_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:artist_icon/models/user.dart';
+import 'package:artist_icon/screens/renting_service.dart';
 
 class RentService extends StatefulWidget {
-  const RentService({super.key});
+  final UserModel userModel;
+  final User firebaseUser;
+  const RentService({
+    Key? key,
+    required this.userModel,
+    required this.firebaseUser,
+  }) : super(key: key);
 
   @override
   State<RentService> createState() => _RentServiceState();
@@ -32,7 +39,7 @@ class _RentServiceState extends State<RentService> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [RentingService()],
+              children: [RentingService(firebaseUser: widget.firebaseUser, userModel: widget.userModel)],
             ),
           )
         ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../models/rent.dart';
 import 'icon_text.dart';
 

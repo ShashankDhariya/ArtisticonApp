@@ -1,6 +1,5 @@
 import 'package:artist_icon/models/job.dart';
 import 'package:flutter/material.dart';
-
 import 'icon_text.dart';
 
 class JobItem extends StatelessWidget {

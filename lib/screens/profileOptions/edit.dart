@@ -53,9 +53,6 @@ class _EditProfileState extends State<EditProfile> {
             MyTextField(hintText: 'Name', obsecure: true, icon: Icon(Icons.person_2, size: MediaQuery.of(context).size.height * 0.027), controller: nameController,),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             state? const CircularProgressIndicator(): MyButton(onPressed:() {
-              setState(() {
-                state = true;
-              });
             }, text:'Update', width: 200)
           ],
         ),

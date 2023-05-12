@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/user_details.dart';
@@ -54,12 +56,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
     else if(password.length <= 5){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
-    }
-
-    else if(cpassword.isNotEmpty && password.isNotEmpty && username.isNotEmpty){
-      setState(() {
-        state = true;
-      });
     }
 
     else if(await isEmailTaken(username)){

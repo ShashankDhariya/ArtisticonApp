@@ -1,10 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({super.key});
-
 
   @override
   State<SearchBar> createState() => _SearchBarState();
@@ -22,12 +20,12 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(context) {
     return Container(
-      margin: const EdgeInsets.all(25),
+      margin: const EdgeInsets.symmetric(horizontal: 25),
       padding: const EdgeInsets.symmetric(
-        horizontal: 25,
-        vertical: 40,
+        horizontal: 20,
+        vertical: 25,
       ),
-      height: 300,
+      height: 230,
       width: double.maxFinite,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),

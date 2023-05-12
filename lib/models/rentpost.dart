@@ -1,5 +1,5 @@
-class JobPostModel {
-  String? jobid;
+class RentPostModel {
+  String? rentid;
   String? provider;
   String? category;
   String? desc;
@@ -9,10 +9,10 @@ class JobPostModel {
   String? state;
   String? country;
   String? pay;
-  DateTime? time;
+  String? duration;
 
-  JobPostModel({
-    this.jobid,
+  RentPostModel({
+    this.rentid,
     this.provider,
     this.desc,
     this.category,
@@ -22,11 +22,11 @@ class JobPostModel {
     this.state,
     this.country,
     this.pay,
-    this.time,
+    this.duration,
   });
 
-  JobPostModel.fromMap(Map<String, dynamic> map){
-    jobid = map["jobid"];
+  RentPostModel.fromMap(Map<String, dynamic> map){
+    rentid = map["rentid"];
     provider = map["provider"];
     desc = map["desc"];
     category = map["category"];
@@ -36,12 +36,12 @@ class JobPostModel {
     state = map["state"];
     country = map["country"];
     pay = map["pay"];
-    time = map["time"].toDate;
+    duration = map["duration"];
   }
 
   Map<String, dynamic> toMap(){
     return {
-      "jobid": jobid,
+      "rentid": rentid,
       "provider": provider,
       "desc": desc,
       "category": category,
@@ -51,7 +51,7 @@ class JobPostModel {
       "state": state,
       "country": country,
       "pay": pay,
-      "time": time,
+      "duration": duration,
     };
   }
 }

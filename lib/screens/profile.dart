@@ -74,7 +74,7 @@ class Profile extends StatelessWidget {
                 ontap: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return const MyListings();
+                      return MyListings(userModel: userModel, firebaseUser: firebaseUser);
                     },
                   ));
                 },

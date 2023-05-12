@@ -50,7 +50,7 @@ class PostOrRentModal extends StatelessWidget {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return const RentService();
+                  return RentService(firebaseUser: firebaseUser, userModel: userModel);
                 },
               ));
             },
