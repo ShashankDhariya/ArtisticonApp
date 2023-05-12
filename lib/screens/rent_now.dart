@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -55,6 +56,18 @@ class _RentNowPageState extends State<RentNowPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF43B1B7),
+        foregroundColor: Colors.black,
+        elevation: 0.4,
+        leading: IconButton(
+          icon: const Icon(CupertinoIcons.left_chevron),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
+        centerTitle: true,
         title: Text(
           'Rent Now',
           style: GoogleFonts.nunito(

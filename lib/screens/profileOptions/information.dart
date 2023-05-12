@@ -122,23 +122,27 @@ final List<Info> demodata = [
   Info(
     image: 'assets/images/InfoScreen_jobsearch.png',
     title: "Search for the Jobs/work you've been looking for",
-    description: 'Hello',
+    description:
+        'Look for any Artistic jobs that anyone posts on this app and apply directly by clicking on the job of your choice',
   ),
   Info(
     image: 'assets/images/InfoScreen_jobpost.png',
     title: 'Post any kind of work/jobs',
-    description: 'Hello',
+    description:
+        'You can post any kind of Artistic work/job by going to the post section in the navigation bar and clicking on Post a Job',
   ),
   Info(
     image: 'assets/images/InfoScree_rentavail2.png',
     title:
         'Rent any Service ranging from Costumes to Studios on hourly/daily basis',
-    description: 'Hello',
+    description:
+        'You can post any kind of service that you want to provide on rent by going to the post section in the navigation bar and clicking on Rent a Service',
   ),
   Info(
     image: 'assets/images/InfoScreen_rentservice.png',
     title: 'Get any kind of Service like Studios, Costumes on rent',
-    description: 'Hello',
+    description:
+        'Avail any kind of Service on Rent in the Rent Section of Navigation Bar and directly click on rent now button to rent anything of your choice ',
   )
 ];
 
@@ -170,14 +174,14 @@ class InformationContent extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 25,
+          height: 35,
         ),
         Text(
           description,
           textAlign: TextAlign.center,
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
           ),
         ),
         const Spacer()
