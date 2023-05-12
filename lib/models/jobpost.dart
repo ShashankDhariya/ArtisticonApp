@@ -36,7 +36,7 @@ class JobPostModel {
     state = map["state"];
     country = map["country"];
     pay = map["pay"];
-    time = map["time"].toDate;
+    time = map["time"].toDate();
   }
 
   Map<String, dynamic> toMap(){
