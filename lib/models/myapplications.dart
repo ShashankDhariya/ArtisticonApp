@@ -12,10 +12,10 @@ class MyApplicationsModel {
   });
 
   MyApplicationsModel.fromMap(Map<String, dynamic>map){
-    organization: 'organization';
-    title: 'title';
-    status: 'status';
-    date: 'date';
+    organization = map['organization'];
+    title = map['title'];
+    status = map['status'];
+    date = map['date'];
   }
 
   Map<String, dynamic> toMap(){

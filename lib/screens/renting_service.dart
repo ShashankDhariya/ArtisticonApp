@@ -43,9 +43,9 @@ class _RentingServiceState extends State<RentingService> {
     String state = stateController.text.trim();
     String country = countryController.text.trim();
     String pay = paycontroller.text.trim();
-    String duration = durationController.text.trim();
 
-    if(category.isEmpty || desc.isEmpty || phone.isEmpty || address.isEmpty || city.isEmpty || state.isEmpty || country.isEmpty || pay.isEmpty || duration.isEmpty){
+
+    if(category.isEmpty || desc.isEmpty || phone.isEmpty || address.isEmpty || city.isEmpty || state.isEmpty || country.isEmpty || pay.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill out all the Fields")));
     }
     else if(phone.length != 10){
@@ -65,7 +65,6 @@ class _RentingServiceState extends State<RentingService> {
         state: state,
         country: country,
         pay: pay,
-        duration: duration,
         time: DateTime.now(),
       );
 
@@ -211,29 +210,6 @@ class _RentingServiceState extends State<RentingService> {
               icon: Icon(Icons.currency_rupee,
                   size: MediaQuery.of(context).size.height * 0.030),
               controller: paycontroller,
-            ),
-            SizedBox(height: size.height * 0.015),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.height * 0.03,
-              ),
-              child: TextField(
-                controller: durationController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    prefixIcon: const Icon(Icons.schedule_rounded),
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: 'Duration',
-                    hintStyle: TextStyle(color: Colors.grey.shade500)),
-              ),
             ),
             SizedBox(height: size.height * 0.02),
             MyButton(

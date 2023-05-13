@@ -9,7 +9,6 @@ class RentPostModel {
   String? state;
   String? country;
   String? pay;
-  String? duration;
   DateTime? time;
 
   RentPostModel({
@@ -23,7 +22,6 @@ class RentPostModel {
     this.state,
     this.country,
     this.pay,
-    this.duration,
     this.time,
   });
 
@@ -38,7 +36,6 @@ class RentPostModel {
     state = map["state"];
     country = map["country"];
     pay = map["pay"];
-    duration = map["duration"];
     time = map["time"].toDate();
   }
 
@@ -54,7 +51,6 @@ class RentPostModel {
       "state": state,
       "country": country,
       "pay": pay,
-      "duration": duration,
       "time": time,
     };
   }
