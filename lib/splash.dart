@@ -20,16 +20,13 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetoland() async {
-   await Future.delayed(const Duration(milliseconds: 2500), (){
-    Navigator.pushReplacement(
-      context, 
-      MaterialPageRoute(
-        builder:(context) {
+    await Future.delayed(const Duration(milliseconds: 2500), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) {
           return const LandScreen();
         },
-      )
-    );
-   });
+      ));
+    });
   }
 
   @override
@@ -41,11 +38,15 @@ class _SplashState extends State<Splash> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/images/artistIcon.jpeg',
+              Image.asset(
+                'assets/images/Artisticon_logo.png',
                 height: MediaQuery.of(context).size.height * 0.18,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.2,),
-              Lottie.asset('assets/images/loadingCircles.json', 
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+              ),
+              Lottie.asset(
+                'assets/images/loadingCircles.json',
                 height: MediaQuery.of(context).size.height * 0.15,
               ),
             ],
@@ -59,7 +60,8 @@ class _SplashState extends State<Splash> {
 class SplashLoggedIn extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const SplashLoggedIn({super.key, required this.userModel, required this.firebaseUser});
+  const SplashLoggedIn(
+      {super.key, required this.userModel, required this.firebaseUser});
 
   @override
   State<SplashLoggedIn> createState() => _SplashLoggedInState();
@@ -73,16 +75,16 @@ class _SplashLoggedInState extends State<SplashLoggedIn> {
   }
 
   _navigatetohome() async {
-   await Future.delayed(const Duration(milliseconds: 2500), (){
-    Navigator.pushReplacement(
-      context, 
-      MaterialPageRoute(
-        builder:(context) {
-          return HomePage(firebaseUser: widget.firebaseUser, userModel: widget.userModel,);
+    await Future.delayed(const Duration(milliseconds: 2500), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) {
+          return HomePage(
+            firebaseUser: widget.firebaseUser,
+            userModel: widget.userModel,
+          );
         },
-      )
-    );
-   });
+      ));
+    });
   }
 
   @override
@@ -94,11 +96,15 @@ class _SplashLoggedInState extends State<SplashLoggedIn> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/images/artistIcon.jpeg',
+              Image.asset(
+                'assets/images/Artisticon_logo.png',
                 height: MediaQuery.of(context).size.height * 0.18,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.2,),
-              Lottie.asset('assets/images/loadingCircles.json', 
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+              ),
+              Lottie.asset(
+                'assets/images/loadingCircles.json',
                 height: MediaQuery.of(context).size.height * 0.15,
               ),
             ],

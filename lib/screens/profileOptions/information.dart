@@ -27,59 +27,71 @@ class _InformationState extends State<Information> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: PageView.builder(
-                  itemCount: demodata.length,
-                  controller: _pageController,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _pageIndex = index;
-                    });
-                  },
-                  itemBuilder: (context, index) => InformationContent(
-                    image: demodata[index].image,
-                    title: demodata[index].title,
-                    description: demodata[index].description,
-                  ),
-                ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"),
+                fit: BoxFit.cover,
               ),
-              Row(
-                children: [
-                  ...List.generate(
-                      demodata.length,
-                      (index) => Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Indicator(isActive: index == _pageIndex),
-                          )),
-                  const Spacer(),
-                  SizedBox(
-                    height: 60,
-                    width: 60,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          _pageController.nextPage(
-                            curve: Curves.ease,
-                            duration: const Duration(milliseconds: 300),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                        ),
-                        child: Image.asset(
-                          "assets/images/arrow.png",
-                          color: Colors.white,
-                        )),
-                  ),
-                ],
-              )
-            ],
+            ),
           ),
-        ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      itemCount: demodata.length,
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _pageIndex = index;
+                        });
+                      },
+                      itemBuilder: (context, index) => InformationContent(
+                        image: demodata[index].image,
+                        title: demodata[index].title,
+                        description: demodata[index].description,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      ...List.generate(
+                          demodata.length,
+                          (index) => Padding(
+                                padding: const EdgeInsets.only(right: 4),
+                                child: Indicator(isActive: index == _pageIndex),
+                              )),
+                      const Spacer(),
+                      SizedBox(
+                        height: 60,
+                        width: 60,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              _pageController.nextPage(
+                                curve: Curves.ease,
+                                duration: const Duration(milliseconds: 300),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                            ),
+                            child: Image.asset(
+                              "assets/images/arrow.png",
+                              color: Colors.white,
+                            )),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -164,7 +176,10 @@ class InformationContent extends StatelessWidget {
           image,
           height: 250,
         ),
-        const Spacer(),
+        // const Spacer(),
+        const SizedBox(
+          height: 40,
+        ),
         Text(
           title,
           textAlign: TextAlign.center,
@@ -174,7 +189,7 @@ class InformationContent extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 35,
+          height: 40,
         ),
         Text(
           description,
