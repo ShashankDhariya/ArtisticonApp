@@ -182,7 +182,7 @@ class _JobListState extends State<JobList> {
                             },
                             child: Container(
                               height: size.height * 0.18,
-                              width: size.width * 0.8,
+                              width: size.width * 0.7,
                               padding: const EdgeInsets.all(20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
@@ -197,11 +197,12 @@ class _JobListState extends State<JobList> {
                                       Row(
                                         children: [
                                           Text(currJob.provider.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ))
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            )
+                                          ),
                                         ],
                                       )
                                     ],

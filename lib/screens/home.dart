@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       HomeArtist(firebaseUser: widget.firebaseUser,userModel: widget.userModel),
       PostOrRentModal(firebaseUser: widget.firebaseUser, userModel: widget.userModel,),
       // JobPost(firebaseUser: widget.firebaseUser, userModel: widget.userModel),
-      const RentArtist()
+      RentArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
     ];
     return Scaffold(
       appBar: AppBar(

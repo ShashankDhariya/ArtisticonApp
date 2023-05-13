@@ -1,11 +1,20 @@
-import 'package:artist_icon/models/rentpost.dart';
-import 'package:artist_icon/screens/widgets/rent_detail.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:artist_icon/models/rentpost.dart';
+import 'package:artist_icon/models/user.dart';
+import 'package:artist_icon/screens/widgets/rent_detail.dart';
+
 import 'icon_text.dart';
 
 class RentList extends StatefulWidget {
-  const RentList({super.key});
+  final UserModel userModel;
+  final User firebaseUser;
+  const RentList({
+    Key? key,
+    required this.userModel,
+    required this.firebaseUser,
+  }) : super(key: key);
 
   @override
   State<RentList> createState() => _RentListState();
@@ -119,7 +128,7 @@ class _RentListState extends State<RentList> {
                                 backgroundColor: Colors.transparent,
                                 isScrollControlled: true,
                                 context: context,
-                                builder: (context) => RentDetail(currRent: currRent));
+                                builder: (context) => RentDetail(currRent: currRent, firebaseUser: widget.firebaseUser, userModel: widget.userModel));
                             },
                             child: Container(
                               height: size.height * 0.18,
@@ -178,7 +187,7 @@ class _RentListState extends State<RentList> {
                                 backgroundColor: Colors.transparent,
                                 isScrollControlled: true,
                                 context: context,
-                                builder: (context) => RentDetail(currRent: currRent));
+                                builder: (context) => RentDetail(currRent: currRent, firebaseUser: widget.firebaseUser, userModel: widget.userModel));
                             },
                             child: Container(
                               height: size.height * 0.18,

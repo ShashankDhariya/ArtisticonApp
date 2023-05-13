@@ -1,8 +1,16 @@
-import 'package:artist_icon/screens/widgets/rent_list.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:artist_icon/models/user.dart';
+import 'package:artist_icon/screens/widgets/rent_list.dart';
 
 class RentArtist extends StatefulWidget {
-  const RentArtist({super.key});
+  final UserModel userModel;
+  final User firebaseUser;
+  const RentArtist({
+    Key? key,
+    required this.userModel,
+    required this.firebaseUser,
+  }) : super(key: key);
 
   @override
   State<RentArtist> createState() => _RentArtistState();
@@ -31,7 +39,7 @@ class _RentArtistState extends State<RentArtist> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [RentList()],
+              children: [RentList(firebaseUser: widget.firebaseUser, userModel: widget.userModel)],
             ),
           )
         ],
