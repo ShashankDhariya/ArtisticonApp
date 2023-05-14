@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:artist_icon/models/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +19,9 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController professionController = TextEditingController();
   bool state = false;
   File? img;
 
@@ -77,9 +76,30 @@ class _EditProfileState extends State<EditProfile> {
         });
   }
 
-  void _submit() {
-    if (_formKey.currentState!.validate()) {
-      // Implement your submission logic here
+  void submit() {
+    String name = nameController.text.trim();
+    String phone = phoneController.text.trim();
+    String profession = professionController.text.trim();
+
+    if(name.isEmpty && phone.isEmpty && profession.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No Update')));
+    }
+    else{
+      if(name.isNotEmpty){
+        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'name': name})
+        .then((value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Name Updated successfully'))))
+        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update name: $error'))));
+      }
+      else if(phone.isNotEmpty){
+        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'phone': phone})
+        .then((value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Phone number Updated successfully'))))
+        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update number: $error'))));
+      }
+      else if(profession.isNotEmpty){
+        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profession': profession})
+        .then((value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Profession Updated successfully'))))
+        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error'))));
+      }
     }
   }
 
@@ -128,140 +148,136 @@ class _EditProfileState extends State<EditProfile> {
             ),
           ),
           SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    CupertinoButton(
-                      onPressed: () {
-                        showInputImgOptions();
-                      },
-                      child: Stack(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: const Color(0xFFF5CEB8),
-                            foregroundColor: Colors.white,
-                            radius: MediaQuery.of(context).size.height * 0.1,
-                            backgroundImage: widget.userModel.profilePic != null
-                                ? NetworkImage(
-                                    widget.userModel.profilePic.toString())
-                                : null,
-                            child: widget.userModel.profilePic == null
-                                ? const Icon(Icons.person, size: 70)
-                                : null,
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xFF43B1B7),
-                              ),
-                              child: IconButton(
-                                onPressed: () {
-                                  // Add your camera icon on-press action here
-                                  showInputImgOptions();
-                                },
-                                icon: const Icon(
-                                  CupertinoIcons.camera_fill,
-                                  color: Colors.white,
-                                ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  CupertinoButton(
+                    onPressed: () {
+                      showInputImgOptions();
+                    },
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: const Color(0xFFF5CEB8),
+                          foregroundColor: Colors.white,
+                          radius: MediaQuery.of(context).size.height * 0.1,
+                          backgroundImage: NetworkImage(widget.userModel.profilePic.toString()),
+                          foregroundImage: img != null?
+                            FileImage(img!)
+                            : null,
+                          child: widget.userModel.profilePic == null? 
+                            const Icon(Icons.person, size: 70)
+                            : null,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color(0xFF43B1B7),
+                            ),
+                            child: IconButton(
+                              onPressed: () {
+                                showInputImgOptions();
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.camera_fill,
+                                color: Colors.white,
                               ),
                             ),
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.person),
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: widget.userModel.name,
+                      hintStyle: TextStyle(
+                          color: Colors.grey.shade500, fontSize: 14),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: phoneController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.phone),
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: widget.userModel.phone,
+                      hintStyle: TextStyle(
+                          color: Colors.grey.shade500, fontSize: 14),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: professionController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.art_track_sharp, size: 20),
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: widget.userModel.profession,
+                      hintStyle: TextStyle(
+                          color: Colors.grey.shade500, fontSize: 14),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  ElevatedButton(
+                    onPressed: submit,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      backgroundColor: const Color(0xFF43B1B7),
+                      fixedSize: const Size(150, 48),
+                    ),
+                    child: Text(
+                      'Update',
+                      style: GoogleFonts.nunito(
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    const SizedBox(height: 16.0),
-                    TextField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        prefixIcon: const Icon(Icons.person),
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-                        hintText: 'Name',
-                        hintStyle: TextStyle(
-                            color: Colors.grey.shade500, fontSize: 14),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    TextField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        prefixIcon: const Icon(Icons.person),
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-                        hintText: 'Username',
-                        hintStyle: TextStyle(
-                            color: Colors.grey.shade500, fontSize: 14),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    TextField(
-                      controller: phoneController,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        prefixIcon: const Icon(Icons.phone),
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-                        hintText: 'Update phone number',
-                        hintStyle: TextStyle(
-                            color: Colors.grey.shade500, fontSize: 14),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    ElevatedButton(
-                      onPressed: _submit,
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        backgroundColor: const Color(0xFF43B1B7),
-                        fixedSize: const Size(150, 48),
-                      ),
-                      child: Text(
-                        'Submit',
-                        style: GoogleFonts.nunito(
-                          textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

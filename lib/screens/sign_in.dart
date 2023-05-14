@@ -26,15 +26,15 @@ class _SignInPageState extends State<SignInPage> {
     String password = passwordController.text.trim();
 
     if (username.isEmpty && password.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please Enter Details')));
-    } else if (username.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please Enter Username')));
-    } else if (password.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please Enter Password')));
-    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Details')));
+    }
+    else if (username.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Username')));
+    } 
+    else if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Password')));
+    } 
+    else {
       log(username.toString());
       setState(() {
         state = true;
@@ -49,10 +49,9 @@ class _SignInPageState extends State<SignInPage> {
       credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: username, password: password);
       String uid = credential.user!.uid;
-      DocumentSnapshot userData =
-          await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-      UserModel userModel =
-          UserModel.fromMap(userData.data() as Map<String, dynamic>);
+      DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
+      UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
+
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacement(
           context,
@@ -64,14 +63,12 @@ class _SignInPageState extends State<SignInPage> {
         setState(() {
           state = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('No user found for that email.')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No user found for that email.')));
       } else if (e.code == 'wrong-password') {
         setState(() {
           state = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Wrong password provided for that user.')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Wrong password provided for that user.')));
       }
     }
   }

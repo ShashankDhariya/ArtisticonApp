@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:artist_icon/models/get_firebase_user.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/splash.dart';
@@ -16,7 +15,6 @@ void main() async {
   User? currentUser = FirebaseAuth.instance.currentUser;
   if (currentUser != null) {
     UserModel? fetchUserModel = await FirebaseHelper.getuserModelById(currentUser.uid);
-    log(currentUser.uid);
     if (fetchUserModel != null) {
       runApp(MyAppLoggedIn(userModel: fetchUserModel, firebaseUser: currentUser));
     } 

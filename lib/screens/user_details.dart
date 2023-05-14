@@ -233,11 +233,12 @@ class _UserDetailsState extends State<UserDetails> {
                     text: 'Sign Up',
                     width: 175,
                   ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
-    ));
+        ],
+      )
+    );
   }
 }
