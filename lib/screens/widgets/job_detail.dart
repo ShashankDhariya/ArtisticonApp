@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/models/jobpost.dart';
@@ -22,18 +21,16 @@ class JobDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     String location = '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}';
     var size = MediaQuery.of(context).size;
-    log(userModel.uid.toString());  
-    log('Halogen');  
-    log(currJob.uid.toString());
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: size.height * 0.01, horizontal: size.width * 0.05),
       decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          )),
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        )
+      ),
       height: size.height * 0.5,
       child: SingleChildScrollView(
         child: Column(
@@ -100,7 +97,13 @@ class JobDetail extends StatelessWidget {
                     ],
                   )),
                 SizedBox(height: size.height * 0.025),
-                currJob.uid.toString == userModel.uid.toString? const Text("Can't apply to own Listings")
+                currJob.uid.toString() == userModel.uid.toString()? 
+                MyButton(
+                  text: "Can't apply to own post",
+                  width: double.infinity,
+                  onPressed: () {
+                  },
+                )
                 :
                 MyButton(
                   text: 'Apply Now',

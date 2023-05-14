@@ -106,6 +106,14 @@ class RentDetail extends StatelessWidget {
                   )
                 ),
                 SizedBox(height: size.height * 0.025),
+                currRent.uid.toString == userModel.uid.toString? 
+                MyButton(
+                  text: "Can't apply to own post",
+                  width: double.infinity,
+                  onPressed: () {
+                  },
+                )
+                :
                 MyButton(
                   text: 'Rent Now',
                   width: double.infinity,

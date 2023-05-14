@@ -187,7 +187,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                       TextStyle(color: Colors.grey.shade500, fontSize: 14),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               TextField(
                 controller: phoneController,
                 keyboardType: TextInputType.number,
@@ -208,7 +208,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                       TextStyle(color: Colors.grey.shade500, fontSize: 14),
                 ),
               ),
-              const SizedBox(height: 16.0),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               TextField(
                 controller: videoLinkController,
                 decoration: InputDecoration(
@@ -228,7 +228,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                       TextStyle(color: Colors.grey.shade500, fontSize: 14),
                 ),
               ),
-              const SizedBox(height: 16.0),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               ElevatedButton(
                 onPressed: uploadPortfolio,
                 style: ElevatedButton.styleFrom(
@@ -256,7 +256,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                     style: const TextStyle(fontSize: 14.0),
                   ),
                 ),
-              const SizedBox(height: 16.0),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               ElevatedButton(
                 onPressed: uploadPhoto,
                 style: ElevatedButton.styleFrom(
@@ -285,7 +285,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
-              const SizedBox(height: 32.0),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               ElevatedButton(
                 onPressed: submit,
                 style: ElevatedButton.styleFrom(
