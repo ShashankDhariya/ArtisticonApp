@@ -1,5 +1,6 @@
 import 'package:artist_icon/models/job_apply.dart';
 import 'package:artist_icon/models/jobpost.dart';
+import 'package:artist_icon/models/rent_apply.dart';
 import 'package:artist_icon/screens/widgets/jobposting_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,7 +34,8 @@ class ApplicantsDetails extends StatelessWidget {
         )
       ),
       height: size.height * 0.5,
-      child: StreamBuilder(
+      child: listingsModel.type.toString() == "Job"?
+      StreamBuilder(
         stream: FirebaseFirestore.instance.collection("Jobs").doc(listingsModel.id.toString()).collection("Applications").snapshots(), 
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.active){
@@ -87,7 +89,57 @@ class ApplicantsDetails extends StatelessWidget {
             return const CircularProgressIndicator();
           }
         },
-      ),
+      )
+      :
+      StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("Rents").doc(listingsModel.id.toString()).collection("Applications").snapshots(), 
+        builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.active){
+            if(snapshot.hasData){
+              QuerySnapshot data = snapshot.data as QuerySnapshot;
+              return ListView.builder(
+                itemCount: data.docs.length,
+                itemBuilder:(context, index) {
+                  RentApplyModel currApplicant = RentApplyModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30)
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          Text('~${index+1}~'),
+                          const SizedBox(height: 10),
+                          Text("Name: ${currApplicant.name}"),
+                          const SizedBox(height: 10),
+                          Text("Number of People: ${currApplicant.people}"),
+                          const SizedBox(height: 10),
+                          Text("Date: ${currApplicant.date}"),
+                          const SizedBox(height: 10),
+                          Text("Number of hours: ${currApplicant.hrs}"),
+                          const SizedBox(height: 10)
+                        ]
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
+            else if(snapshot.hasError){
+              return const Center(child: Text("Unable to load data"));
+            }
+            else {
+              return const Center(child: Text("Nothing to show..."));
+            }
+          }
+          else{
+            return const CircularProgressIndicator();
+          }
+        },
+      )
     );
   }
 }
