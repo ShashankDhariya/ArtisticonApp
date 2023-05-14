@@ -1,7 +1,5 @@
 import 'package:artist_icon/models/job_apply.dart';
-import 'package:artist_icon/models/jobpost.dart';
 import 'package:artist_icon/models/rent_apply.dart';
-import 'package:artist_icon/screens/widgets/jobposting_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -60,9 +58,7 @@ class ApplicantsDetails extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(currApplicant.phone.toString()),
                           const SizedBox(height: 10),
-                          Image.network(currApplicant.img.toString(), 
-                            height: 100,
-                          ),
+                          Image.network(currApplicant.img.toString(), height: 100),
                           const SizedBox(height: 10),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
