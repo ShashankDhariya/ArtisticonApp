@@ -46,8 +46,7 @@ class _SignInPageState extends State<SignInPage> {
   void signIn(String username, String password) async {
     UserCredential? credential;
     try {
-      credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: username, password: password);
+      credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: username, password: password);
       String uid = credential.user!.uid;
       DocumentSnapshot userData =
           await FirebaseFirestore.instance.collection("Users").doc(uid).get();
