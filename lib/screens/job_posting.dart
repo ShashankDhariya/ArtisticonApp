@@ -60,6 +60,7 @@ class _JobPostingState extends State<JobPosting> {
       type: "Job",
       time: DateTime.now(),
       pay: pay,
+      id: jobid,
     );
     
     FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyListings").doc(jobid).set(listing.toMap());

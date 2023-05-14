@@ -1,3 +1,4 @@
+import 'package:artist_icon/applicants/applicants_details.dart';
 import 'package:artist_icon/models/mylistings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,30 +41,40 @@ class MyListings extends StatelessWidget {
                   MyListingsModel currListing = MyListingsModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                    child: Container(
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ListTile(
-                        trailing: CupertinoButton(
-                          onPressed: () { 
-                            
-                          },
-                          child: const Text('Delete')),
-                        leading: Text(currListing.type.toString()),
-                        title: Text(currListing.category.toString()),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 20),
-                            Text('Rs.${currListing.pay}'),
-                            const SizedBox(height: 10,),
-                            Text('Date :${currListing.time.toString()}'),
-                          ],
+                    child: InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) => ApplicantsDetails(firebaseUser: firebaseUser, userModel: userModel, listingsModel: currListing)
+                        );
+                      },
+                      child: Container(
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        
+                        child: ListTile(
+                          trailing: CupertinoButton(
+                            onPressed: () { 
+                              
+                            },
+                            child: const Text('Delete')),
+                          leading: Text(currListing.type.toString()),
+                          title: Text(currListing.category.toString()),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 20),
+                              Text('Rs.${currListing.pay}'),
+                              const SizedBox(height: 10,),
+                              Text('Date :${currListing.time.toString()}'),
+                            ],
+                          ),
+                          
+                        ),
                       ),
                     ),
                   );

@@ -6,7 +6,7 @@ class MyListingsModel {
   String? pay;
   String? type;
   DateTime? time;
-  List<String>? list;
+  String? id;
 
   MyListingsModel({
     this.category,
@@ -14,7 +14,7 @@ class MyListingsModel {
     this.pay,
     this.type,
     this.time,
-    this.list,
+    this.id,
   });
   
   MyListingsModel.fromMap(Map<String, dynamic>map){
@@ -23,7 +23,7 @@ class MyListingsModel {
     pay = map["pay"];
     type = map["type"];
     time = map["time"].toDate();
-    list = map["list"];
+    id = map["id"];
   }
 
   Map<String, dynamic> toMap(){
@@ -33,7 +33,7 @@ class MyListingsModel {
       "pay": pay,
       "type": type,
       "time": Timestamp.fromDate(time!),
-      "list": list,
+      "id": id,
     };
   }
 }

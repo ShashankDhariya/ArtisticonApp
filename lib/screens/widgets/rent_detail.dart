@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:artist_icon/models/rentpost.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_button.dart';

@@ -69,7 +69,7 @@ class _RentNowPageState extends State<RentNowPage> {
     
       // More Details can Also be added 
       RentPostModel myApplications = RentPostModel(
-        rentid: applyRid,
+        rentid: widget.rentPostModel.rentid.toString(),
         provider: widget.rentPostModel.provider.toString(),
         desc: widget.rentPostModel.desc.toString(),
         category: widget.rentPostModel.category.toString(),
@@ -80,9 +80,9 @@ class _RentNowPageState extends State<RentNowPage> {
         pay: widget.rentPostModel.pay.toString(),
         time: DateTime.now(),
       );
-      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(applyRid).set(myApplications.toMap());
-
-      FirebaseFirestore.instance.collection("Rents").doc(widget.rentPostModel.rentid.toString()).collection("Applications").doc(applyRid).set(rentApply.toMap()).then((value){
+      
+      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(widget.rentPostModel.rentid.toString()).set(myApplications.toMap());
+      FirebaseFirestore.instance.collection("Rents").doc(widget.rentPostModel.rentid.toString()).collection("Applications").doc(widget.userModel.uid.toString()).set(rentApply.toMap()).then((value){
         Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.push(
         context, 

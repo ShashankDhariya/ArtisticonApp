@@ -96,7 +96,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
       );
 
       JobPostModel myApplications = JobPostModel(
-        jobid: applyJid,
+        jobid: widget.jobpostmodel.jobid.toString(),
         provider: widget.jobpostmodel.provider.toString(),
         desc: widget.jobpostmodel.desc.toString(),
         category: widget.jobpostmodel.category.toString(),
@@ -109,9 +109,9 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
         time: DateTime.now(),
       );
 
-      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(applyJid).set(myApplications.toMap());
+      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(widget.jobpostmodel.jobid.toString()).set(myApplications.toMap());
 
-      FirebaseFirestore.instance.collection("Jobs").doc(widget.jobpostmodel.jobid.toString()).collection("Applications").doc(applyJid).set(applyjob.toMap()).then((value){
+      FirebaseFirestore.instance.collection("Jobs").doc(widget.jobpostmodel.jobid.toString()).collection("Applications").doc(widget.userModel.uid.toString()).set(applyjob.toMap()).then((value){
         Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.push(
         context, 

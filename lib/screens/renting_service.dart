@@ -74,6 +74,7 @@ class _RentingServiceState extends State<RentingService> {
         type: "Rent",
         pay: pay,
         time: DateTime.now(),
+        id: rentid
       );
     
       FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyListings").doc(rentid).set(listing.toMap());
