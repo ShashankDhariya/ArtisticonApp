@@ -51,12 +51,7 @@ class MyListings extends StatelessWidget {
             ),
           ),
           StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Users")
-                  .doc(userModel.uid.toString())
-                  .collection("MyListings")
-                  .orderBy("time", descending: true)
-                  .snapshots(),
+              stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").orderBy("time", descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
@@ -138,7 +133,8 @@ class MyListings extends StatelessWidget {
                 } else {
                   return const Center(child: CircularProgressIndicator());
                 }
-              }),
+              }
+            ),
         ],
       ),
     );

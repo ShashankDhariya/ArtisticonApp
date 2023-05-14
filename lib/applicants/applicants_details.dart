@@ -112,14 +112,45 @@ class ApplicantsDetails extends StatelessWidget {
                         children: [
                           const SizedBox(height: 10),
                           Text('~${index+1}~'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Name: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text(currApplicant.name.toString()),
+                            ],  
+                          ),
                           const SizedBox(height: 10),
-                          Text("Name: ${currApplicant.name}"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Number of people: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text(currApplicant.people.toString()),
+                            ],  
+                          ),
                           const SizedBox(height: 10),
-                          Text("Number of People: ${currApplicant.people}"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Date: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text(currApplicant.date.toString()),
+                            ],  
+                          ),
                           const SizedBox(height: 10),
-                          Text("Date: ${currApplicant.date}"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Number of hours: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text(currApplicant.hrs.toString()),
+                            ],  
+                          ),
                           const SizedBox(height: 10),
-                          Text("Number of hours: ${currApplicant.hrs}"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Phone: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text(currApplicant.phone.toString()),
+                            ],  
+                          ),         
                           const SizedBox(height: 10)
                         ]
                       ),
