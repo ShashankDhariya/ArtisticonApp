@@ -32,7 +32,7 @@ class _HomeArtistState extends State<HomeArtist> {
               ),
             ],
           ),
-            const JobList()
+            JobList(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
         ],
       ),
     );

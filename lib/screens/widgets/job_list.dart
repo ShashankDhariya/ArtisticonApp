@@ -1,11 +1,19 @@
-import 'package:artist_icon/models/jobpost.dart';
-import 'package:artist_icon/screens/widgets/icon_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:artist_icon/models/jobpost.dart';
+import 'package:artist_icon/models/user.dart';
+import 'package:artist_icon/screens/widgets/icon_text.dart';
 import 'job_detail.dart';
 
 class JobList extends StatefulWidget {
-  const JobList({super.key});
+  final UserModel userModel;
+  final User firebaseUser;
+  const JobList({
+    Key? key,
+    required this.userModel,
+    required this.firebaseUser,
+  }) : super(key: key);
 
   @override
   State<JobList> createState() => _JobListState();
@@ -119,7 +127,7 @@ class _JobListState extends State<JobList> {
                                 backgroundColor: Colors.transparent,
                                 isScrollControlled: true,
                                 context: context,
-                                builder: (context) => JobDetail(currJob: currJob));
+                                builder: (context) => JobDetail(currJob: currJob, firebaseUser: widget.firebaseUser, userModel: widget.userModel));
                             },
                             child: Container(
                               height: size.height * 0.18,
@@ -178,7 +186,7 @@ class _JobListState extends State<JobList> {
                                 backgroundColor: Colors.transparent,
                                 isScrollControlled: true,
                                 context: context,
-                                builder: (context) => JobDetail(currJob: currJob));
+                                builder: (context) => JobDetail(currJob: currJob, firebaseUser: widget.firebaseUser, userModel: widget.userModel));
                             },
                             child: Container(
                               height: size.height * 0.18,

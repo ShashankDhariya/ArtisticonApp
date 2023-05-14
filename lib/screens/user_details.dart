@@ -15,8 +15,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class UserDetails extends StatefulWidget {
   final String password;
   final String username;
-  const UserDetails(
-      {super.key, required this.password, required this.username});
+  const UserDetails({super.key, required this.password, required this.username});
 
   @override
   State<UserDetails> createState() => _UserDetailsState();
@@ -85,24 +84,18 @@ class _UserDetailsState extends State<UserDetails> {
     String phone = phoneController.text.trim();
 
     if (img == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Select profile picture')));
-    } else if (name == '') {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Enter name')));
-    } else if (phone == '') {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Enter phone number')));
-    } else if (phone.length != 10 ||
-        phone[0] == '5' ||
-        phone[0] == '4' ||
-        phone[0] == '3' ||
-        phone[0] == '2' ||
-        phone[0] == '1' ||
-        phone[0] == '0') {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Enter valid number')));
-    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Select profile picture')));
+    }
+    else if (name == '') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter name')));
+    }
+    else if (phone == '') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter phone number')));
+    }
+    else if (phone.length != 10 || phone[0] == '5' || phone[0] == '4' || phone[0] == '3' || phone[0] == '2' || phone[0] == '1' || phone[0] == '0') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter valid number')));
+    } 
+    else {
       setState(() {
         state = true;
       });
@@ -118,8 +111,7 @@ class _UserDetailsState extends State<UserDetails> {
         password: password,
       );
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
 
     String name = nameController.text.trim();
@@ -127,17 +119,12 @@ class _UserDetailsState extends State<UserDetails> {
     String profession = professionController.text.trim();
 
     if (credential != null) {
-      uploadData(name, phone, profession, credential.user!.uid,
-          credential.user as User);
+      uploadData(name, phone, profession, credential.user!.uid,credential.user as User);
     }
   }
 
-  void uploadData(String name, String phone, String profession, String uid,
-      User firebaseUser) async {
-    UploadTask uploadTask = FirebaseStorage.instance
-        .ref('ProfilePictures')
-        .child(uid)
-        .putFile(img!);
+  void uploadData(String name, String phone, String profession, String uid,User firebaseUser) async {
+    UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(uid).putFile(img!);
     TaskSnapshot snapshot = await uploadTask;
     String imgUrl = await snapshot.ref.getDownloadURL();
 
@@ -150,11 +137,7 @@ class _UserDetailsState extends State<UserDetails> {
       profession: profession,
     );
 
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .set(newUser.toMap())
-        .then((value) {
+    FirebaseFirestore.instance.collection('Users').doc(uid).set(newUser.toMap()).then((value) {
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
@@ -168,7 +151,7 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Stack(
+      body: Stack(
       fit: StackFit.expand,
       children: [
         Container(
@@ -192,12 +175,7 @@ class _UserDetailsState extends State<UserDetails> {
                     foregroundColor: Colors.white,
                     backgroundImage: img == null ? null : FileImage(img!),
                     radius: 70,
-                    child: img == null
-                        ? const Icon(
-                            Icons.person,
-                            size: 80,
-                          )
-                        : null,
+                    child: img == null? const Icon(Icons.person,size: 80): null,
                   ),
                 ),
                 SizedBox(height: size.height * 0.010),
@@ -247,15 +225,14 @@ class _UserDetailsState extends State<UserDetails> {
                     icon: const Icon(Icons.art_track_sharp, size: 20),
                     controller: professionController),
                 SizedBox(height: size.height * 0.035),
-                state
-                    ? const CircularProgressIndicator()
-                    : MyButton(
-                        onPressed: () {
-                          check();
-                        },
-                        text: 'Sign Up',
-                        width: 175,
-                      ),
+                state? const CircularProgressIndicator()
+                : MyButton(
+                    onPressed: () {
+                      check();
+                    },
+                    text: 'Sign Up',
+                    width: 175,
+                  ),
               ],
             ),
           ),

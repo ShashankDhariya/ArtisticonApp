@@ -34,29 +34,28 @@ class _SignUpPageState extends State<SignUpPage> {
     String cpassword = cPasswordController.text.trim();
 
     if (cpassword.isEmpty && password.isEmpty && username.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please enter details')));
-    } else if (username.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please enter username')));
-    } else if (password.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please enter password')));
-    } else if (cpassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please confirm password')));
-    } else if (cpassword != password) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Password do not match')));
-    } else if (password.length <= 5) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('The password provided is too weak.')));
-    } else if (await isEmailTaken(username)) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter details')));
+    } 
+    else if (username.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter username')));
+    } 
+    else if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter password')));
+    } 
+    else if (cpassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please confirm password')));
+    }
+    else if (cpassword != password) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match')));
+    } 
+    else if (password.length <= 5) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
+    } 
+    else if (await isEmailTaken(username)) {
       setState(() {
         state = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('The account already exists for that email.')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
     } else {
       setState(() {
         state = false;
@@ -144,8 +143,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: size.height * 0.025),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.02),
+                          horizontal: MediaQuery.of(context).size.height * 0.02),
                       child: Row(
                         children: [
                           const Expanded(
@@ -168,9 +166,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -188,8 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.transparent,

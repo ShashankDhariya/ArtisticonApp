@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:artist_icon/models/rentpost.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,7 +32,6 @@ class MyApplications extends StatelessWidget {
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.active){
             if(snapshot.hasData){
-              log(snapshot.data!.docs.length.toString());
               QuerySnapshot data = snapshot.data as QuerySnapshot;
               return ListView.builder(
                 itemCount: data.docs.length,

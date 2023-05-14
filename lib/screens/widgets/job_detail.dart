@@ -1,14 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:artist_icon/models/jobpost.dart';
+import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/apply_now.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
 
 class JobDetail extends StatelessWidget {
   final JobPostModel currJob;
+  final UserModel userModel;
+  final User firebaseUser;
   const JobDetail({
     Key? key,
     required this.currJob,
+    required this.userModel,
+    required this.firebaseUser,
   }) : super(key: key);
 
   @override
@@ -96,7 +104,7 @@ class JobDetail extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return const ApplyNowScreen();
+                        return ApplyNowScreen(firebaseUser: firebaseUser, jobpostmodel: currJob, userModel: userModel);
                       },
                     ));
                   },
