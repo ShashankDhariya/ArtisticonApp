@@ -58,6 +58,8 @@ class ApplicantsDetails extends StatelessWidget {
                           Text('~${index+1}~'),
                           Text(currApplicant.name.toString()),
                           const SizedBox(height: 10),
+                          Text(currApplicant.phone.toString()),
+                          const SizedBox(height: 10),
                           Image.network(currApplicant.img.toString(), 
                             height: 100,
                           ),
