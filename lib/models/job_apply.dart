@@ -3,6 +3,7 @@ class JobApplyModel {
   String? name;
   String? vid;
   String? img;
+  String? phone;
   String? portfolio;
 
   JobApplyModel({
@@ -10,6 +11,7 @@ class JobApplyModel {
     this.name,
     this.vid,
     this.img,
+    this.phone,
     this.portfolio,
   });
 
@@ -18,6 +20,7 @@ class JobApplyModel {
     name = map["name"];
     vid = map["vid"];
     img = map["img"];
+    phone = map["phone"];
     portfolio = map["portfolio"];
   }
 
@@ -27,6 +30,7 @@ class JobApplyModel {
       "name": name,
       "vid": vid,
       "img": img,
+      "phone": phone,
       "portfolio": portfolio,
     };
   }
