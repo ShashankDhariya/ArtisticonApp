@@ -1,7 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:artist_icon/models/jobpost.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/apply_now.dart';
@@ -23,6 +22,9 @@ class JobDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     String location = '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}';
     var size = MediaQuery.of(context).size;
+    log(userModel.uid.toString());  
+    log('Halogen');  
+    log(currJob.uid.toString());
     return Container(
       padding: EdgeInsets.symmetric(
           vertical: size.height * 0.01, horizontal: size.width * 0.05),
@@ -98,6 +100,8 @@ class JobDetail extends StatelessWidget {
                     ],
                   )),
                 SizedBox(height: size.height * 0.025),
+                currJob.uid.toString == userModel.uid.toString? const Text("Can't apply to own Listings")
+                :
                 MyButton(
                   text: 'Apply Now',
                   width: double.infinity,

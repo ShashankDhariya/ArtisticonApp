@@ -41,6 +41,7 @@ class _JobPostingState extends State<JobPosting> {
     String jobid = uuid.v1();
 
     JobPostModel jobpost = JobPostModel(
+      uid: widget.userModel.uid,
       jobid: jobid,
       provider: widget.userModel.name.toString(),
       category: category,

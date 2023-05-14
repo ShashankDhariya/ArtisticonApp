@@ -55,6 +55,7 @@ class _RentingServiceState extends State<RentingService> {
     else {
       String rentid = uuid.v1();
       RentPostModel rentPost = RentPostModel(
+        uid: widget.userModel.uid.toString(),
         rentid: rentid,
         provider: widget.userModel.name.toString(),
         desc: desc,

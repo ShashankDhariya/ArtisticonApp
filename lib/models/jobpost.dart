@@ -1,4 +1,5 @@
 class JobPostModel {
+  String? uid;
   String? jobid;
   String? provider;
   String? category;
@@ -12,6 +13,7 @@ class JobPostModel {
   DateTime? time;
 
   JobPostModel({
+    this.uid,
     this.jobid,
     this.provider,
     this.desc,
@@ -26,6 +28,7 @@ class JobPostModel {
   });
 
   JobPostModel.fromMap(Map<String, dynamic> map){
+    uid = map["uid"];
     jobid = map["jobid"];
     provider = map["provider"];
     desc = map["desc"];
@@ -41,6 +44,7 @@ class JobPostModel {
 
   Map<String, dynamic> toMap(){
     return {
+      "uid": uid,
       "jobid": jobid,
       "provider": provider,
       "desc": desc,

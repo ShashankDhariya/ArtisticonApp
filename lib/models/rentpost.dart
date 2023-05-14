@@ -1,4 +1,5 @@
 class RentPostModel {
+  String? uid;
   String? rentid;
   String? provider;
   String? category;
@@ -12,6 +13,7 @@ class RentPostModel {
   DateTime? time;
 
   RentPostModel({
+    this.uid,
     this.rentid,
     this.provider,
     this.desc,
@@ -26,6 +28,7 @@ class RentPostModel {
   });
 
   RentPostModel.fromMap(Map<String, dynamic> map){
+    uid = map["uid"];
     rentid = map["rentid"];
     provider = map["provider"];
     desc = map["desc"];
@@ -41,6 +44,7 @@ class RentPostModel {
 
   Map<String, dynamic> toMap(){
     return {
+      "uid": uid,
       "rentid": rentid,
       "provider": provider,
       "desc": desc,
