@@ -28,45 +28,62 @@ class LandScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(height: size.height * 0.20),
+                    SizedBox(height: size.height * 0.08),
+                    Text(
+                      "ARTISTICON",
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                    // SizedBox(height: size.height * 0.08),
+                    // Text("Where artists thrive",
+                    //     style: GoogleFonts.nunito(
+                    //         fontSize: 24,
+                    //         fontWeight: FontWeight.bold,
+                    //         color: Colors.black)),
+                    SizedBox(height: size.height * 0.10),
                     Image.asset(
                       'assets/images/Artisticon_logo.png',
                       height: size.height * 0.15,
                     ),
-                    SizedBox(height: size.height * 0.15),
-                    const Text(
-                        'Search Job\nPost Job\nGet Job\nRent Services\n'),
+                    SizedBox(height: size.height * 0.16),
+                    Text(
+                      'The Ultimate Creative Marketplace\n      Hire and Rent with ArtistIcon',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     SizedBox(height: size.height * 0.15),
                     MyButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return const SignUpPage();
-                          },
-                        ));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpPage(),
+                          ),
+                        );
                       },
                       text: 'Sign Up',
-                      width: size.width * 0.9,
+                      width: size.width * 0.4,
                     ),
                     SizedBox(height: size.height * 0.02),
                     MyButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return const SignInPage();
-                          },
-                        ));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignInPage(),
+                          ),
+                        );
                       },
                       text: 'Sign In',
-                      width: size.width * 0.9,
+                      width: size.width * 0.4,
                     ),
-                    SizedBox(height: size.height * 0.030),
-                    Text(
-                      '~ by Aditya Aswal',
-                      style: GoogleFonts.pacifico(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    // SizedBox(height: size.height * 0.030),
                   ],
                 ),
               ),

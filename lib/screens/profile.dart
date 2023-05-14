@@ -13,7 +13,8 @@ import 'package:google_fonts/google_fonts.dart';
 class Profile extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const Profile({super.key, required this.userModel, required this.firebaseUser});
+  const Profile(
+      {super.key, required this.userModel, required this.firebaseUser});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,7 @@ class Profile extends StatelessWidget {
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
               color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -84,7 +86,8 @@ class Profile extends StatelessWidget {
                     ontap: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return MyApplications(firebaseUser: firebaseUser, userModel: userModel);
+                          return MyApplications(
+                              firebaseUser: firebaseUser, userModel: userModel);
                         },
                       ));
                     },
