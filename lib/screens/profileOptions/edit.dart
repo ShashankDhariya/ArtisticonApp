@@ -94,7 +94,7 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF43B1B7),
+        backgroundColor: Colors.grey.shade100,
         foregroundColor: Colors.black,
         elevation: 0.4,
         leading: IconButton(
@@ -111,7 +111,7 @@ class _EditProfileState extends State<EditProfile> {
           'Edit Profile',
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -133,7 +133,7 @@ class _EditProfileState extends State<EditProfile> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -248,6 +248,7 @@ class _EditProfileState extends State<EditProfile> {
                           borderRadius: BorderRadius.circular(18),
                         ),
                         backgroundColor: const Color(0xFF43B1B7),
+                        fixedSize: const Size(150, 48),
                       ),
                       child: Text(
                         'Submit',

@@ -51,8 +51,8 @@ class LandScreen extends StatelessWidget {
                     SizedBox(height: size.height * 0.16),
                     Text(
                       'The Ultimate Creative Marketplace\n      Hire and Rent with ArtistIcon',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 20,
+                      style: GoogleFonts.nunito(
+                        fontSize: 18,
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                       ),
@@ -68,7 +68,7 @@ class LandScreen extends StatelessWidget {
                         );
                       },
                       text: 'Sign Up',
-                      width: size.width * 0.4,
+                      width: size.width * 0.5,
                     ),
                     SizedBox(height: size.height * 0.02),
                     MyButton(
@@ -81,7 +81,7 @@ class LandScreen extends StatelessWidget {
                         );
                       },
                       text: 'Sign In',
-                      width: size.width * 0.4,
+                      width: size.width * 0.5,
                     ),
                     // SizedBox(height: size.height * 0.030),
                   ],

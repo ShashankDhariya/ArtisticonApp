@@ -12,7 +12,8 @@ import 'package:artist_icon/screens/widgets/rent_artist.dart';
 class HomePage extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const HomePage({super.key, required this.userModel, required this.firebaseUser});
+  const HomePage(
+      {super.key, required this.userModel, required this.firebaseUser});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -24,8 +25,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> widgetOptions = [
-      HomeArtist(firebaseUser: widget.firebaseUser,userModel: widget.userModel),
-      PostOrRentModal(firebaseUser: widget.firebaseUser, userModel: widget.userModel,),
+      HomeArtist(
+          firebaseUser: widget.firebaseUser, userModel: widget.userModel),
+      PostOrRentModal(
+        firebaseUser: widget.firebaseUser,
+        userModel: widget.userModel,
+      ),
       // JobPost(firebaseUser: widget.firebaseUser, userModel: widget.userModel),
       RentArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
     ];
@@ -74,7 +79,13 @@ class _HomePageState extends State<HomePage> {
                   context: context,
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
-                  builder: (context) => PostOrRentModal(firebaseUser: widget.firebaseUser, userModel: widget.userModel,),
+                  builder: (context) => Container(
+                    height: 250, // set the height here
+                    child: PostOrRentModal(
+                      firebaseUser: widget.firebaseUser,
+                      userModel: widget.userModel,
+                    ),
+                  ),
                 );
               } else {
                 setState(() {

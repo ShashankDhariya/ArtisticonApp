@@ -46,7 +46,8 @@ class _SignInPageState extends State<SignInPage> {
   void signIn(String username, String password) async {
     UserCredential? credential;
     try {
-      credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: username, password: password);
+      credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: username, password: password);
       String uid = credential.user!.uid;
       DocumentSnapshot userData =
           await FirebaseFirestore.instance.collection("Users").doc(uid).get();
@@ -117,7 +118,7 @@ class _SignInPageState extends State<SignInPage> {
                       hintText: 'Username',
                       obsecure: false,
                       icon: Icon(Icons.person,
-                          size: MediaQuery.of(context).size.height * 0.035),
+                          size: MediaQuery.of(context).size.height * 0.030),
                       controller: usernameController,
                     ),
                     SizedBox(
@@ -126,7 +127,7 @@ class _SignInPageState extends State<SignInPage> {
                       hintText: 'Password',
                       obsecure: true,
                       icon: Icon(Icons.lock,
-                          size: MediaQuery.of(context).size.height * 0.035),
+                          size: MediaQuery.of(context).size.height * 0.030),
                       controller: passwordController,
                     ),
                     SizedBox(
