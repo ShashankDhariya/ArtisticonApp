@@ -141,9 +141,12 @@ class _JobListState extends State<JobList> {
                                   width: size.width * 0.8,
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Colors.grey.shade100,
-                                  ),
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/list_tile_background.jpg"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20)),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
