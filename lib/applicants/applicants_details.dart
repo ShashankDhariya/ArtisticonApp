@@ -24,13 +24,14 @@ class ApplicantsDetails extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(
-          vertical: size.height * 0.01, horizontal: size.width * 0.05),
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
+      vertical: size.height * 0.01, horizontal: size.width * 0.05),
+      decoration: BoxDecoration(
+          color: Colors.grey.shade200,
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
-          )),
+        )
+      ),
       height: size.height * 0.5,
       child: StreamBuilder(
         stream: FirebaseFirestore.instance.collection("Jobs").doc(listingsModel.id.toString()).collection("Applications").snapshots(), 
@@ -42,15 +43,34 @@ class ApplicantsDetails extends StatelessWidget {
                 itemCount: data.docs.length,
                 itemBuilder:(context, index) {
                   JobApplyModel currApplicant = JobApplyModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
-                  return Container(
-                    child: Column(
-                      children: [
-                        Text(currApplicant.name.toString()),
-                        Image.network(currApplicant.img.toString(), 
-                          height: 100,
-                        ),
-                        currApplicant.vid == null? circle(): Text(currApplicant.vid.toString()),
-                    ]
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30)
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          Text('~${index+1}~'),
+                          Text(currApplicant.name.toString()),
+                          const SizedBox(height: 10),
+                          Image.network(currApplicant.img.toString(), 
+                            height: 100,
+                          ),
+                          const SizedBox(height: 10),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(currApplicant.portfolio.toString()),
+                          ),
+                          const SizedBox(height: 10),
+                          currApplicant.vid == null? circle(): Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(currApplicant.vid.toString()),
+                          ),
+                        ]
+                      ),
                     ),
                   );
                 },
@@ -60,7 +80,7 @@ class ApplicantsDetails extends StatelessWidget {
               return const Center(child: Text("Unable to load data"));
             }
             else {
-              return const Center(child: Text("Nothing to show"));
+              return const Center(child: Text("Nothing to show..."));
             }
           }
           else{
