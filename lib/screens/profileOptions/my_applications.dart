@@ -9,9 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 class MyApplications extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const MyApplications(
-      {Key? key, required this.userModel, required this.firebaseUser})
-      : super(key: key);
+  const MyApplications({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +48,7 @@ class MyApplications extends StatelessWidget {
             ),
           ),
           StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Users")
-                  .doc(userModel.uid.toString())
-                  .collection("MyApplications")
-                  .orderBy("time", descending: true)
-                  .snapshots(),
+              stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyApplications").orderBy("time", descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
@@ -105,12 +98,9 @@ class MyApplications extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                          '${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
+                                      Text('${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
                                       const SizedBox(height: 10),
-                                      Text(currApplication.time
-                                          .toString()
-                                          .substring(0, 10)),
+                                      Text(currApplication.time.toString().substring(0, 10)),
                                     ],
                                   ),
                                 ),

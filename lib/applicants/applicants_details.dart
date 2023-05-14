@@ -5,7 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/models/mylistings.dart';
 import 'package:artist_icon/models/user.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+bool isLink(String text) {
+  Uri? uri = Uri.tryParse(text);
+  if (uri == null) return false;
+  return uri.hasScheme && uri.hasAuthority;
+}
 
 class ApplicantsDetails extends StatelessWidget {
   final MyListingsModel listingsModel;
@@ -60,16 +66,45 @@ class ApplicantsDetails extends StatelessWidget {
                           const SizedBox(height: 10),
                           Image.network(currApplicant.img.toString(), height: 100),
                           const SizedBox(height: 10),
-                          
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(currApplicant.portfolio.toString()),
+
+                          GestureDetector(
+                            onTap: () async {
+                              if (!await launchUrl(
+                                Uri.parse(currApplicant.portfolio.toString()),
+                                mode: LaunchMode.externalApplication,
+                              )) {
+                                throw Exception('Could not launch $Uri.parse(currApplicant.portfolio.toString()');
+                              }
+                            },
+                            child: const Text(
+                              'Portfolio',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
                           ),
                           const SizedBox(height: 10),
-                          currApplicant.vid == null? circle(): Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(currApplicant.vid.toString()),
-                          ),
+
+                          isLink(currApplicant.vid.toString())?
+                          GestureDetector(
+                            onTap: () async {
+                              if (!await launchUrl(
+                                Uri.parse(currApplicant.vid.toString()),
+                                mode: LaunchMode.externalApplication,
+                              )) {
+                                throw Exception('Could not launch $Uri.parse(currApplicant.vid.toString()');
+                              }
+                            },
+                            child: const Text(
+                              'Video',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ):
+                          const Text("No video attached")
                         ]
                       ),
                     ),
