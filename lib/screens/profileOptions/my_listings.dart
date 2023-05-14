@@ -92,7 +92,7 @@ class MyListings extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         image: const DecorationImage(
                                           image: AssetImage(
-                                              "/Users/yashpundir/Documents/ArtisticonApp/assets/images/list_tile_background.jpg"),
+                                              "assets/images/list_tile_background.jpg"),
                                           fit: BoxFit.cover,
                                         ),
                                         borderRadius:
