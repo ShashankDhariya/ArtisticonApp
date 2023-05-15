@@ -59,7 +59,7 @@ class ApplicantsDetails extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Container(
                               decoration: BoxDecoration(
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                   image: AssetImage(
                                       "assets/images/job_tile_background3.jpg"),
                                   fit: BoxFit.cover,
@@ -71,7 +71,7 @@ class ApplicantsDetails extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   Text(
                                     '~${index + 1}~',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -146,7 +146,7 @@ class ApplicantsDetails extends StatelessWidget {
                                         ),
                                   const SizedBox(height: 10),
                                   Padding(
-                                    padding: EdgeInsets.only(left: 35),
+                                    padding: const EdgeInsets.only(left: 35),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -159,7 +159,7 @@ class ApplicantsDetails extends StatelessWidget {
                                               fontSize: 14),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left:
                                                   10.0), // Add left padding of 10
                                           child: GestureDetector(
@@ -172,7 +172,7 @@ class ApplicantsDetails extends StatelessWidget {
                                                   "https://wa.me/+91$phoneNumber";
                                               launch(url);
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               LineIcons
                                                   .whatSApp, // Use the WhatsApp icon from LineIcons
                                               color: Colors.green,

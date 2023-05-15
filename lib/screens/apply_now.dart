@@ -59,9 +59,9 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
 
   void cropImg(XFile file) async {
     CroppedFile? croppedImg = await ImageCropper().cropImage(
-      sourcePath: file.path,
-      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-      compressQuality: 20);
+        sourcePath: file.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressQuality: 20);
     if (croppedImg != null) {
       setState(() {
         img = File(croppedImg.path);
@@ -72,18 +72,21 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
   Future<void> submit() async {
     String vidLink = videoLinkController.text;
     String name = nameController.text.trim();
-    
-    if(name.isEmpty || img == null || portfolioFile == null){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please fill all the fields')));
-    }
 
-    else {
+    if (name.isEmpty || img == null || portfolioFile == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please fill all the fields')));
+    } else {
       var applyJid = const Uuid().v1();
-      UploadTask uploadTask1 = FirebaseStorage.instance.ref('Images').child(applyJid).putFile(img!);
+      UploadTask uploadTask1 =
+          FirebaseStorage.instance.ref('Images').child(applyJid).putFile(img!);
       TaskSnapshot snapshot1 = await uploadTask1;
       String imgUrl = await snapshot1.ref.getDownloadURL();
 
-      UploadTask uploadTask2 = FirebaseStorage.instance.ref('Portfolio').child(applyJid).putFile(portfolioFile!);
+      UploadTask uploadTask2 = FirebaseStorage.instance
+          .ref('Portfolio')
+          .child(applyJid)
+          .putFile(portfolioFile!);
       TaskSnapshot snapshot2 = await uploadTask2;
       String portfolioUrl = await snapshot2.ref.getDownloadURL();
 
@@ -110,15 +113,25 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
         time: DateTime.now(),
       );
 
-      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(widget.jobpostmodel.jobid.toString()).set(myApplications.toMap());
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(widget.userModel.uid.toString())
+          .collection("MyApplications")
+          .doc(widget.jobpostmodel.jobid.toString())
+          .set(myApplications.toMap());
 
-      FirebaseFirestore.instance.collection("Jobs").doc(widget.jobpostmodel.jobid.toString()).collection("Applications").doc(widget.userModel.uid.toString()).set(applyjob.toMap()).then((value){
+      FirebaseFirestore.instance
+          .collection("Jobs")
+          .doc(widget.jobpostmodel.jobid.toString())
+          .collection("Applications")
+          .doc(widget.userModel.uid.toString())
+          .set(applyjob.toMap())
+          .then((value) {
         Navigator.popUntil(context, (route) => route.isFirst);
-        Navigator.push(
-        context, 
-        MaterialPageRoute(
-          builder:(context) {
-            return HomePage(userModel: widget.userModel, firebaseUser: widget.firebaseUser);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return HomePage(
+                userModel: widget.userModel, firebaseUser: widget.firebaseUser);
           },
         ));
       });
@@ -130,7 +143,6 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF43B1B7),
-
         foregroundColor: Colors.black,
         elevation: 0.4,
         leading: IconButton(
@@ -153,132 +165,149 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.07),
-              Image.asset(
-                'assets/images/artistIcon.jpeg',
-                height: 105,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"),
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.07),
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.person),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Name',
-                  hintStyle:
-                      TextStyle(color: Colors.grey.shade500, fontSize: 14),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-              TextField(
-                controller: videoLinkController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.videocam),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Video Link (optional)',
-                  hintStyle:
-                      TextStyle(color: Colors.grey.shade500, fontSize: 14),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-              ElevatedButton(
-                onPressed: uploadPortfolio,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  backgroundColor: Colors.teal.shade300,
-                ),
-                child: Text(
-                  'Upload Portfolio',
-                  style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              if (portfolioFile != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    portfolioFile!.path,
-                    style: const TextStyle(fontSize: 14.0),
-                  ),
-                ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-              ElevatedButton(
-                onPressed: uploadPhoto,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  backgroundColor: Colors.teal.shade300,
-                ),
-                child: Text('Upload Photograph',
-                  style: GoogleFonts.nunito(textStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                ),
-              ),
-              if (img != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Image.file(
-                    img!,
-                    height: 200.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.035),
-              ElevatedButton(
-                onPressed: submit,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  backgroundColor: const Color(0xFF43B1B7),
-                ),
-                child: Text(
-                  'Submit',
-                  style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                  Image.asset(
+                    'assets/images/Artisticon_logo.png',
+                    height: 105,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                  TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.person),
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: 'Name',
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                  TextField(
+                    controller: videoLinkController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.videocam),
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: 'Video Link (optional)',
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                  ElevatedButton(
+                    onPressed: uploadPortfolio,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      backgroundColor: Colors.teal.shade300,
+                    ),
+                    child: Text(
+                      'Upload Portfolio',
+                      style: GoogleFonts.nunito(
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  if (portfolioFile != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        portfolioFile!.path,
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                    ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                  ElevatedButton(
+                    onPressed: uploadPhoto,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      backgroundColor: Colors.teal.shade300,
+                    ),
+                    child: Text(
+                      'Upload Photograph',
+                      style: GoogleFonts.nunito(
+                          textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  if (img != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Image.file(
+                        img!,
+                        height: 200.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.035),
+                  ElevatedButton(
+                    onPressed: submit,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      backgroundColor: const Color(0xFF43B1B7),
+                    ),
+                    child: Text(
+                      'Submit',
+                      style: GoogleFonts.nunito(
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
