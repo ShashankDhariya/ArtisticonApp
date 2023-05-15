@@ -87,19 +87,20 @@ class _EditProfileState extends State<EditProfile> {
     else{
       if(name.isNotEmpty){
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'name': name})
-        .then((value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Name Updated successfully'))))
+        .then((value){} )
         .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update name: $error'))));
       }
       else if(phone.isNotEmpty){
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'phone': phone})
-        .then((value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Phone number Updated successfully'))))
+        .then((value) {} )
         .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update number: $error'))));
       }
       else if(profession.isNotEmpty){
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profession': profession})
-        .then((value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Profession Updated successfully'))))
+        .then((value) {} )
         .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error'))));
       }
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Updated successfully...')));
     }
   }
 

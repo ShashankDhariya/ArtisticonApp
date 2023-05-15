@@ -22,6 +22,7 @@ class RentList extends StatefulWidget {
 
 class _RentListState extends State<RentList> {
   String search = "";
+  String location = "";
   @override
   Widget build(context) {
     var size = MediaQuery.of(context).size;
@@ -35,7 +36,7 @@ class _RentListState extends State<RentList> {
             horizontal: 20,
             vertical: 25,
           ),
-          height: 280,
+          height: 290,
           width: double.maxFinite,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -74,9 +75,9 @@ class _RentListState extends State<RentList> {
                   children: [
                     Expanded(
                       child: TextField(
-                        onChanged: (value) {
+                        onChanged: (val) {
                           setState(() {
-                            search = value;
+                            search = val;
                           });
                         },
                         decoration: const InputDecoration(
@@ -114,9 +115,9 @@ class _RentListState extends State<RentList> {
                   children: [
                     Expanded(
                       child: TextField(
-                        onChanged: (value) {
+                        onChanged: (val) {
                           setState(() {
-                            search = value;
+                            location = val;
                           });
                         },
                         decoration: const InputDecoration(
@@ -148,10 +149,7 @@ class _RentListState extends State<RentList> {
         // List of Available Jobs
         Expanded(
           child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("Rents")
-                .orderBy("time", descending: true)
-                .snapshots(),
+            stream: FirebaseFirestore.instance.collection("Rents").orderBy("time", descending: true).snapshots(),
             builder: (context, snapshot) {
               return snapshot.connectionState == ConnectionState.waiting
                   ? const Center(child: CircularProgressIndicator())
@@ -161,7 +159,7 @@ class _RentListState extends State<RentList> {
                         RentPostModel currRent = RentPostModel.fromMap(
                             snapshot.data!.docs[index].data());
 
-                        if (search.isEmpty) {
+                        if (search.isEmpty && location.isEmpty) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.width * 0.05,
@@ -178,13 +176,12 @@ class _RentListState extends State<RentList> {
                                         userModel: widget.userModel));
                               },
                               child: Container(
-                                  height: size.height * 0.18,
-                                  width: size.width * 0.8,
+                                  height: 135,
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
                                       image: const DecorationImage(
                                         image: AssetImage(
-                                            "/Users/yashpundir/Documents/ArtisticonApp/assets/images/job_tile_background3.jpg"),
+                                            "assets/images/job_tile_background3.jpg"),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(20)),
@@ -193,49 +190,42 @@ class _RentListState extends State<RentList> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
                                             children: [
                                               Text(currRent.provider.toString(),
-                                                  style: const TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ))
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                )
+                                              )
                                             ],
                                           )
                                         ],
                                       ),
                                       const SizedBox(height: 15),
                                       Text(currRent.category.toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16)),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16)),
                                       const SizedBox(height: 15),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          IconText(Icons.location_on_outlined,
-                                              currRent.city.toString()),
+                                          IconText(Icons.location_on_outlined, currRent.city.toString()),
                                         ],
                                       )
                                     ],
-                                  )),
+                                  )
+                                ),
                             ),
                           );
                         }
 
-                        if (currRent.city
-                                .toString()
-                                .toLowerCase()
-                                .contains(search.toLowerCase()) ||
-                            currRent.category
-                                .toString()
-                                .toLowerCase()
-                                .contains(search.toLowerCase())) {
+                        if (currRent.city.toString().toLowerCase().contains(location.toLowerCase()) &&
+                            currRent.category.toString().toLowerCase().contains(search.toLowerCase())) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.width * 0.05,

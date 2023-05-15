@@ -34,7 +34,7 @@ class _JobListState extends State<JobList> {
             horizontal: 20,
             vertical: 25,
           ),
-          height: 280,
+          height: 270,
           width: double.maxFinite,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -175,13 +175,12 @@ class _JobListState extends State<JobList> {
                                         userModel: widget.userModel));
                               },
                               child: Container(
-                                  height: size.height * 0.15,
-                                  width: size.width * 0.8,
+                                  height: 135,
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
                                       image: const DecorationImage(
                                         image: AssetImage(
-                                            "/Users/yashpundir/Documents/ArtisticonApp/assets/images/job_tile_background3.jpg"),
+                                            "assets/images/job_tile_background3.jpg"),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(20)),
