@@ -58,7 +58,7 @@ class PostOrRentModal extends StatelessWidget {
                     'Post a Job',
                     style: GoogleFonts.nunito(
                         fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade200,
+                        color: Colors.grey.shade100,
                         fontSize: 18),
                   ),
                 ],
@@ -94,7 +94,7 @@ class PostOrRentModal extends StatelessWidget {
                     'Rent a Service',
                     style: GoogleFonts.nunito(
                         fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade200,
+                        color: Colors.grey.shade100,
                         fontSize: 18),
                   ),
                 ],

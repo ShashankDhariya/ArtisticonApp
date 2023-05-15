@@ -51,7 +51,12 @@ class MyListings extends StatelessWidget {
             ),
           ),
           StreamBuilder(
-              stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").orderBy("time", descending: true).snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(userModel.uid.toString())
+                  .collection("MyListings")
+                  .orderBy("time", descending: true)
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
@@ -96,8 +101,17 @@ class MyListings extends StatelessWidget {
                                   ListTile(
                                     trailing: CupertinoButton(
                                         onPressed: () {
-                                          FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").doc(currListing.id.toString()).delete();
-                                          FirebaseFirestore.instance.collection('${currListing.type}s').doc(currListing.id).delete();
+                                          FirebaseFirestore.instance
+                                              .collection("Users")
+                                              .doc(userModel.uid.toString())
+                                              .collection("MyListings")
+                                              .doc(currListing.id.toString())
+                                              .delete();
+                                          FirebaseFirestore.instance
+                                              .collection(
+                                                  '${currListing.type}s')
+                                              .doc(currListing.id)
+                                              .delete();
                                         },
                                         child: Text('Delete',
                                             style: GoogleFonts.nunito(
@@ -136,8 +150,7 @@ class MyListings extends StatelessWidget {
                 } else {
                   return const Center(child: CircularProgressIndicator());
                 }
-              }
-            ),
+              }),
         ],
       ),
     );
