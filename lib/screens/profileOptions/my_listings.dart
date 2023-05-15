@@ -95,7 +95,10 @@ class MyListings extends StatelessWidget {
                                   ),
                                   ListTile(
                                     trailing: CupertinoButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").doc(currListing.id.toString()).delete();
+                                          FirebaseFirestore.instance.collection('${currListing.type}s').doc(currListing.id).delete();
+                                        },
                                         child: Text('Delete',
                                             style: GoogleFonts.nunito(
                                               color: Colors.blue.shade700,

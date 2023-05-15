@@ -50,12 +50,7 @@ class MyApplications extends StatelessWidget {
             ),
           ),
           StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Users")
-                  .doc(userModel.uid.toString())
-                  .collection("MyApplications")
-                  .orderBy("time", descending: true)
-                  .snapshots(),
+              stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyApplications").orderBy("time", descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
@@ -105,8 +100,7 @@ class MyApplications extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                          '${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
+                                      Text('${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
                                       const SizedBox(height: 10),
                                       Text(currApplication.time
                                           .toString()
