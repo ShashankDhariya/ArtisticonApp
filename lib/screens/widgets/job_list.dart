@@ -47,16 +47,14 @@ class _JobListState extends State<JobList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Fast Search',
+              const Text('Fast Search',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28,
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
-                'You can search quickly for the job you want',
+              const Text('You can search quickly for the job you want',
                 style: TextStyle(
                   height: 1.8,
                   color: Colors.white,
@@ -85,17 +83,12 @@ class _JobListState extends State<JobList> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        // Perform search with query
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Image.asset(
-                          'assets/images/search.png',
-                          height: 20,
-                          width: 20,
-                        ),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      child: Image.asset(
+                        'assets/images/search.png',
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                   ],
@@ -123,17 +116,12 @@ class _JobListState extends State<JobList> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        // Perform search with query
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Image.asset(
-                          'assets/images/search.png',
-                          height: 20,
-                          width: 20,
-                        ),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      child: Image.asset(
+                        'assets/images/search.png',
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                   ],
@@ -175,28 +163,25 @@ class _JobListState extends State<JobList> {
                                   height: 135,
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
-                                      image: const DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/job_tile_background3.jpg"),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.circular(20)),
+                                    image: const DecorationImage(
+                                      image: AssetImage("assets/images/job_tile_background3.jpg"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
                                             children: [
                                               Text(currJob.provider.toString(),
-                                                  style: const TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ))
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ))
                                             ],
                                           )
                                         ],
@@ -230,10 +215,12 @@ class _JobListState extends State<JobList> {
                           );
                         }
 
-                        if (currJob.city.toString().toLowerCase().contains(location.toLowerCase()) &&
-                            currJob.category.toString().toLowerCase().contains(search.toLowerCase())) {
+                        if (currJob.city.toString().toLowerCase().contains(location.toLowerCase().trim()) &&
+                            currJob.category.toString().toLowerCase().contains(search.toLowerCase().trim())) {
                           return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.01),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.05,
+                                vertical: size.height * 0.01),
                             child: GestureDetector(
                               onTap: () {
                                 showModalBottomSheet(
@@ -246,45 +233,52 @@ class _JobListState extends State<JobList> {
                                         userModel: widget.userModel));
                               },
                               child: Container(
-                                  height: size.height * 0.18,
-                                  width: size.width * 0.7,
+                                  height: 135,
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Colors.grey.shade100,
-                                  ),
+                                    image: const DecorationImage(
+                                      image: AssetImage("assets/images/job_tile_background3.jpg"),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
                                             children: [
                                               Text(currJob.provider.toString(),
-                                                  style: const TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  )),
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ))
                                             ],
                                           )
                                         ],
                                       ),
                                       const SizedBox(height: 15),
-                                      Text(currJob.category.toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16)),
-                                      const SizedBox(height: 15),
+                                      Row(
+                                        children: [
+                                          Text(currJob.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                                          Expanded(
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                'Rs.${currJob.pay}',style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          IconText(Icons.location_on_outlined,
-                                              currJob.city.toString()),
+                                          IconText(Icons.location_on_outlined, '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}'),
                                         ],
                                       )
                                     ],

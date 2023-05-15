@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:restart_app/restart_app.dart';
 
 class EditProfile extends StatefulWidget {
   final UserModel userModel;
@@ -108,7 +109,7 @@ class _EditProfileState extends State<EditProfile> {
         .then((value) {} )
         .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error')));});
       }
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Updated successfully...')));
+      Restart.restartApp();
     }
   }
 
@@ -174,9 +175,7 @@ class _EditProfileState extends State<EditProfile> {
                           foregroundColor: Colors.white,
                           radius: MediaQuery.of(context).size.height * 0.1,
                           backgroundImage: NetworkImage(widget.userModel.profilePic.toString()),
-                          foregroundImage: img != null?
-                            FileImage(img!)
-                            : null,
+                          foregroundImage: img != null? FileImage(img!): null,
                           child: widget.userModel.profilePic == null? 
                             const Icon(Icons.person, size: 70)
                             : null,

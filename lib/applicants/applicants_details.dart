@@ -33,259 +33,227 @@ class ApplicantsDetails extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             vertical: size.height * 0.01, horizontal: size.width * 0.05),
         decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            )),
+          color: Colors.grey.shade200,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          )),
         height: size.height * 0.5,
         child: listingsModel.type.toString() == "Job"
-            ? StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection("Jobs")
-                    .doc(listingsModel.id.toString())
-                    .collection("Applications")
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.active) {
-                    if (snapshot.hasData) {
-                      QuerySnapshot data = snapshot.data as QuerySnapshot;
-                      return ListView.builder(
-                        itemCount: data.docs.length,
-                        itemBuilder: (context, index) {
-                          JobApplyModel currApplicant = JobApplyModel.fromMap(
-                              data.docs[index].data() as Map<String, dynamic>);
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/job_tile_background3.jpg"),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.circular(30),
+          ? StreamBuilder(
+            stream: FirebaseFirestore.instance.collection("Jobs").doc(listingsModel.id.toString()).collection("Applications").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  QuerySnapshot data = snapshot.data as QuerySnapshot;
+                  return ListView.builder(
+                    itemCount: data.docs.length,
+                    itemBuilder: (context, index) {
+                      JobApplyModel currApplicant = JobApplyModel.fromMap(
+                          data.docs[index].data() as Map<String, dynamic>);
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                              image: AssetImage("assets/images/job_tile_background3.jpg"),fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              Text(
+                                '~${index + 1}~',
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              child: Column(
-                                children: [
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    '~${index + 1}~',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              Text(currApplicant.name.toString(),
+                                style: GoogleFonts.nunito(
+                                  color: const Color(0xFF43B1B7),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16),
+                              ),
+                              const SizedBox(height: 10),
+                              CircleAvatar(
+                                radius: 50,
+                                child: ClipOval(
+                                  child: Image.network(
+                                    currApplicant.img.toString(),
+                                    height: 150,
                                   ),
-                                  Text(
-                                    currApplicant.name.toString(),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              GestureDetector(
+                                onTap: () async {
+                                  if (!await launchUrl(
+                                    Uri.parse(currApplicant.portfolio.toString()),
+                                    mode: LaunchMode.externalApplication,
+                                  )) {
+                                    throw Exception('Could not launch $Uri.parse(currApplicant.portfolio.toString()');
+                                  }
+                                },
+                                child: Text(
+                                  'Portfolio',
+                                  style: GoogleFonts.nunito(
+                                    decoration: TextDecoration.underline,
+                                    color: const Color(0xFF43B1B7),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              isLink(currApplicant.vid.toString())
+                              ? GestureDetector(
+                                  onTap: () async {
+                                    if (!await launchUrl(
+                                      Uri.parse(
+                                          currApplicant.vid.toString()),
+                                      mode: LaunchMode
+                                          .externalApplication,
+                                    )) {
+                                      throw Exception(
+                                          'Could not launch $Uri.parse(currApplicant.vid.toString()');
+                                    }
+                                  },
+                                  child: Text(
+                                    'Video',
                                     style: GoogleFonts.nunito(
+                                        decoration:
+                                            TextDecoration.underline,
                                         color: const Color(0xFF43B1B7),
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: FontWeight.w600,
                                         fontSize: 16),
                                   ),
-                                  const SizedBox(height: 10),
-                                  CircleAvatar(
-                                    radius: 50,
-                                    child: ClipOval(
-                                      child: Image.network(
-                                        currApplicant.img.toString(),
-                                        height: 150,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      if (!await launchUrl(
-                                        Uri.parse(
-                                            currApplicant.portfolio.toString()),
-                                        mode: LaunchMode.externalApplication,
-                                      )) {
-                                        throw Exception(
-                                            'Could not launch $Uri.parse(currApplicant.portfolio.toString()');
-                                      }
-                                    },
-                                    child: Text(
-                                      'Portfolio',
+                                )
+                              : Text(
+                                  "No video attached",
+                                  style: GoogleFonts.nunito(
+                                      color: const Color(0xFF43B1B7),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16),
+                                ),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 35),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      currApplicant.phone.toString(),
                                       style: GoogleFonts.nunito(
-                                          decoration: TextDecoration.underline,
                                           color: const Color(0xFF43B1B7),
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 16),
+                                          fontSize: 14),
                                     ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  isLink(currApplicant.vid.toString())
-                                      ? GestureDetector(
-                                          onTap: () async {
-                                            if (!await launchUrl(
-                                              Uri.parse(
-                                                  currApplicant.vid.toString()),
-                                              mode: LaunchMode
-                                                  .externalApplication,
-                                            )) {
-                                              throw Exception(
-                                                  'Could not launch $Uri.parse(currApplicant.vid.toString()');
-                                            }
-                                          },
-                                          child: Text(
-                                            'Video',
-                                            style: GoogleFonts.nunito(
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                color: const Color(0xFF43B1B7),
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16),
-                                          ),
-                                        )
-                                      : Text(
-                                          "No video attached",
-                                          style: GoogleFonts.nunito(
-                                              color: const Color(0xFF43B1B7),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16),
-                                        ),
-                                  const SizedBox(height: 10),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 35),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          currApplicant.phone.toString(),
-                                          style: GoogleFonts.nunito(
-                                              color: const Color(0xFF43B1B7),
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left:
-                                                  10.0), // Add left padding of 10
-                                          child: GestureDetector(
-                                            onTap: () async {
-                                              // Open the WhatsApp chat when the icon is clicked
-                                              String phoneNumber = currApplicant
-                                                  .phone
-                                                  .toString();
-                                              String url =
-                                                  "https://wa.me/+91$phoneNumber";
-                                              launch(url);
-                                            },
-                                            child: Icon(
-                                              LineIcons
-                                                  .whatSApp, // Use the WhatsApp icon from LineIcons
-                                              color: Colors.green,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(left:10.0), // Add left padding of 10
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          String phoneNumber = currApplicant.phone.toString();
+                                          String url = "https://wa.me/+91$phoneNumber";
+                                          launch(url);
+                                        },
+                                        child: const Icon(LineIcons.whatSApp, color: Colors.green),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            ],
+                          ),
+                        ),
                       );
-                    } else if (snapshot.hasError) {
-                      return const Center(child: Text("Unable to load data"));
-                    } else {
-                      return const Center(child: Text("Nothing to show..."));
-                    }
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              )
-            : StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection("Rents")
-                    .doc(listingsModel.id.toString())
-                    .collection("Applications")
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.active) {
-                    if (snapshot.hasData) {
-                      QuerySnapshot data = snapshot.data as QuerySnapshot;
-                      return ListView.builder(
-                        itemCount: data.docs.length,
-                        itemBuilder: (context, index) {
-                          RentApplyModel currApplicant = RentApplyModel.fromMap(
-                              data.docs[index].data() as Map<String, dynamic>);
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Column(children: [
-                                const SizedBox(height: 10),
-                                Text('~${index + 1}~'),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text("Name: ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text(currApplicant.name.toString()),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text("Number of people: ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text(currApplicant.people.toString()),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text("Date: ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text(currApplicant.date.toString()),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text("Number of hours: ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text(currApplicant.hrs.toString()),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text("Phone: ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    Text(currApplicant.phone.toString()),
-                                  ],
-                                ),
-                                const SizedBox(height: 10)
-                              ]),
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text("Unable to load data"));
+                } else {
+                  return const Center(child: Text("Nothing to show..."));
+                }
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          )
+          :StreamBuilder(
+            stream: FirebaseFirestore.instance.collection("Rents").doc(listingsModel.id.toString()).collection("Applications").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  QuerySnapshot data = snapshot.data as QuerySnapshot;
+                  return ListView.builder(
+                    itemCount: data.docs.length,
+                    itemBuilder: (context, index) {
+                      RentApplyModel currApplicant = RentApplyModel.fromMap(
+                          data.docs[index].data() as Map<String, dynamic>);
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Column(children: [
+                            const SizedBox(height: 10),
+                            Text('~${index + 1}~'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Name: ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold)),
+                                Text(currApplicant.name.toString()),
+                              ],
                             ),
-                          );
-                        },
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Number of people: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                                Text(currApplicant.people.toString()),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Date: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                                Text(currApplicant.date.toString()),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Number of hours: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                                Text(currApplicant.hrs.toString()),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Phone: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                                Text(currApplicant.phone.toString()),
+                              ],
+                            ),
+                            const SizedBox(height: 10)
+                          ]),
+                        ),
                       );
-                    } else if (snapshot.hasError) {
-                      return const Center(child: Text("Unable to load data"));
-                    } else {
-                      return const Center(child: Text("Nothing to show..."));
-                    }
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ));
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text("Unable to load data"));
+                } else {
+                  return const Center(child: Text("Nothing to show..."));
+                }
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          )
+        );
   }
 }
