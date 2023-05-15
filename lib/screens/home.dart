@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                   context: context,
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
-                  builder: (context) => Container(
+                  builder: (context) => SizedBox(
                     height: 250, // set the height here
                     child: PostOrRentModal(
                       firebaseUser: widget.firebaseUser,
