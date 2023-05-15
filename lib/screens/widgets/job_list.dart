@@ -34,7 +34,7 @@ class _JobListState extends State<JobList> {
             horizontal: 20,
             vertical: 25,
           ),
-          height: 230,
+          height: 280,
           width: double.maxFinite,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -67,7 +67,7 @@ class _JobListState extends State<JobList> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
                   children: [
@@ -80,6 +80,44 @@ class _JobListState extends State<JobList> {
                         },
                         decoration: const InputDecoration(
                           hintText: 'Search',
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // Perform search with query
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Image.asset(
+                          'assets/images/search.png',
+                          height: 20,
+                          width: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            search = value;
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          hintText: 'Location',
                           border: InputBorder.none,
                         ),
                       ),
