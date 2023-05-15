@@ -20,8 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<bool> isEmailTaken(String email) async {
     try {
-      final signInMethods =
-          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      final signInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
       return signInMethods.isNotEmpty;
     } catch (e) {
       return false;

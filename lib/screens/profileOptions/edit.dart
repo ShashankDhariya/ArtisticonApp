@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:artist_icon/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,8 +12,7 @@ import 'package:image_picker/image_picker.dart';
 class EditProfile extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const EditProfile(
-      {super.key, required this.userModel, required this.firebaseUser});
+  const EditProfile({super.key, required this.userModel, required this.firebaseUser});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -76,12 +76,12 @@ class _EditProfileState extends State<EditProfile> {
         });
   }
 
-  void submit() {
+  Future<void> submit() async {
     String name = nameController.text.trim();
     String phone = phoneController.text.trim();
     String profession = professionController.text.trim();
 
-    if(name.isEmpty && phone.isEmpty && profession.isEmpty){
+    if(name.isEmpty && phone.isEmpty && profession.isEmpty && img == null){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No Update')));
     }
     else{
@@ -90,13 +90,22 @@ class _EditProfileState extends State<EditProfile> {
         .then((value){} )
         .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update name: $error'))));
       }
-      else if(phone.isNotEmpty){
+      if(phone.isNotEmpty){
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'phone': phone})
         .then((value) {} )
         .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update number: $error'))));
       }
-      else if(profession.isNotEmpty){
+      if(profession.isNotEmpty){
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profession': profession})
+        .then((value) {} )
+        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error'))));
+      }
+      if(img != null){
+        UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(widget.userModel.uid.toString()).putFile(img!);
+        TaskSnapshot snapshot = await uploadTask;
+        String imgUrl = await snapshot.ref.getDownloadURL();
+
+        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profilePic': imgUrl})
         .then((value) {} )
         .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error'))));
       }

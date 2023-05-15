@@ -21,6 +21,7 @@ class JobList extends StatefulWidget {
 
 class _JobListState extends State<JobList> {
   String search = "";
+  String location = "";
   @override
   Widget build(context) {
     var size = MediaQuery.of(context).size;
@@ -113,7 +114,7 @@ class _JobListState extends State<JobList> {
                       child: TextField(
                         onChanged: (value) {
                           setState(() {
-                            search = value;
+                            location = value;
                           });
                         },
                         decoration: const InputDecoration(
@@ -145,10 +146,7 @@ class _JobListState extends State<JobList> {
         // List of Available Jobs
         Expanded(
           child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("Jobs")
-                .orderBy("time", descending: true)
-                .snapshots(),
+            stream: FirebaseFirestore.instance.collection("Jobs").orderBy("time", descending: true).snapshots(),
             builder: (context, snapshot) {
               return snapshot.connectionState == ConnectionState.waiting
                   ? const Center(child: CircularProgressIndicator())
@@ -158,7 +156,7 @@ class _JobListState extends State<JobList> {
                         JobPostModel currJob = JobPostModel.fromMap(
                             snapshot.data!.docs[index].data());
 
-                        if (search.isEmpty) {
+                        if (search.isEmpty && location.isEmpty) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.width * 0.05,
@@ -224,14 +222,8 @@ class _JobListState extends State<JobList> {
                           );
                         }
 
-                        if (currJob.city
-                                .toString()
-                                .toLowerCase()
-                                .contains(search.toLowerCase()) ||
-                            currJob.category
-                                .toString()
-                                .toLowerCase()
-                                .contains(search.toLowerCase())) {
+                        if (currJob.city.toString().toLowerCase().contains(location.toLowerCase()) &&
+                            currJob.category.toString().toLowerCase().contains(search.toLowerCase())) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.width * 0.05,
