@@ -153,8 +153,7 @@ class _JobListState extends State<JobList> {
                   : ListView.builder(
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        JobPostModel currJob = JobPostModel.fromMap(
-                            snapshot.data!.docs[index].data());
+                        JobPostModel currJob = JobPostModel.fromMap(snapshot.data!.docs[index].data());
 
                         if (search.isEmpty && location.isEmpty) {
                           return Padding(
@@ -203,17 +202,26 @@ class _JobListState extends State<JobList> {
                                         ],
                                       ),
                                       const SizedBox(height: 15),
-                                      Text(currJob.category.toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16)),
-                                      const SizedBox(height: 15),
+                                      Row(
+                                        children: [
+                                          Text(currJob.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                                          Expanded(
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                'Rs.${currJob.pay}',style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           IconText(Icons.location_on_outlined,
-                                              currJob.city.toString()),
+                                              '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}'),
                                         ],
                                       )
                                     ],
@@ -225,9 +233,7 @@ class _JobListState extends State<JobList> {
                         if (currJob.city.toString().toLowerCase().contains(location.toLowerCase()) &&
                             currJob.category.toString().toLowerCase().contains(search.toLowerCase())) {
                           return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.05,
-                                vertical: size.height * 0.01),
+                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.01),
                             child: GestureDetector(
                               onTap: () {
                                 showModalBottomSheet(

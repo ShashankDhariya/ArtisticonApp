@@ -88,26 +88,25 @@ class _EditProfileState extends State<EditProfile> {
       if(name.isNotEmpty){
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'name': name})
         .then((value){} )
-        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update name: $error'))));
+        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update name: $error')));});
       }
       if(phone.isNotEmpty){
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'phone': phone})
         .then((value) {} )
-        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update number: $error'))));
+        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update number: $error')));});
       }
       if(profession.isNotEmpty){
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profession': profession})
         .then((value) {} )
-        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error'))));
+        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error')));});
       }
       if(img != null){
         UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(widget.userModel.uid.toString()).putFile(img!);
         TaskSnapshot snapshot = await uploadTask;
         String imgUrl = await snapshot.ref.getDownloadURL();
-
         FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profilePic': imgUrl})
         .then((value) {} )
-        .catchError((error) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error'))));
+        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error')));});
       }
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Updated successfully...')));
     }

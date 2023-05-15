@@ -15,13 +15,7 @@ class RentNowPage extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
   final RentPostModel rentPostModel;
-  const RentNowPage({
-    Key? key,
-    required this.userModel,
-    required this.firebaseUser,
-    required this.rentPostModel,
-  }) : super(key: key);
-
+  const RentNowPage({Key? key,required this.userModel, required this.firebaseUser, required this.rentPostModel}) : super(key: key);
 
   @override
   State<RentNowPage> createState() => _RentNowPageState();
@@ -33,7 +27,6 @@ class _RentNowPageState extends State<RentNowPage> {
   TextEditingController hoursController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController peopleController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
 
   @override
   void initState() {
@@ -46,27 +39,21 @@ class _RentNowPageState extends State<RentNowPage> {
     String name = nameController.text.trim();
     String hrs = hoursController.text.trim();
     String people = peopleController.text.trim();
-    String phone = phoneController.text.trim();
     String date = dateController.text.trim();
 
-    if(name.isEmpty || hrs.isEmpty || phone.isEmpty || people.isEmpty || date.isEmpty){
+    if(name.isEmpty || hrs.isEmpty || people.isEmpty || date.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill out all the Fields")));
     }
-    else if(phone.length != 10){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Enter valid number")));
-    }
-
     else {
       String applyRid = uuid.v1();
       RentApplyModel rentApply = RentApplyModel(
         applyRid: applyRid,
         name: name,
         date: date,
-        phone: phone,
+        phone: widget.userModel.phone,
         hrs: hrs,
         people: people,
       );
-    
       // More Details can Also be added 
       RentPostModel myApplications = RentPostModel(
         rentid: widget.rentPostModel.rentid.toString(),
@@ -204,27 +191,6 @@ class _RentNowPageState extends State<RentNowPage> {
                   fillColor: Colors.grey.shade100,
                   filled: true,
                   hintText: 'Enter number of people',
-                  hintStyle:
-                      TextStyle(color: Colors.grey.shade500, fontSize: 14),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: phoneController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.phone),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Enter phone number',
                   hintStyle:
                       TextStyle(color: Colors.grey.shade500, fontSize: 14),
                 ),

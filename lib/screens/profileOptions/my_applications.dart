@@ -74,37 +74,23 @@ class MyApplications extends StatelessWidget {
                                 Container(
                                   decoration: BoxDecoration(
                                     image: const DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/list_tile_background.jpg"),
-                                      fit: BoxFit.cover,
-                                    ),
+                                      image: AssetImage("assets/images/list_tile_background.jpg"),fit: BoxFit.cover,),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
                                 ListTile(
-                                  trailing:
-                                      Text(currApplication.pay.toString()),
-                                  title: Text(
-                                    currApplication.provider.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20),
+                                  trailing: Text(currApplication.pay.toString()),
+                                  title: Text(currApplication.provider.toString(),
+                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                                   ),
                                   subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        currApplication.category.toString(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                      Text(currApplication.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold)),
                                       const SizedBox(height: 10),
                                       Text('${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
                                       const SizedBox(height: 10),
-                                      Text(currApplication.time
-                                          .toString()
-                                          .substring(0, 10)),
+                                      Text(currApplication.time.toString().substring(0, 10)),
                                     ],
                                   ),
                                 ),
@@ -122,7 +108,8 @@ class MyApplications extends StatelessWidget {
                 } else {
                   return const Center(child: CircularProgressIndicator());
                 }
-              }),
+              }
+            ),
         ],
       ),
     );

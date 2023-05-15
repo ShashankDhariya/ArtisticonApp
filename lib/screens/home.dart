@@ -25,13 +25,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> widgetOptions = [
-      HomeArtist(
-          firebaseUser: widget.firebaseUser, userModel: widget.userModel),
-      PostOrRentModal(
-        firebaseUser: widget.firebaseUser,
-        userModel: widget.userModel,
-      ),
-      // JobPost(firebaseUser: widget.firebaseUser, userModel: widget.userModel),
+      HomeArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel),
+      PostOrRentModal(firebaseUser: widget.firebaseUser,userModel: widget.userModel),
       RentArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
     ];
     return Scaffold(
@@ -39,12 +34,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
-        title: Text(
-          'Welcome ${widget.userModel.name}',
-          style: GoogleFonts.nunito(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text('Welcome ${widget.userModel.name}',style: GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 16)),
         actions: [
           GestureDetector(
             onTap: () {

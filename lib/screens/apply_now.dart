@@ -31,7 +31,6 @@ class ApplyNowScreen extends StatefulWidget {
 
 class _ApplyNowScreenState extends State<ApplyNowScreen> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
   TextEditingController videoLinkController = TextEditingController();
   File? portfolioFile;
   File? img;
@@ -73,9 +72,8 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
   Future<void> submit() async {
     String vidLink = videoLinkController.text;
     String name = nameController.text.trim();
-    String phone = phoneController.text.trim();
     
-    if(name.isEmpty || phone.isEmpty || img == null || portfolioFile == null){
+    if(name.isEmpty || img == null || portfolioFile == null){
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please fill all the fields')));
     }
 
@@ -92,7 +90,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
       JobApplyModel applyjob = JobApplyModel(
         applyJid: applyJid,
         name: name,
-        phone: phone,
+        phone: widget.userModel.phone,
         img: imgUrl,
         portfolio: portfolioUrl,
         vid: vidLink,
@@ -104,7 +102,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
         desc: widget.jobpostmodel.desc.toString(),
         category: widget.jobpostmodel.category.toString(),
         phone: widget.jobpostmodel.phone.toString(),
-        address: widget.jobpostmodel.phone.toString(),
+        address: widget.jobpostmodel.address.toString(),
         city: widget.jobpostmodel.city.toString(),
         state: widget.jobpostmodel.state.toString(),
         country: widget.jobpostmodel.country.toString(),
@@ -187,28 +185,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                       TextStyle(color: Colors.grey.shade500, fontSize: 14),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              TextField(
-                controller: phoneController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.person),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Phone',
-                  hintStyle:
-                      TextStyle(color: Colors.grey.shade500, fontSize: 14),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               TextField(
                 controller: videoLinkController,
                 decoration: InputDecoration(
@@ -228,7 +205,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                       TextStyle(color: Colors.grey.shade500, fontSize: 14),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               ElevatedButton(
                 onPressed: uploadPortfolio,
                 style: ElevatedButton.styleFrom(
@@ -256,7 +233,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                     style: const TextStyle(fontSize: 14.0),
                   ),
                 ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.015),
               ElevatedButton(
                 onPressed: uploadPhoto,
                 style: ElevatedButton.styleFrom(
@@ -266,14 +243,8 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                   ),
                   backgroundColor: Colors.teal.shade300,
                 ),
-                child: Text(
-                  'Upload Photograph',
-                  style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                child: Text('Upload Photograph',
+                  style: GoogleFonts.nunito(textStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                 ),
               ),
               if (img != null)
@@ -285,7 +256,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.035),
               ElevatedButton(
                 onPressed: submit,
                 style: ElevatedButton.styleFrom(
