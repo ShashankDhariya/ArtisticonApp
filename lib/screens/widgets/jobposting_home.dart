@@ -6,7 +6,8 @@ import 'package:artist_icon/screens/job_posting.dart';
 class JobPost extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const JobPost({Key? key, required this.userModel, required this.firebaseUser }) : super(key: key);
+  const JobPost({Key? key, required this.userModel, required this.firebaseUser})
+      : super(key: key);
 
   @override
   State<JobPost> createState() => _JobPostState();
@@ -27,7 +28,7 @@ class _JobPostState extends State<JobPost> {
               Expanded(
                 flex: 1,
                 child: Container(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: Colors.grey.withOpacity(0.06),
                 ),
               ),
             ],
@@ -36,7 +37,10 @@ class _JobPostState extends State<JobPost> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                JobPosting(firebaseUser: widget.firebaseUser, userModel: widget.userModel,)
+                JobPosting(
+                  firebaseUser: widget.firebaseUser,
+                  userModel: widget.userModel,
+                )
               ],
             ),
           )

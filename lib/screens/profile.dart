@@ -44,13 +44,19 @@ class Profile extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.jpg"),
-                fit: BoxFit.cover,
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(),
               ),
-            ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.grey.withOpacity(0.06),
+                ),
+              ),
+            ],
           ),
           SingleChildScrollView(
             child: Container(

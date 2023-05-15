@@ -31,7 +31,7 @@ class _RentServiceState extends State<RentService> {
               Expanded(
                 flex: 1,
                 child: Container(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: Colors.grey.withOpacity(0.06),
                 ),
               ),
             ],
@@ -39,7 +39,11 @@ class _RentServiceState extends State<RentService> {
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [RentingService(firebaseUser: widget.firebaseUser, userModel: widget.userModel)],
+              children: [
+                RentingService(
+                    firebaseUser: widget.firebaseUser,
+                    userModel: widget.userModel)
+              ],
             ),
           )
         ],

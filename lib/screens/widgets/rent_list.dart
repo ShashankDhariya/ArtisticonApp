@@ -102,7 +102,7 @@ class _RentListState extends State<RentList> {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 12,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -182,9 +182,12 @@ class _RentListState extends State<RentList> {
                                   width: size.width * 0.8,
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Colors.grey.shade100,
-                                  ),
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "/Users/yashpundir/Documents/ArtisticonApp/assets/images/job_tile_background3.jpg"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20)),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

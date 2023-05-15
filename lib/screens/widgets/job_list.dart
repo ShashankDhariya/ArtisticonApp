@@ -175,13 +175,13 @@ class _JobListState extends State<JobList> {
                                         userModel: widget.userModel));
                               },
                               child: Container(
-                                  height: size.height * 0.18,
+                                  height: size.height * 0.15,
                                   width: size.width * 0.8,
                                   padding: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
                                       image: const DecorationImage(
                                         image: AssetImage(
-                                            "assets/images/list_tile_background.jpg"),
+                                            "/Users/yashpundir/Documents/ArtisticonApp/assets/images/job_tile_background3.jpg"),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(20)),
