@@ -6,6 +6,7 @@ import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/rent_now.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RentDetail extends StatelessWidget {
   final RentPostModel currRent;
@@ -20,14 +21,18 @@ class RentDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String location = '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}';
+    String location =
+        '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}';
     var size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.05),
+      padding: EdgeInsets.symmetric(
+          vertical: size.height * 0.01, horizontal: size.width * 0.05),
       decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30),
-        )),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          )),
       height: size.height * 0.5,
       child: SingleChildScrollView(
         child: Column(
@@ -97,47 +102,51 @@ class RentDetail extends StatelessWidget {
                 ),
                 SizedBox(height: size.height * 0.030),
                 const Text('Requirements',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  )
-                ),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    )),
                 SizedBox(height: size.height * 0.015),
                 Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(width: size.width * 0.025),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxWidth: 300,
-                        ),
-                        child: Text(
-                          currRent.desc.toString(),
-                          style: const TextStyle(
-                            wordSpacing: 2,
-                            height: 1.5,
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(width: size.width * 0.025),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: 300,
                           ),
-                        ),
-                      )
-                    ],
-                  )
-                ),
+                          child: Text(
+                            currRent.desc.toString(),
+                            style: GoogleFonts.nunito(
+                                wordSpacing: 2,
+                                height: 1.5,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        )
+                      ],
+                    )),
                 SizedBox(height: size.height * 0.025),
-                currRent.uid.toString == userModel.uid.toString? 
-                MyButton(text: "Can't apply to own post", width: double.infinity, onPressed: () {})
-                :
-                MyButton(
-                  text: 'Rent Now',
-                  width: double.infinity,
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return RentNowPage(rentPostModel: currRent, userModel: userModel, firebaseUser: firebaseUser,);
-                      },
-                    ));
-                  },
-                )
+                currRent.uid.toString == userModel.uid.toString
+                    ? MyButton(
+                        text: "Can't apply to own post",
+                        width: double.infinity,
+                        onPressed: () {})
+                    : MyButton(
+                        text: 'Rent Now',
+                        width: double.infinity,
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return RentNowPage(
+                                rentPostModel: currRent,
+                                userModel: userModel,
+                                firebaseUser: firebaseUser,
+                              );
+                            },
+                          ));
+                        },
+                      )
               ],
             )
           ],
