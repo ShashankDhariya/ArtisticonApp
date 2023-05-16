@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:artist_icon/main.dart';
 import 'package:artist_icon/models/mylistings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,11 +10,15 @@ import 'package:artist_icon/models/rentpost.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RentingService extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const RentingService({Key? key,required this.userModel,required this.firebaseUser}) : super(key: key);
+  const RentingService(
+      {Key? key, required this.userModel, required this.firebaseUser})
+      : super(key: key);
 
   @override
   State<RentingService> createState() => _RentingServiceState();
@@ -28,8 +34,30 @@ class _RentingServiceState extends State<RentingService> {
   TextEditingController paycontroller = TextEditingController();
   TextEditingController durationController = TextEditingController();
   bool st = false;
+  File? img;
 
-  void check(){
+  void uploadPhoto() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      cropImg(pickedFile);
+    }
+  }
+
+  void cropImg(XFile file) async {
+    CroppedFile? croppedImg = await ImageCropper().cropImage(
+        sourcePath: file.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressQuality: 20);
+    if (croppedImg != null) {
+      setState(() {
+        img = File(croppedImg.path);
+      });
+    }
+  }
+
+  void check() {
     String category = categoryController.text.trim();
     String desc = descController.text.trim();
     String address = addressController.text.trim();
@@ -38,12 +66,16 @@ class _RentingServiceState extends State<RentingService> {
     String country = countryController.text.trim();
     String pay = paycontroller.text.trim();
 
-
-    if(category.isEmpty || desc.isEmpty || address.isEmpty || city.isEmpty || state.isEmpty || country.isEmpty || pay.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill out all the Fields")));
-    }
-
-    else {
+    if (category.isEmpty ||
+        desc.isEmpty ||
+        address.isEmpty ||
+        city.isEmpty ||
+        state.isEmpty ||
+        country.isEmpty ||
+        pay.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Fill out all the Fields")));
+    } else {
       String rentid = uuid.v1();
       RentPostModel rentPost = RentPostModel(
         uid: widget.userModel.uid.toString(),
@@ -61,23 +93,32 @@ class _RentingServiceState extends State<RentingService> {
       );
 
       MyListingsModel listing = MyListingsModel(
-        category: category,
-        address: address,
-        type: "Rent",
-        pay: pay,
-        time: DateTime.now(),
-        id: rentid
-      );
-    
+          category: category,
+          address: address,
+          type: "Rent",
+          pay: pay,
+          time: DateTime.now(),
+          id: rentid);
+
       setState(() {
         st = true;
       });
-      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyListings").doc(rentid).set(listing.toMap());
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(widget.userModel.uid.toString())
+          .collection("MyListings")
+          .doc(rentid)
+          .set(listing.toMap());
 
-      FirebaseFirestore.instance.collection("Rents").doc(rentid).set(rentPost.toMap()).then((value){
+      FirebaseFirestore.instance
+          .collection("Rents")
+          .doc(rentid)
+          .set(rentPost.toMap())
+          .then((value) {
         Navigator.pop(context);
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Posted successfully...")));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Posted successfully...")));
       });
     }
   }
@@ -95,11 +136,14 @@ class _RentingServiceState extends State<RentingService> {
                   height: size.height * 0.045,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.32, vertical: size.height * 0.02),
-                  child: Text('Service Details',
+                  padding: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.32,
+                      vertical: size.height * 0.02),
+                  child: Text(
+                    'Service Details',
                     style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -122,18 +166,18 @@ class _RentingServiceState extends State<RentingService> {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20)),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.description),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Description',
-                  hintStyle: TextStyle(color: Colors.grey.shade500)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.description),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Description',
+                    hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
             SizedBox(height: size.height * 0.015),
@@ -141,7 +185,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'Address',
               obsecure: false,
               icon: Icon(Icons.map,
-                size: MediaQuery.of(context).size.height * 0.030),
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: addressController,
             ),
             SizedBox(height: size.height * 0.015),
@@ -149,7 +193,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'City',
               obsecure: false,
               icon: Icon(Icons.location_city,
-                size: MediaQuery.of(context).size.height * 0.030),
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: citycontroller,
             ),
             SizedBox(height: size.height * 0.015),
@@ -157,7 +201,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'State',
               obsecure: false,
               icon: Icon(Icons.location_on,
-                size: MediaQuery.of(context).size.height * 0.030),
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: stateController,
             ),
             SizedBox(height: size.height * 0.015),
@@ -165,7 +209,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'Country',
               obsecure: false,
               icon: Icon(Icons.flag,
-                size: MediaQuery.of(context).size.height * 0.030),
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: countryController,
             ),
             SizedBox(height: size.height * 0.015),
@@ -173,18 +217,48 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'Cost/time',
               obsecure: false,
               icon: Icon(Icons.currency_rupee,
-                size: MediaQuery.of(context).size.height * 0.030),
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: paycontroller,
             ),
+            SizedBox(height: size.height * 0.015),
+            Container(
+              width: 200,
+              child: ElevatedButton(
+                onPressed: uploadPhoto,
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  backgroundColor: Colors.teal.shade300,
+                ),
+                child: Text(
+                  'Upload Photograph',
+                  style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ),
+            if (img != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Image.file(
+                  img!,
+                  height: 200.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
             SizedBox(height: size.height * 0.02),
-            st == true? const CircularProgressIndicator()
-            :MyButton(
-              text: 'Rent Service',
-              width: size.width * 0.48,
-              onPressed: () {
-                check();
-              },
-            )
+            st == true
+                ? const CircularProgressIndicator()
+                : MyButton(
+                    text: 'Rent Service',
+                    width: size.width * 0.48,
+                    onPressed: () {
+                      check();
+                    },
+                  )
           ],
         ),
       ),
