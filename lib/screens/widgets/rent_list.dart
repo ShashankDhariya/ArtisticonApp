@@ -26,12 +26,12 @@ class _RentListState extends State<RentList> {
       child: Column(children: [
         // Search Option Bar
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 25),
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 25,
           ),
-          height: 290,
+          height: 270,
           width: double.maxFinite,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -52,7 +52,7 @@ class _RentListState extends State<RentList> {
               ),
               const SizedBox(height: 12),
               const Text(
-                'You can search quickly for any service you want',
+                'Search quickly for any service you want',
                 style: TextStyle(
                   height: 1.8,
                   color: Colors.white,
@@ -187,13 +187,24 @@ class _RentListState extends State<RentList> {
                                     ],
                                   ),
                                   const SizedBox(height: 15),
-                                  Text(currRent.category.toString(),
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                                  const SizedBox(height: 15),
+                                  Row(
+                                        children: [
+                                          Text(currRent.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                                          Expanded(
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                'Rs.${currRent.pay}',style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      IconText(Icons.location_on_outlined, currRent.city.toString()),
+                                      IconText(Icons.location_on_outlined,'${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}'),
                                     ],
                                   )
                                 ],
@@ -203,28 +214,34 @@ class _RentListState extends State<RentList> {
                       );
                     }
 
-                    if (currRent.city.toString().toLowerCase().contains(location.toLowerCase()) &&
+                    if((currRent.city.toString().toLowerCase().contains(location.toLowerCase()) ||
+                        currRent.state.toString().toLowerCase().contains(location.toLowerCase())) &&
                         currRent.category.toString().toLowerCase().contains(search.toLowerCase())) {
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.01),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.05,
+                            vertical: size.height * 0.01),
                         child: GestureDetector(
                           onTap: () {
                             showModalBottomSheet(
                               backgroundColor: Colors.transparent,
                               isScrollControlled: true,
                               context: context,
-                              builder: (context) => RentDetail(currRent: currRent,firebaseUser: widget.firebaseUser,userModel: widget.userModel));
+                              builder: (context) => RentDetail(
+                                currRent: currRent,
+                                firebaseUser: widget.firebaseUser,
+                                userModel: widget.userModel));
                           },
                           child: Container(
-                              height: size.height * 0.18,
-                              width: size.width * 0.8,
+                              height: 135,
                               padding: const EdgeInsets.all(20),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.grey.shade100,
-                              ),
+                                image: const DecorationImage(
+                                  image: AssetImage("assets/images/job_tile_background3.jpg"), fit: BoxFit.cover,),
+                                borderRadius: BorderRadius.circular(20)),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -236,23 +253,36 @@ class _RentListState extends State<RentList> {
                                               color: Colors.grey,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
-                                            ))
+                                            )
+                                          )
                                         ],
                                       )
                                     ],
                                   ),
                                   const SizedBox(height: 15),
-                                  Text(currRent.category.toString(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16)),
-                                  const SizedBox(height: 15),
+                                  Row(
+                                        children: [
+                                          Text(currRent.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                                          Expanded(
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                'Rs.${currRent.pay}',style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [IconText(Icons.location_on_outlined, currRent.city.toString())],
+                                    children: [
+                                      IconText(Icons.location_on_outlined,'${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}'),
+                                    ],
                                   )
                                 ],
-                              )),
+                              )
+                            ),
                         ),
                       );
                     }

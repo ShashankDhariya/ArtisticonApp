@@ -9,8 +9,7 @@ import 'job_detail.dart';
 class JobList extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const JobList({Key? key, required this.userModel, required this.firebaseUser,
-  }) : super(key: key);
+  const JobList({Key? key, required this.userModel, required this.firebaseUser}) : super(key: key);
 
   @override
   State<JobList> createState() => _JobListState();
@@ -27,7 +26,7 @@ class _JobListState extends State<JobList> {
       child: Column(children: [
         // Search Option Bar
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 25),
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 25,
@@ -51,7 +50,7 @@ class _JobListState extends State<JobList> {
                 ),
               ),
               const SizedBox(height: 12),
-              const Text('You can search quickly for the job you want',
+              const Text('Search quickly for the job you want',
                 style: TextStyle(
                   height: 1.8,
                   color: Colors.white,
@@ -196,11 +195,9 @@ class _JobListState extends State<JobList> {
                                       ),
                                       const SizedBox(height: 10),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          IconText(Icons.location_on_outlined,
-                                              '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}'),
+                                          IconText(Icons.location_on_outlined,'${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}'),
                                         ],
                                       )
                                     ],
@@ -209,7 +206,8 @@ class _JobListState extends State<JobList> {
                           );
                         }
 
-                        if (currJob.city.toString().toLowerCase().contains(location.toLowerCase().trim()) &&
+                        if ((currJob.city.toString().toLowerCase().contains(location.toLowerCase().trim()) ||
+                            currJob.state.toString().toLowerCase().contains(location.toLowerCase().trim())) &&
                             currJob.category.toString().toLowerCase().contains(search.toLowerCase().trim())) {
                           return Padding(
                             padding: EdgeInsets.symmetric(
