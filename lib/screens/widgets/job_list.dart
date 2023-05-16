@@ -9,10 +9,7 @@ import 'job_detail.dart';
 class JobList extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const JobList({
-    Key? key,
-    required this.userModel,
-    required this.firebaseUser,
+  const JobList({Key? key, required this.userModel, required this.firebaseUser,
   }) : super(key: key);
 
   @override
