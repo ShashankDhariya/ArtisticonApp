@@ -127,9 +127,9 @@ class RentDetail extends StatelessWidget {
                       ],
                     )),
                 SizedBox(height: size.height * 0.025),
-                currRent.uid.toString == userModel.uid.toString
+                currRent.uid.toString() == userModel.uid.toString()
                     ? MyButton(
-                        text: "Can't apply to own post",
+                        text: "Can't apply to own service",
                         width: double.infinity,
                         onPressed: () {})
                     : MyButton(

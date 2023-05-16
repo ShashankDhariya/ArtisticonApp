@@ -95,7 +95,7 @@ class JobDetail extends StatelessWidget {
                 SizedBox(height: size.height * 0.025),
                 currJob.uid.toString() == userModel.uid.toString()
                     ? MyButton(
-                        text: "Can't apply to own post",
+                        text: "Can't apply to own job",
                         width: double.infinity,
                         onPressed: () {},
                       )

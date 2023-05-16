@@ -4,13 +4,12 @@ import 'package:artist_icon/screens/user_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -18,8 +17,6 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController cPasswordController = TextEditingController();
   bool state = false;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future<bool> isEmailTaken(String email) async {
     try {
@@ -37,29 +34,22 @@ class _SignUpPageState extends State<SignUpPage> {
     String cpassword = cPasswordController.text.trim();
 
     if (cpassword.isEmpty && password.isEmpty && username.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please enter details')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter details')));
     } else if (username.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please enter username')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter username')));
     } else if (password.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please enter password')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter password')));
     } else if (cpassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please confirm password')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please confirm password')));
     } else if (cpassword != password) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Password do not match')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match')));
     } else if (password.length <= 5) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('The password provided is too weak.')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
     } else if (await isEmailTaken('$username@artistIcon.com')) {
       setState(() {
         state = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('The account already exists for that email.')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
     } else {
       setState(() {
         state = false;
@@ -74,25 +64,6 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       );
     }
-  }
-
-  Future<UserCredential?> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
-        );
-        return await _auth.signInWithCredential(credential);
-      }
-    } catch (e) {
-      print('Error signing in with Google: $e');
-    }
-    return null;
   }
 
   @override
@@ -199,8 +170,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () async {
-                            await signInWithGoogle();
+                          onTap: () {
+                            
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -210,16 +181,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: Padding(
                               padding: EdgeInsets.all(
                                   MediaQuery.of(context).size.height * 0.015),
-                              child: Image.asset(
-                                'assets/images/google.png',
+                              child: Image.asset('assets/images/google.png',
                                 height:
                                     MediaQuery.of(context).size.height * 0.04,
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.07),
