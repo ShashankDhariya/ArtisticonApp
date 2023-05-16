@@ -15,12 +15,7 @@ class RentNowPage extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
   final RentPostModel rentPostModel;
-  const RentNowPage(
-      {Key? key,
-      required this.userModel,
-      required this.firebaseUser,
-      required this.rentPostModel})
-      : super(key: key);
+  const RentNowPage({Key? key, required this.userModel, required this.firebaseUser,required this.rentPostModel}): super(key: key);
 
   @override
   State<RentNowPage> createState() => _RentNowPageState();
@@ -32,6 +27,7 @@ class _RentNowPageState extends State<RentNowPage> {
   TextEditingController hoursController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController peopleController = TextEditingController();
+  bool state = false;
 
   @override
   void initState() {
@@ -73,19 +69,11 @@ class _RentNowPageState extends State<RentNowPage> {
         time: DateTime.now(),
       );
 
-      FirebaseFirestore.instance
-          .collection("Users")
-          .doc(widget.userModel.uid.toString())
-          .collection("MyApplications")
-          .doc(widget.rentPostModel.rentid.toString())
-          .set(myApplications.toMap());
-      FirebaseFirestore.instance
-          .collection("Rents")
-          .doc(widget.rentPostModel.rentid.toString())
-          .collection("Applications")
-          .doc(widget.userModel.uid.toString())
-          .set(rentApply.toMap())
-          .then((value) {
+      setState(() {
+        state = true;
+      });
+      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(widget.rentPostModel.rentid.toString()).set(myApplications.toMap());
+      FirebaseFirestore.instance.collection("Rents").doc(widget.rentPostModel.rentid.toString()).collection("Applications").doc(widget.userModel.uid.toString()).set(rentApply.toMap()).then((value) {
         Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
@@ -249,8 +237,9 @@ class _RentNowPageState extends State<RentNowPage> {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  MyButton(
-                      text: "Submit", width: double.infinity, onPressed: submit)
+                  state? const Center(child: CircularProgressIndicator())
+                  :
+                  MyButton(text: "Submit", width: double.infinity, onPressed: submit)
                 ],
               ),
             ),
