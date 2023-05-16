@@ -221,7 +221,7 @@ class _RentingServiceState extends State<RentingService> {
               controller: paycontroller,
             ),
             SizedBox(height: size.height * 0.015),
-            Container(
+            SizedBox(
               width: 200,
               child: ElevatedButton(
                 onPressed: uploadPhoto,
