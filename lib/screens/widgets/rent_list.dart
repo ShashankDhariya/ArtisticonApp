@@ -26,12 +26,9 @@ class _RentListState extends State<RentList> {
       child: Column(children: [
         // Search Option Bar
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 25,
-          ),
-          height: 270,
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          height: 230,
           width: double.maxFinite,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -47,10 +44,10 @@ class _RentListState extends State<RentList> {
                 'Fast Search',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 28,
+                  fontSize: 25,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 8),
               const Text(
                 'Search quickly for any service you want',
                 style: TextStyle(
@@ -59,7 +56,7 @@ class _RentListState extends State<RentList> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -92,9 +89,7 @@ class _RentListState extends State<RentList> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 12,
-              ),
+              const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -140,14 +135,11 @@ class _RentListState extends State<RentList> {
               : ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    RentPostModel currRent = RentPostModel.fromMap(
-                        snapshot.data!.docs[index].data());
+                    RentPostModel currRent = RentPostModel.fromMap(snapshot.data!.docs[index].data());
 
                     if (search.isEmpty && location.isEmpty) {
                       return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.05,
-                            vertical: size.height * 0.01),
+                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.05,vertical: size.height * 0.01),
                         child: GestureDetector(
                           onTap: () {
                             showModalBottomSheet(
@@ -160,8 +152,8 @@ class _RentListState extends State<RentList> {
                                 userModel: widget.userModel));
                           },
                           child: Container(
-                              height: 135,
-                              padding: const EdgeInsets.all(20),
+                              height: 120,
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 image: const DecorationImage(
                                   image: AssetImage("assets/images/job_tile_background3.jpg"), fit: BoxFit.cover,),
@@ -186,7 +178,7 @@ class _RentListState extends State<RentList> {
                                       )
                                     ],
                                   ),
-                                  const SizedBox(height: 15),
+                                  const SizedBox(height: 10),
                                   Row(
                                         children: [
                                           Text(currRent.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
@@ -233,8 +225,8 @@ class _RentListState extends State<RentList> {
                                 userModel: widget.userModel));
                           },
                           child: Container(
-                              height: 135,
-                              padding: const EdgeInsets.all(20),
+                              height: 120,
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 image: const DecorationImage(
                                   image: AssetImage("assets/images/job_tile_background3.jpg"), fit: BoxFit.cover,),
@@ -259,7 +251,7 @@ class _RentListState extends State<RentList> {
                                       )
                                     ],
                                   ),
-                                  const SizedBox(height: 15),
+                                  const SizedBox(height: 10),
                                   Row(
                                         children: [
                                           Text(currRent.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),

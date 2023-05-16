@@ -14,8 +14,7 @@ class PostOrRentModal extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: size.width * 0.04, vertical: size.height * 0.009),
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.009),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
         borderRadius: const BorderRadius.only(

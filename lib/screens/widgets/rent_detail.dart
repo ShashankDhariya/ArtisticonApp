@@ -71,7 +71,7 @@ class RentDetail extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconText(Icons.location_on_outlined, location),
-                    IconText(Icons.access_time_outlined, currRent.pay.toString()),
+                    IconText(Icons.currency_rupee, currRent.pay.toString()),
                   ],
                 ),
                 SizedBox(height: size.height * 0.030),
