@@ -1,3 +1,4 @@
+import 'package:artist_icon/screens/widgets/picture.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/models/rentpost.dart';
@@ -61,11 +62,31 @@ class RentDetail extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: size.height * 0.025),
-                Text(currRent.category.toString(),
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(currRent.category.toString(),
+                      style: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                      )),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context, 
+                            MaterialPageRoute(
+                              builder:(context) {
+                                return PicPage(img: currRent.pic.toString());
+                              },
+                            )
+                          );
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(currRent.pic.toString()),
+                        ),
+                      )
+                  ],
+                ),
                 SizedBox(height: size.height * 0.025),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

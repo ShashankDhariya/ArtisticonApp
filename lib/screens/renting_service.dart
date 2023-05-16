@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:artist_icon/main.dart';
 import 'package:artist_icon/models/mylistings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:artist_icon/models/rentpost.dart';
@@ -16,9 +16,7 @@ import 'package:image_picker/image_picker.dart';
 class RentingService extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const RentingService(
-      {Key? key, required this.userModel, required this.firebaseUser})
-      : super(key: key);
+  const RentingService({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
 
   @override
   State<RentingService> createState() => _RentingServiceState();
@@ -57,7 +55,7 @@ class _RentingServiceState extends State<RentingService> {
     }
   }
 
-  void check() {
+  Future<void> check() async {
     String category = categoryController.text.trim();
     String desc = descController.text.trim();
     String address = addressController.text.trim();
@@ -66,17 +64,17 @@ class _RentingServiceState extends State<RentingService> {
     String country = countryController.text.trim();
     String pay = paycontroller.text.trim();
 
-    if (category.isEmpty ||
-        desc.isEmpty ||
-        address.isEmpty ||
-        city.isEmpty ||
-        state.isEmpty ||
-        country.isEmpty ||
-        pay.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Fill out all the Fields")));
+    if (category.isEmpty || desc.isEmpty || address.isEmpty || city.isEmpty || state.isEmpty || country.isEmpty || pay.isEmpty || img == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill out all the Fields")));
     } else {
+      setState(() {
+        st = true;
+      });
       String rentid = uuid.v1();
+      UploadTask uploadTask = FirebaseStorage.instance.ref('Rent_Images').child(rentid).putFile(img!);
+      TaskSnapshot snapshot = await uploadTask;
+      String imgUrl = await snapshot.ref.getDownloadURL();
+
       RentPostModel rentPost = RentPostModel(
         uid: widget.userModel.uid.toString(),
         rentid: rentid,
@@ -89,36 +87,25 @@ class _RentingServiceState extends State<RentingService> {
         state: state,
         country: country,
         pay: pay,
+        pic: imgUrl,
         time: DateTime.now(),
       );
 
       MyListingsModel listing = MyListingsModel(
-          category: category,
-          address: address,
-          type: "Rent",
-          pay: pay,
-          time: DateTime.now(),
-          id: rentid);
+        category: category,
+        address: address,
+        type: "Rent",
+        pay: pay,
+        time: DateTime.now(),
+        id: rentid
+      );
+      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyListings").doc(rentid).set(listing.toMap());
 
-      setState(() {
-        st = true;
-      });
-      FirebaseFirestore.instance
-          .collection("Users")
-          .doc(widget.userModel.uid.toString())
-          .collection("MyListings")
-          .doc(rentid)
-          .set(listing.toMap());
-
-      FirebaseFirestore.instance
-          .collection("Rents")
-          .doc(rentid)
-          .set(rentPost.toMap())
-          .then((value) {
+      FirebaseFirestore.instance.collection("Rents").doc(rentid).set(rentPost.toMap()).then((value) {
         Navigator.pop(context);
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Posted successfully...")));
+          const SnackBar(content: Text("Posted successfully...")));
       });
     }
   }
@@ -136,14 +123,11 @@ class _RentingServiceState extends State<RentingService> {
                   height: size.height * 0.045,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.32,
-                      vertical: size.height * 0.02),
-                  child: Text(
-                    'Service Details',
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.32,vertical: size.height * 0.02),
+                  child: Text('Service Details',
                     style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                        fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
