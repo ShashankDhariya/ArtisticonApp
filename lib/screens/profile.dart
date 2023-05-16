@@ -13,7 +13,8 @@ import 'package:google_fonts/google_fonts.dart';
 class Profile extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const Profile({super.key, required this.userModel, required this.firebaseUser});
+  const Profile(
+      {super.key, required this.userModel, required this.firebaseUser});
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +67,9 @@ class Profile extends StatelessWidget {
                   CupertinoButton(
                     onPressed: () {},
                     child: CircleAvatar(
-                      radius: MediaQuery.of(context).size.height * 0.08,
-                      backgroundImage:
-                        NetworkImage(userModel.profilePic.toString())),
+                        radius: MediaQuery.of(context).size.height * 0.08,
+                        backgroundImage:
+                            NetworkImage(userModel.profilePic.toString())),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.010),
                   Text(
@@ -91,7 +92,8 @@ class Profile extends StatelessWidget {
                     ontap: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return MyApplications(firebaseUser: firebaseUser, userModel: userModel);
+                          return MyApplications(
+                              firebaseUser: firebaseUser, userModel: userModel);
                         },
                       ));
                     },
@@ -104,7 +106,7 @@ class Profile extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
                           return MyListings(
-                            userModel: userModel, firebaseUser: firebaseUser);
+                              userModel: userModel, firebaseUser: firebaseUser);
                         },
                       ));
                     },
@@ -116,14 +118,15 @@ class Profile extends StatelessWidget {
                     ontap: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return EditProfile(userModel: userModel, firebaseUser: firebaseUser);
+                          return EditProfile(
+                              userModel: userModel, firebaseUser: firebaseUser);
                         },
                       ));
                     },
                   ),
                   ListOption(
                     icon: const Icon(Icons.info),
-                    text: 'Information',
+                    text: 'About App',
                     color: Colors.black,
                     ontap: () {
                       Navigator.push(context, MaterialPageRoute(
@@ -134,17 +137,17 @@ class Profile extends StatelessWidget {
                     },
                   ),
                   ListOption(
-                    icon: const Icon(Icons.exit_to_app),
-                    text: 'Log out',
-                    color: Colors.red,
-                    ontap: () {
-                      FirebaseAuth.instance.signOut();
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Splash()));
-                    }),
+                      icon: const Icon(Icons.exit_to_app),
+                      text: 'Log out',
+                      color: Colors.red,
+                      ontap: () {
+                        FirebaseAuth.instance.signOut();
+                        Navigator.popUntil(context, (route) => route.isFirst);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Splash()));
+                      }),
                 ],
               ),
             ),

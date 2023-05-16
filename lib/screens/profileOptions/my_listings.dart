@@ -106,17 +106,48 @@ class MyListings extends StatelessWidget {
                                   ListTile(
                                     trailing: CupertinoButton(
                                         onPressed: () {
-                                          FirebaseFirestore.instance
-                                              .collection("Users")
-                                              .doc(userModel.uid.toString())
-                                              .collection("MyListings")
-                                              .doc(currListing.id.toString())
-                                              .delete();
-                                          FirebaseFirestore.instance
-                                              .collection(
-                                                  '${currListing.type}s')
-                                              .doc(currListing.id)
-                                              .delete();
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title:
+                                                    const Text('Confirmation'),
+                                                content: const Text(
+                                                    'Are you sure you want to delete this listing?'),
+                                                actions: [
+                                                  TextButton(
+                                                    child: const Text('Cancel'),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: const Text('Delete'),
+                                                    onPressed: () {
+                                                      // Delete the listing
+                                                      FirebaseFirestore.instance
+                                                          .collection("Users")
+                                                          .doc(userModel.uid
+                                                              .toString())
+                                                          .collection(
+                                                              "MyListings")
+                                                          .doc(currListing.id
+                                                              .toString())
+                                                          .delete();
+                                                      FirebaseFirestore.instance
+                                                          .collection(
+                                                              '${currListing.type}s')
+                                                          .doc(currListing.id)
+                                                          .delete();
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
                                         },
                                         child: Text('Delete',
                                             style: GoogleFonts.nunito(

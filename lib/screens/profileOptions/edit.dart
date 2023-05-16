@@ -13,7 +13,8 @@ import 'package:restart_app/restart_app.dart';
 class EditProfile extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const EditProfile({super.key, required this.userModel, required this.firebaseUser});
+  const EditProfile(
+      {super.key, required this.userModel, required this.firebaseUser});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -47,33 +48,33 @@ class _EditProfileState extends State<EditProfile> {
 
   void showInputImgOptions() {
     showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Select Profile Picture"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  selectImg(ImageSource.gallery);
-                },
-                leading: const Icon(Icons.photo_album),
-                title: const Text("Select from Gallery"),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  selectImg(ImageSource.camera);
-                },
-                leading: const Icon(Icons.camera),
-                title: const Text("Take photo"),
-              ),
-            ],
-          ),
-        );
-      });
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Select Profile Picture"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    selectImg(ImageSource.gallery);
+                  },
+                  leading: const Icon(Icons.photo_album),
+                  title: const Text("Select from Gallery"),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    selectImg(ImageSource.camera);
+                  },
+                  leading: const Icon(Icons.camera),
+                  title: const Text("Take photo"),
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   Future<void> submit() async {
@@ -81,32 +82,59 @@ class _EditProfileState extends State<EditProfile> {
     String phone = phoneController.text.trim();
     String profession = professionController.text.trim();
 
-    if(name.isEmpty && phone.isEmpty && profession.isEmpty && img == null){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No Update')));
-    }
-    else{
-      if(name.isNotEmpty){
-        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'name': name})
-        .then((value){} )
-        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update name: $error')));});
+    if (name.isEmpty && phone.isEmpty && profession.isEmpty && img == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('No Update')));
+    } else {
+      if (name.isNotEmpty) {
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(widget.userModel.uid)
+            .update({'name': name})
+            .then((value) {})
+            .catchError((error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Failed to update name: $error')));
+            });
       }
-      if(phone.isNotEmpty){
-        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'phone': phone})
-        .then((value) {} )
-        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update number: $error')));});
+      if (phone.isNotEmpty) {
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(widget.userModel.uid)
+            .update({'phone': phone})
+            .then((value) {})
+            .catchError((error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Failed to update number: $error')));
+            });
       }
-      if(profession.isNotEmpty){
-        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profession': profession})
-        .then((value) {} )
-        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error')));});
+      if (profession.isNotEmpty) {
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(widget.userModel.uid)
+            .update({'profession': profession})
+            .then((value) {})
+            .catchError((error) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Failed to update profession: $error')));
+            });
       }
-      if(img != null){
-        UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(widget.userModel.uid.toString()).putFile(img!);
+      if (img != null) {
+        UploadTask uploadTask = FirebaseStorage.instance
+            .ref('ProfilePictures')
+            .child(widget.userModel.uid.toString())
+            .putFile(img!);
         TaskSnapshot snapshot = await uploadTask;
         String imgUrl = await snapshot.ref.getDownloadURL();
-        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profilePic': imgUrl})
-        .then((value) {} )
-        .catchError((error) {ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error')));});
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(widget.userModel.uid)
+            .update({'profilePic': imgUrl})
+            .then((value) {})
+            .catchError((error) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Failed to update profession: $error')));
+            });
       }
       Restart.restartApp();
     }
@@ -148,13 +176,19 @@ class _EditProfileState extends State<EditProfile> {
       ),
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.jpg"),
-                fit: BoxFit.cover,
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(),
               ),
-            ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.grey.withOpacity(0.06),
+                ),
+              ),
+            ],
           ),
           SingleChildScrollView(
             child: Padding(
@@ -173,11 +207,12 @@ class _EditProfileState extends State<EditProfile> {
                           backgroundColor: const Color(0xFFF5CEB8),
                           foregroundColor: Colors.white,
                           radius: MediaQuery.of(context).size.height * 0.1,
-                          backgroundImage: NetworkImage(widget.userModel.profilePic.toString()),
-                          foregroundImage: img != null? FileImage(img!): null,
-                          child: widget.userModel.profilePic == null? 
-                            const Icon(Icons.person, size: 70)
-                            : null,
+                          backgroundImage: NetworkImage(
+                              widget.userModel.profilePic.toString()),
+                          foregroundImage: img != null ? FileImage(img!) : null,
+                          child: widget.userModel.profilePic == null
+                              ? const Icon(Icons.person, size: 70)
+                              : null,
                         ),
                         Positioned(
                           bottom: 0,
@@ -218,8 +253,8 @@ class _EditProfileState extends State<EditProfile> {
                       fillColor: Colors.grey.shade100,
                       filled: true,
                       hintText: widget.userModel.name,
-                      hintStyle: TextStyle(
-                          color: Colors.grey.shade500, fontSize: 14),
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 14),
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -239,8 +274,8 @@ class _EditProfileState extends State<EditProfile> {
                       fillColor: Colors.grey.shade100,
                       filled: true,
                       hintText: widget.userModel.phone,
-                      hintStyle: TextStyle(
-                          color: Colors.grey.shade500, fontSize: 14),
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 14),
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -259,8 +294,8 @@ class _EditProfileState extends State<EditProfile> {
                       fillColor: Colors.grey.shade100,
                       filled: true,
                       hintText: widget.userModel.profession,
-                      hintStyle: TextStyle(
-                          color: Colors.grey.shade500, fontSize: 14),
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 14),
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -274,7 +309,8 @@ class _EditProfileState extends State<EditProfile> {
                       backgroundColor: const Color(0xFF43B1B7),
                       fixedSize: const Size(150, 48),
                     ),
-                    child: Text('Update',
+                    child: Text(
+                      'Update',
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
                           color: Colors.white,

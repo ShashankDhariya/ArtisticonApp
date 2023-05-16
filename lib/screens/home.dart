@@ -12,7 +12,8 @@ import 'package:artist_icon/screens/widgets/rent_artist.dart';
 class HomePage extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const HomePage({super.key, required this.userModel, required this.firebaseUser});
+  const HomePage(
+      {super.key, required this.userModel, required this.firebaseUser});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -24,8 +25,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> widgetOptions = [
-      HomeArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel),
-      PostOrRentModal(firebaseUser: widget.firebaseUser,userModel: widget.userModel),
+      HomeArtist(
+          firebaseUser: widget.firebaseUser, userModel: widget.userModel),
+      PostOrRentModal(
+          firebaseUser: widget.firebaseUser, userModel: widget.userModel),
       RentArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
     ];
     return Scaffold(
@@ -33,13 +36,17 @@ class _HomePageState extends State<HomePage> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
-        title: Text('Welcome ${widget.userModel.name}',style: GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 16)),
+        title: Text('Welcome ${widget.userModel.name}',
+            style:
+                GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 16)),
         actions: [
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return Profile(firebaseUser: widget.firebaseUser,userModel: widget.userModel);
+                  return Profile(
+                      firebaseUser: widget.firebaseUser,
+                      userModel: widget.userModel);
                 },
               ));
             },
@@ -67,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.transparent,
                   isScrollControlled: true,
                   builder: (context) => SizedBox(
-                    height: 250, // set the height here
+                    height: 200, // set the height here
                     child: PostOrRentModal(
                       firebaseUser: widget.firebaseUser,
                       userModel: widget.userModel,
