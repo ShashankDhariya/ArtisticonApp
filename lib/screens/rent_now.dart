@@ -15,7 +15,12 @@ class RentNowPage extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
   final RentPostModel rentPostModel;
-  const RentNowPage({Key? key,required this.userModel, required this.firebaseUser, required this.rentPostModel}) : super(key: key);
+  const RentNowPage(
+      {Key? key,
+      required this.userModel,
+      required this.firebaseUser,
+      required this.rentPostModel})
+      : super(key: key);
 
   @override
   State<RentNowPage> createState() => _RentNowPageState();
@@ -41,10 +46,10 @@ class _RentNowPageState extends State<RentNowPage> {
     String people = peopleController.text.trim();
     String date = dateController.text.trim();
 
-    if(name.isEmpty || hrs.isEmpty || people.isEmpty || date.isEmpty){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill out all the Fields")));
-    }
-    else {
+    if (name.isEmpty || hrs.isEmpty || people.isEmpty || date.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Fill out all the Fields")));
+    } else {
       String applyRid = uuid.v1();
       RentApplyModel rentApply = RentApplyModel(
         applyRid: applyRid,
@@ -54,7 +59,7 @@ class _RentNowPageState extends State<RentNowPage> {
         hrs: hrs,
         people: people,
       );
-      // More Details can Also be added 
+      // More Details can Also be added
       RentPostModel myApplications = RentPostModel(
         rentid: widget.rentPostModel.rentid.toString(),
         provider: widget.rentPostModel.provider.toString(),
@@ -67,15 +72,25 @@ class _RentNowPageState extends State<RentNowPage> {
         pay: widget.rentPostModel.pay.toString(),
         time: DateTime.now(),
       );
-      
-      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(widget.rentPostModel.rentid.toString()).set(myApplications.toMap());
-      FirebaseFirestore.instance.collection("Rents").doc(widget.rentPostModel.rentid.toString()).collection("Applications").doc(widget.userModel.uid.toString()).set(rentApply.toMap()).then((value){
+
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(widget.userModel.uid.toString())
+          .collection("MyApplications")
+          .doc(widget.rentPostModel.rentid.toString())
+          .set(myApplications.toMap());
+      FirebaseFirestore.instance
+          .collection("Rents")
+          .doc(widget.rentPostModel.rentid.toString())
+          .collection("Applications")
+          .doc(widget.userModel.uid.toString())
+          .set(rentApply.toMap())
+          .then((value) {
         Navigator.popUntil(context, (route) => route.isFirst);
-        Navigator.push(
-        context, 
-        MaterialPageRoute(
-          builder:(context) {
-            return HomePage(userModel: widget.userModel, firebaseUser: widget.firebaseUser);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return HomePage(
+                userModel: widget.userModel, firebaseUser: widget.firebaseUser);
           },
         ));
       });
@@ -123,112 +138,124 @@ class _RentNowPageState extends State<RentNowPage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Image.asset('assets/images/artistIcon.jpeg', height: 105),
-              
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.person),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Name',
-                  hintStyle:
-                      TextStyle(color: Colors.grey.shade500, fontSize: 14),
-                ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"),
+                fit: BoxFit.cover,
               ),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: hoursController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.access_time_outlined),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Enter number of hours',
-                  hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              TextField(
-                controller: peopleController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.group),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Enter number of people',
-                  hintStyle:
-                      TextStyle(color: Colors.grey.shade500, fontSize: 14),
-                ),
-              ),
-              const SizedBox(height: 16.0),
-              GestureDetector(
-                onTap: () => _selectDate(context),
-                child: AbsorbPointer(
-                  child: TextFormField(
-                    controller: dateController,
-                    keyboardType: TextInputType.datetime,
+            ),
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  Image.asset('assets/images/Artisticon_logo.png', height: 105),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: nameController,
                     decoration: InputDecoration(
-                      hintText: 'Select date',
-                      prefixIcon: const Icon(Icons.calendar_today),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
-                            color: Colors.black), 
-                      ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade500),
+                        borderSide: const BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey.shade500),
+                        borderSide: const BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      filled: true,
+                      prefixIcon: const Icon(Icons.person),
                       fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: 'Name',
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 14),
                     ),
                   ),
-                ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: hoursController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.access_time_outlined),
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: 'Enter number of hours',
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: peopleController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.group),
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: 'Enter number of people',
+                      hintStyle:
+                          TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  GestureDetector(
+                    onTap: () => _selectDate(context),
+                    child: AbsorbPointer(
+                      child: TextFormField(
+                        controller: dateController,
+                        keyboardType: TextInputType.datetime,
+                        decoration: InputDecoration(
+                          hintText: 'Select date',
+                          prefixIcon: const Icon(Icons.calendar_today),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(color: Colors.black),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade500),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade500),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey.shade100,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  MyButton(
+                      text: "Submit", width: double.infinity, onPressed: submit)
+                ],
               ),
-              const SizedBox(height: 16.0),
-              MyButton(text: "Submit", width: double.infinity, onPressed: submit)
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

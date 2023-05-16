@@ -71,19 +71,19 @@ class _InformationState extends State<Information> {
                         height: 60,
                         width: 60,
                         child: ElevatedButton(
-                            onPressed: () {
-                              _pageController.nextPage(
-                                curve: Curves.ease,
-                                duration: const Duration(milliseconds: 300),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: const CircleBorder(),
-                            ),
-                            child: Image.asset(
-                              "assets/images/arrow.png",
-                              color: Colors.white,
-                            )),
+                          onPressed: () {
+                            _pageController.nextPage(
+                              curve: Curves.ease,
+                              duration: const Duration(milliseconds: 300),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                          ),
+                          child: Image.asset(
+                            "assets/images/arrow.png",
+                            color: Colors.white,
+                          )),
                       ),
                     ],
                   )
@@ -112,8 +112,8 @@ class Indicator extends StatelessWidget {
       width: 4,
       decoration: BoxDecoration(
         color: isActive
-            ? Vx.randomPrimaryColor
-            : Vx.randomPrimaryColor.withOpacity(0.4),
+          ? Vx.randomPrimaryColor
+          : Vx.randomPrimaryColor.withOpacity(0.4),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
     );
@@ -134,27 +134,22 @@ final List<Info> demodata = [
   Info(
     image: 'assets/images/InfoScreen_jobsearch.png',
     title: "Search for the Jobs/work you've been looking for",
-    description:
-        'Look for any Artistic jobs that anyone posts on this app and apply directly by clicking on the job of your choice',
+    description: 'Look for any Artistic jobs that anyone posts on this app and apply directly by clicking on the job of your choice',
   ),
   Info(
     image: 'assets/images/InfoScreen_jobpost.png',
     title: 'Post any kind of work/jobs',
-    description:
-        'You can post any kind of Artistic work/job by going to the post section in the navigation bar and clicking on Post a Job',
+    description: 'You can post any kind of Artistic work/job by going to the post section in the navigation bar and clicking on Post a Job',
   ),
   Info(
     image: 'assets/images/InfoScree_rentavail2.png',
-    title:
-        'Rent any Service ranging from Costumes to Studios on hourly/daily basis',
-    description:
-        'You can post any kind of service that you want to provide on rent by going to the post section in the navigation bar and clicking on Rent a Service',
+    title: 'Rent any Service ranging from Costumes to Studios on hourly/daily basis',
+    description: 'You can post any kind of service that you want to provide on rent by going to the post section in the navigation bar and clicking on Rent a Service',
   ),
   Info(
     image: 'assets/images/InfoScreen_rentservice.png',
     title: 'Get any kind of Service like Studios, Costumes on rent',
-    description:
-        'Avail any kind of Service on Rent in the Rent Section of Navigation Bar and directly click on rent now button to rent anything of your choice ',
+    description: 'Avail any kind of Service on Rent in the Rent Section of Navigation Bar and directly click on rent now button to rent anything of your choice ',
   )
 ];
 
@@ -185,7 +180,7 @@ class InformationContent extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.nunito(
             textStyle:
-                const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         const SizedBox(
@@ -196,7 +191,7 @@ class InformationContent extends StatelessWidget {
           textAlign: TextAlign.center,
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
           ),
         ),
         const Spacer()

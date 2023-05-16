@@ -95,8 +95,7 @@ class _JobPostingState extends State<JobPosting> {
                   padding: EdgeInsets.symmetric(
                       horizontal: size.width * 0.32,
                       vertical: size.height * 0.03),
-                  child: Text(
-                    'Job Details',
+                  child: Text('Job Details',
                     style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.bold),
@@ -121,18 +120,18 @@ class _JobPostingState extends State<JobPosting> {
                 maxLines: null,
                 controller: descController,
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    prefixIcon: const Icon(Icons.description),
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: 'Description',
-                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  prefixIcon: const Icon(Icons.description),
+                  fillColor: Colors.grey.shade100,
+                  filled: true,
+                  hintText: 'Description',
+                  hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
 
@@ -145,18 +144,18 @@ class _JobPostingState extends State<JobPosting> {
                 keyboardType: TextInputType.number,
                 controller: phoneController,
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    prefixIcon: const Icon(Icons.description),
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: 'Phone',
-                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  prefixIcon: const Icon(Icons.description),
+                  fillColor: Colors.grey.shade100,
+                  filled: true,
+                  hintText: 'Phone',
+                  hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
 
@@ -165,7 +164,7 @@ class _JobPostingState extends State<JobPosting> {
               hintText: 'Address',
               obsecure: false,
               icon: Icon(Icons.map,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: addressController,
             ),
             SizedBox(height: size.height * 0.025),
@@ -173,7 +172,7 @@ class _JobPostingState extends State<JobPosting> {
               hintText: 'City',
               obsecure: false,
               icon: Icon(Icons.location_city,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: citycontroller,
             ),
             SizedBox(height: size.height * 0.018),
@@ -181,7 +180,7 @@ class _JobPostingState extends State<JobPosting> {
               hintText: 'State',
               obsecure: false,
               icon: Icon(Icons.location_on,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: stateController,
             ),
             SizedBox(height: size.height * 0.018),
@@ -189,7 +188,7 @@ class _JobPostingState extends State<JobPosting> {
               hintText: 'Country',
               obsecure: false,
               icon: Icon(Icons.flag,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: countryController,
             ),
             SizedBox(height: size.height * 0.018),
@@ -201,24 +200,22 @@ class _JobPostingState extends State<JobPosting> {
                 keyboardType: TextInputType.number,
                 controller: paycontroller,
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    prefixIcon: const Icon(Icons.description),
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: 'Expected Pay',
-                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  prefixIcon: const Icon(Icons.description),
+                  fillColor: Colors.grey.shade100,
+                  filled: true,
+                  hintText: 'Expected Pay',
+                  hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
             SizedBox(height: size.height * 0.018),
-            MyButton(
-              text: 'Post Job',
-              width: size.width * 0.48,
+            MyButton(text: 'Post Job', width: size.width * 0.48,
               onPressed: () {
                 check();
               },

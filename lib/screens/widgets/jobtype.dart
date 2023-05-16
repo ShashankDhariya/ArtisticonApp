@@ -8,9 +8,7 @@ import 'package:artist_icon/screens/widgets/rentservice_home.dart';
 class PostOrRentModal extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const PostOrRentModal(
-      {Key? key, required this.userModel, required this.firebaseUser})
-      : super(key: key);
+  const PostOrRentModal({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +33,7 @@ class PostOrRentModal extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return JobPost(
-                        firebaseUser: firebaseUser, userModel: userModel);
+                    return JobPost(firebaseUser: firebaseUser, userModel: userModel);
                   },
                 ),
               );
@@ -51,15 +48,13 @@ class PostOrRentModal extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.work_outline,
-                      size: 40, color: Colors.grey.shade100),
+                  Icon(Icons.work_outline, size: 40, color: Colors.grey.shade100),
                   SizedBox(height: size.height * 0.01),
-                  Text(
-                    'Post a Job',
+                  Text('Post a Job',
                     style: GoogleFonts.nunito(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade100,
-                        fontSize: 18),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade100,
+                      fontSize: 18),
                   ),
                 ],
               ),
@@ -71,8 +66,7 @@ class PostOrRentModal extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return RentService(
-                        firebaseUser: firebaseUser, userModel: userModel);
+                    return RentService(firebaseUser: firebaseUser, userModel: userModel);
                   },
                 ),
               );
@@ -87,15 +81,13 @@ class PostOrRentModal extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.home_work_outlined,
-                      size: 40, color: Colors.grey.shade100),
+                  Icon(Icons.home_work_outlined, size: 40, color: Colors.grey.shade100),
                   SizedBox(height: size.height * 0.01),
-                  Text(
-                    'Rent a Service',
+                  Text('Rent a Service',
                     style: GoogleFonts.nunito(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade100,
-                        fontSize: 18),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade100,
+                      fontSize: 18),
                   ),
                 ],
               ),

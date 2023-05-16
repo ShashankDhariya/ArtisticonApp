@@ -29,28 +29,17 @@ class LandScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: size.height * 0.08),
-                    Text(
-                      "ARTISTICON",
+                    Text("ARTISTICON",
                       style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         fontSize: 20,
                       ),
                     ),
-                    // SizedBox(height: size.height * 0.08),
-                    // Text("Where artists thrive",
-                    //     style: GoogleFonts.nunito(
-                    //         fontSize: 24,
-                    //         fontWeight: FontWeight.bold,
-                    //         color: Colors.black)),
                     SizedBox(height: size.height * 0.10),
-                    Image.asset(
-                      'assets/images/Artisticon_logo.png',
-                      height: size.height * 0.15,
-                    ),
+                    Image.asset('assets/images/Artisticon_logo.png', height: size.height * 0.15),
                     SizedBox(height: size.height * 0.16),
-                    Text(
-                      'The Ultimate Creative Marketplace\n      Hire and Rent with ArtistIcon',
+                    Text('The Ultimate Creative Marketplace\n      Hire and Rent with ArtistIcon',
                       style: GoogleFonts.nunito(
                         fontSize: 18,
                         color: Colors.black,
@@ -83,7 +72,6 @@ class LandScreen extends StatelessWidget {
                       text: 'Sign In',
                       width: size.width * 0.5,
                     ),
-                    // SizedBox(height: size.height * 0.030),
                   ],
                 ),
               ),

@@ -13,11 +13,7 @@ import 'package:artist_icon/screens/components/my_text_field.dart';
 class RentingService extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const RentingService({
-    Key? key,
-    required this.userModel,
-    required this.firebaseUser,
-  }) : super(key: key);
+  const RentingService({Key? key,required this.userModel,required this.firebaseUser}) : super(key: key);
 
   @override
   State<RentingService> createState() => _RentingServiceState();
@@ -106,14 +102,11 @@ class _RentingServiceState extends State<RentingService> {
                   height: size.height * 0.045,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.32,
-                      vertical: size.height * 0.02),
-                  child: Text(
-                    'Service Details',
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.32, vertical: size.height * 0.02),
+                  child: Text('Service Details',
                     style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                        fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -136,18 +129,18 @@ class _RentingServiceState extends State<RentingService> {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    prefixIcon: const Icon(Icons.description),
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: 'Description',
-                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  prefixIcon: const Icon(Icons.description),
+                  fillColor: Colors.grey.shade100,
+                  filled: true,
+                  hintText: 'Description',
+                  hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
             SizedBox(height: size.height * 0.015),
@@ -159,18 +152,18 @@ class _RentingServiceState extends State<RentingService> {
                 controller: phoneController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    prefixIcon: const Icon(Icons.phone),
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: 'Phone',
-                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  prefixIcon: const Icon(Icons.phone),
+                  fillColor: Colors.grey.shade100,
+                  filled: true,
+                  hintText: 'Phone',
+                  hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
             SizedBox(height: size.height * 0.015),
@@ -178,7 +171,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'Address',
               obsecure: false,
               icon: Icon(Icons.map,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: addressController,
             ),
             SizedBox(height: size.height * 0.015),
@@ -186,7 +179,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'City',
               obsecure: false,
               icon: Icon(Icons.location_city,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: citycontroller,
             ),
             SizedBox(height: size.height * 0.015),
@@ -194,7 +187,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'State',
               obsecure: false,
               icon: Icon(Icons.location_on,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: stateController,
             ),
             SizedBox(height: size.height * 0.015),
@@ -202,7 +195,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'Country',
               obsecure: false,
               icon: Icon(Icons.flag,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: countryController,
             ),
             SizedBox(height: size.height * 0.015),
@@ -210,7 +203,7 @@ class _RentingServiceState extends State<RentingService> {
               hintText: 'Cost/hr',
               obsecure: false,
               icon: Icon(Icons.currency_rupee,
-                  size: MediaQuery.of(context).size.height * 0.030),
+                size: MediaQuery.of(context).size.height * 0.030),
               controller: paycontroller,
             ),
             SizedBox(height: size.height * 0.02),

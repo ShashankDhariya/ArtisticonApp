@@ -30,7 +30,6 @@ class _UserDetailsState extends State<UserDetails> {
 
   void selectImg(ImageSource source) async {
     XFile? pickedFile = await ImagePicker().pickImage(source: source);
-
     if (pickedFile != null) {
       cropImg(pickedFile);
     }
@@ -50,33 +49,33 @@ class _UserDetailsState extends State<UserDetails> {
 
   void showInputImgOptions() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("Select Profile Picture"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    selectImg(ImageSource.gallery);
-                  },
-                  leading: const Icon(Icons.photo_album),
-                  title: const Text("Select from Gallery"),
-                ),
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    selectImg(ImageSource.camera);
-                  },
-                  leading: const Icon(Icons.camera),
-                  title: const Text("Take photo"),
-                ),
-              ],
-            ),
-          );
-        });
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Select Profile Picture"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  selectImg(ImageSource.gallery);
+                },
+                leading: const Icon(Icons.photo_album),
+                title: const Text("Select from Gallery"),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  selectImg(ImageSource.camera);
+                },
+                leading: const Icon(Icons.camera),
+                title: const Text("Take photo"),
+              ),
+            ],
+          ),
+        );
+      });
   }
 
   void check() {
@@ -179,8 +178,7 @@ class _UserDetailsState extends State<UserDetails> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.010),
-                Text(
-                  'Complete your details',
+                Text('Complete your details',
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
                       color: Colors.grey,
@@ -191,10 +189,10 @@ class _UserDetailsState extends State<UserDetails> {
                 ),
                 SizedBox(height: size.height * 0.019),
                 MyTextField(
-                    hintText: 'Name',
-                    obsecure: false,
-                    icon: const Icon(Icons.person, size: 20),
-                    controller: nameController),
+                  hintText: 'Name',
+                  obsecure: false,
+                  icon: const Icon(Icons.person, size: 20),
+                  controller: nameController),
                 SizedBox(height: size.height * 0.020),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -204,26 +202,26 @@ class _UserDetailsState extends State<UserDetails> {
                     keyboardType: TextInputType.phone,
                     controller: phoneController,
                     decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.white),
-                            borderRadius: BorderRadius.circular(20)),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        prefixIcon: const Icon(Icons.phone),
-                        fillColor: Colors.grey.shade100,
-                        filled: true,
-                        hintText: 'Phone',
-                        hintStyle: TextStyle(color: Colors.grey.shade500)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      prefixIcon: const Icon(Icons.phone),
+                      fillColor: Colors.grey.shade100,
+                      filled: true,
+                      hintText: 'Phone',
+                      hintStyle: TextStyle(color: Colors.grey.shade500)),
                   ),
                 ),
                 SizedBox(height: size.height * 0.020),
                 MyTextField(
-                    hintText: 'Profession',
-                    obsecure: false,
-                    icon: const Icon(Icons.art_track_sharp, size: 20),
-                    controller: professionController),
+                  hintText: 'Profession',
+                  obsecure: false,
+                  icon: const Icon(Icons.art_track_sharp, size: 20),
+                  controller: professionController),
                 SizedBox(height: size.height * 0.035),
                 state? const CircularProgressIndicator()
                 : MyButton(

@@ -95,13 +95,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: MediaQuery.of(context).size.height * 0.12,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    Text(
-                      'Create your account',
+                    Text('Create your account',
                       style: GoogleFonts.nunito(
-                          textStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold)),
+                        textStyle: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(
                       height: size.height * 0.015,
@@ -141,16 +140,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                     SizedBox(height: size.height * 0.025),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.height * 0.02),
+                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.02),
                       child: Row(
                         children: [
                           const Expanded(
-                              child: Divider(
-                            thickness: 0.6,
+                            child: Divider(
+                              thickness: 0.6,
                           )),
-                          Text(
-                            'Or continue with',
+                          Text('Or continue with',
                             style: GoogleFonts.nunito(
                               textStyle: const TextStyle(
                                 color: Colors.grey,
@@ -177,8 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Padding(
                             padding: EdgeInsets.all(
                                 MediaQuery.of(context).size.height * 0.015),
-                            child: Image.asset(
-                              'assets/images/google.png',
+                            child: Image.asset('assets/images/google.png',
                               height: MediaQuery.of(context).size.height * 0.04,
                             ),
                           ),
@@ -203,8 +199,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.07),
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text(
-                        'Back To Sign In',
+                      child: Text('Back To Sign In',
                         style: GoogleFonts.nunito(
                           textStyle: const TextStyle(
                             color: Colors.blue,

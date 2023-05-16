@@ -38,15 +38,13 @@ class _SplashState extends State<Splash> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/Artisticon_logo.png',
+              Image.asset('assets/images/Artisticon_logo.png',
                 height: MediaQuery.of(context).size.height * 0.18,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.2,
               ),
-              Lottie.asset(
-                'assets/images/loadingCircles.json',
+              Lottie.asset('assets/images/loadingCircles.json',
                 height: MediaQuery.of(context).size.height * 0.15,
               ),
             ],
@@ -78,10 +76,7 @@ class _SplashLoggedInState extends State<SplashLoggedIn> {
     await Future.delayed(const Duration(milliseconds: 2500), () {
       Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (context) {
-          return HomePage(
-            firebaseUser: widget.firebaseUser,
-            userModel: widget.userModel,
-          );
+          return HomePage(firebaseUser: widget.firebaseUser,userModel: widget.userModel);
         },
       ));
     });
@@ -96,15 +91,11 @@ class _SplashLoggedInState extends State<SplashLoggedIn> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/Artisticon_logo.png',
+              Image.asset('assets/images/Artisticon_logo.png',
                 height: MediaQuery.of(context).size.height * 0.18,
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.2,
-              ),
-              Lottie.asset(
-                'assets/images/loadingCircles.json',
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2,),
+              Lottie.asset('assets/images/loadingCircles.json',
                 height: MediaQuery.of(context).size.height * 0.15,
               ),
             ],

@@ -6,11 +6,7 @@ import 'package:artist_icon/screens/renting_service.dart';
 class RentService extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const RentService({
-    Key? key,
-    required this.userModel,
-    required this.firebaseUser,
-  }) : super(key: key);
+  const RentService({Key? key, required this.userModel, required this.firebaseUser}) : super(key: key);
 
   @override
   State<RentService> createState() => _RentServiceState();
@@ -40,9 +36,7 @@ class _RentServiceState extends State<RentService> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RentingService(
-                    firebaseUser: widget.firebaseUser,
-                    userModel: widget.userModel)
+                RentingService(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
               ],
             ),
           )

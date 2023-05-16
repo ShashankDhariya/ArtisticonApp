@@ -85,8 +85,7 @@ class _JobListState extends State<JobList> {
                     ),
                     Container(
                       padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        'assets/images/search.png',
+                      child: Image.asset('assets/images/search.png',
                         height: 20,
                         width: 20,
                       ),
@@ -145,19 +144,17 @@ class _JobListState extends State<JobList> {
 
                         if (search.isEmpty && location.isEmpty) {
                           return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.05,
-                                vertical: size.height * 0.01),
+                            padding: EdgeInsets.symmetric(horizontal: size.width * 0.05, vertical: size.height * 0.01),
                             child: GestureDetector(
                               onTap: () {
                                 showModalBottomSheet(
-                                    backgroundColor: Colors.transparent,
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) => JobDetail(
-                                        currJob: currJob,
-                                        firebaseUser: widget.firebaseUser,
-                                        userModel: widget.userModel));
+                                  backgroundColor: Colors.transparent,
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) => JobDetail(
+                                    currJob: currJob,
+                                    firebaseUser: widget.firebaseUser,
+                                    userModel: widget.userModel));
                               },
                               child: Container(
                                   height: 135,
@@ -224,13 +221,13 @@ class _JobListState extends State<JobList> {
                             child: GestureDetector(
                               onTap: () {
                                 showModalBottomSheet(
-                                    backgroundColor: Colors.transparent,
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) => JobDetail(
-                                        currJob: currJob,
-                                        firebaseUser: widget.firebaseUser,
-                                        userModel: widget.userModel));
+                                  backgroundColor: Colors.transparent,
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) => JobDetail(
+                                    currJob: currJob,
+                                    firebaseUser: widget.firebaseUser,
+                                    userModel: widget.userModel));
                               },
                               child: Container(
                                   height: 135,

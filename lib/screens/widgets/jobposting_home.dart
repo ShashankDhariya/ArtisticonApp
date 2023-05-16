@@ -6,8 +6,7 @@ import 'package:artist_icon/screens/job_posting.dart';
 class JobPost extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const JobPost({Key? key, required this.userModel, required this.firebaseUser})
-      : super(key: key);
+  const JobPost({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
 
   @override
   State<JobPost> createState() => _JobPostState();

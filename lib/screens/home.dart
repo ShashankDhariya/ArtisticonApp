@@ -12,8 +12,7 @@ import 'package:artist_icon/screens/widgets/rent_artist.dart';
 class HomePage extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const HomePage(
-      {super.key, required this.userModel, required this.firebaseUser});
+  const HomePage({super.key, required this.userModel, required this.firebaseUser});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -40,9 +39,7 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return Profile(
-                      firebaseUser: widget.firebaseUser,
-                      userModel: widget.userModel);
+                  return Profile(firebaseUser: widget.firebaseUser,userModel: widget.userModel);
                 },
               ));
             },

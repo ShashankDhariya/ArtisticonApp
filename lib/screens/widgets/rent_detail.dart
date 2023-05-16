@@ -22,14 +22,11 @@ class RentDetail extends StatelessWidget {
     String location = '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}';
     var size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: size.height * 0.01, horizontal: size.width * 0.05),
+      padding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.05),
       decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          )),
+        color: Colors.white,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30),
+        )),
       height: size.height * 0.5,
       child: SingleChildScrollView(
         child: Column(
@@ -65,10 +62,10 @@ class RentDetail extends StatelessWidget {
                 ),
                 SizedBox(height: size.height * 0.025),
                 Text(currRent.category.toString(),
-                    style: const TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                    )),
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  )),
                 SizedBox(height: size.height * 0.025),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,12 +104,7 @@ class RentDetail extends StatelessWidget {
                 ),
                 SizedBox(height: size.height * 0.025),
                 currRent.uid.toString == userModel.uid.toString? 
-                MyButton(
-                  text: "Can't apply to own post",
-                  width: double.infinity,
-                  onPressed: () {
-                  },
-                )
+                MyButton(text: "Can't apply to own post", width: double.infinity, onPressed: () {})
                 :
                 MyButton(
                   text: 'Rent Now',

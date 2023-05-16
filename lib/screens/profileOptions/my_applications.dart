@@ -30,8 +30,7 @@ class MyApplications extends StatelessWidget {
         foregroundColor: Colors.black,
         backgroundColor: Colors.grey.shade100,
         centerTitle: true,
-        title: Text(
-          'My Applications',
+        title: Text('My Applications',
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -58,11 +57,9 @@ class MyApplications extends StatelessWidget {
                     return ListView.builder(
                       itemCount: data.docs.length,
                       itemBuilder: (context, index) {
-                        RentPostModel currApplication = RentPostModel.fromMap(
-                            data.docs[index].data() as Map<String, dynamic>);
+                        RentPostModel currApplication = RentPostModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
                         return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           child: Container(
                             height: 130,
                             decoration: BoxDecoration(

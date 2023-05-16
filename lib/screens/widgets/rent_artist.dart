@@ -6,11 +6,7 @@ import 'package:artist_icon/screens/widgets/rent_list.dart';
 class RentArtist extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const RentArtist({
-    Key? key,
-    required this.userModel,
-    required this.firebaseUser,
-  }) : super(key: key);
+  const RentArtist({Key? key,required this.userModel, required this.firebaseUser}) : super(key: key);
 
   @override
   State<RentArtist> createState() => _RentArtistState();

@@ -28,7 +28,6 @@ class _EditProfileState extends State<EditProfile> {
 
   void selectImg(ImageSource source) async {
     XFile? pickedFile = await ImagePicker().pickImage(source: source);
-
     if (pickedFile != null) {
       cropImg(pickedFile);
     }
@@ -48,33 +47,33 @@ class _EditProfileState extends State<EditProfile> {
 
   void showInputImgOptions() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("Select Profile Picture"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    selectImg(ImageSource.gallery);
-                  },
-                  leading: const Icon(Icons.photo_album),
-                  title: const Text("Select from Gallery"),
-                ),
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    selectImg(ImageSource.camera);
-                  },
-                  leading: const Icon(Icons.camera),
-                  title: const Text("Take photo"),
-                ),
-              ],
-            ),
-          );
-        });
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Select Profile Picture"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  selectImg(ImageSource.gallery);
+                },
+                leading: const Icon(Icons.photo_album),
+                title: const Text("Select from Gallery"),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  selectImg(ImageSource.camera);
+                },
+                leading: const Icon(Icons.camera),
+                title: const Text("Take photo"),
+              ),
+            ],
+          ),
+        );
+      });
   }
 
   Future<void> submit() async {
@@ -275,8 +274,7 @@ class _EditProfileState extends State<EditProfile> {
                       backgroundColor: const Color(0xFF43B1B7),
                       fixedSize: const Size(150, 48),
                     ),
-                    child: Text(
-                      'Update',
+                    child: Text('Update',
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
                           color: Colors.white,
