@@ -26,15 +26,15 @@ class _SignInPageState extends State<SignInPage> {
     String password = passwordController.text.trim();
 
     if (username.isEmpty && password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Details')));
-    }
-    else if (username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Username')));
-    } 
-    else if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Password')));
-    } 
-    else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please Enter Details')));
+    } else if (username.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please Enter Username')));
+    } else if (password.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please Enter Password')));
+    } else {
       log(username.toString());
       setState(() {
         state = true;
@@ -49,8 +49,10 @@ class _SignInPageState extends State<SignInPage> {
       credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: username, password: password);
       String uid = credential.user!.uid;
-      DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-      UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
+      DocumentSnapshot userData =
+          await FirebaseFirestore.instance.collection("Users").doc(uid).get();
+      UserModel userModel =
+          UserModel.fromMap(userData.data() as Map<String, dynamic>);
 
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacement(
@@ -63,12 +65,14 @@ class _SignInPageState extends State<SignInPage> {
         setState(() {
           state = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No user found for that email.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('No user found for that email.')));
       } else if (e.code == 'wrong-password') {
         setState(() {
           state = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Wrong password provided for that user.')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Wrong password provided for that user.')));
       }
     }
   }
@@ -103,41 +107,44 @@ class _SignInPageState extends State<SignInPage> {
                     Text(
                       'Please login to your account',
                       style: GoogleFonts.nunito(
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[700],
-                          fontWeight: FontWeight.bold)),
+                          textStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold)),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.020),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.020),
                     MyTextField(
                       hintText: 'Username',
                       obsecure: false,
                       icon: Icon(Icons.person,
-                        size: MediaQuery.of(context).size.height * 0.030),
+                          size: MediaQuery.of(context).size.height * 0.030),
                       controller: usernameController,
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.015),
                     MyTextField(
                       hintText: 'Password',
                       obsecure: true,
                       icon: Icon(Icons.lock,
-                        size: MediaQuery.of(context).size.height * 0.030),
+                          size: MediaQuery.of(context).size.height * 0.030),
                       controller: passwordController,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal:
-                          MediaQuery.of(context).size.height * 0.035),
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.035),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text('Forgot Password?',
+                          Text(
+                            'Forgot Password?',
                             style: GoogleFonts.nunito(
                               textStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             ),
                           ),
                         ],
@@ -145,33 +152,36 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     state
-                    ? const CircularProgressIndicator()
-                    : MyButton(
-                        onPressed: () {
-                          check();
-                        },
-                        text: 'Sign In',
-                        width: 175,
-                      ),
+                        ? const CircularProgressIndicator()
+                        : MyButton(
+                            onPressed: () {
+                              check();
+                            },
+                            text: 'Sign In',
+                            width: 175,
+                          ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.02),
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.02),
                       child: Row(
                         children: [
                           const Expanded(
-                            child: Divider(
+                              child: Divider(
                             thickness: 0.6,
                           )),
-                          Text('Or continue with',
+                          Text(
+                            'Or continue with',
                             style: GoogleFonts.nunito(
                               textStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
                             ),
                           ),
                           const Expanded(
-                            child: Divider(
+                              child: Divider(
                             thickness: 0.6,
                           )),
                         ],
@@ -189,44 +199,47 @@ class _SignInPageState extends State<SignInPage> {
                           child: Padding(
                             padding: EdgeInsets.all(
                                 MediaQuery.of(context).size.height * 0.015),
-                            child: Image.asset('assets/images/google.png',
+                            child: Image.asset(
+                              'assets/images/google.png',
                               height: MediaQuery.of(context).size.height * 0.04,
                             ),
                           ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
-                            child: Image.asset('assets/images/apple.png',
-                              height: MediaQuery.of(context).size.height * 0.04,
-                            ),
-                          ),
-                        )
+                        // SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.transparent,
+                        //     borderRadius: BorderRadius.circular(15),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
+                        //     child: Image.asset('assets/images/apple.png',
+                        //       height: MediaQuery.of(context).size.height * 0.04,
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.14),
-                    Text('Don\'t have an account?',
+                    Text(
+                      'Don\'t have an account?',
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.height * 0.07),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                            return const SignUpPage();
+                            MaterialPageRoute(builder: (context) {
+                          return const SignUpPage();
                         }));
                       },
-                      child: Text('Sign up',
+                      child: Text(
+                        'Sign up',
                         style: GoogleFonts.nunito(
                           textStyle: const TextStyle(
                             color: Colors.blue,

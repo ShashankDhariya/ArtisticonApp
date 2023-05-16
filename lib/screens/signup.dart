@@ -4,12 +4,13 @@ import 'package:artist_icon/screens/user_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -17,10 +18,13 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController cPasswordController = TextEditingController();
   bool state = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future<bool> isEmailTaken(String email) async {
     try {
-      final signInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      final signInMethods =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
       return signInMethods.isNotEmpty;
     } catch (e) {
       return false;
@@ -33,38 +37,62 @@ class _SignUpPageState extends State<SignUpPage> {
     String cpassword = cPasswordController.text.trim();
 
     if (cpassword.isEmpty && password.isEmpty && username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter details')));
-    } 
-    else if (username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter username')));
-    } 
-    else if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter password')));
-    } 
-    else if (cpassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please confirm password')));
-    }
-    else if (cpassword != password) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match')));
-    } 
-    else if (password.length <= 5) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
-    } 
-    else if (await isEmailTaken('$username@artistIcon.com')) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter details')));
+    } else if (username.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter username')));
+    } else if (password.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter password')));
+    } else if (cpassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please confirm password')));
+    } else if (cpassword != password) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Password do not match')));
+    } else if (password.length <= 5) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('The password provided is too weak.')));
+    } else if (await isEmailTaken('$username@artistIcon.com')) {
       setState(() {
         state = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('The account already exists for that email.')));
     } else {
       setState(() {
         state = false;
       });
-      Navigator.push(context, MaterialPageRoute(
-        builder: (context) {
-          return UserDetails(password: password, username: '$username@artistIcon.com');
-        },
-      ));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return UserDetails(
+                password: password, username: '$username@artistIcon.com');
+          },
+        ),
+      );
     }
+  }
+
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        return await _auth.signInWithCredential(credential);
+      }
+    } catch (e) {
+      print('Error signing in with Google: $e');
+    }
+    return null;
   }
 
   @override
@@ -95,12 +123,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: MediaQuery.of(context).size.height * 0.12,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    Text('Create your account',
+                    Text(
+                      'Create your account',
                       style: GoogleFonts.nunito(
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[700],
-                          fontWeight: FontWeight.bold)),
+                          textStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(
                       height: size.height * 0.015,
@@ -140,14 +169,17 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                     SizedBox(height: size.height * 0.025),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.02),
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.02),
                       child: Row(
                         children: [
                           const Expanded(
-                            child: Divider(
-                              thickness: 0.6,
+                              child: Divider(
+                            thickness: 0.6,
                           )),
-                          Text('Or continue with',
+                          Text(
+                            'Or continue with',
                             style: GoogleFonts.nunito(
                               textStyle: const TextStyle(
                                 color: Colors.grey,
@@ -166,40 +198,35 @@ class _SignUpPageState extends State<SignUpPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            child: Image.asset('assets/images/google.png',
-                              height: MediaQuery.of(context).size.height * 0.04,
+                        GestureDetector(
+                          onTap: () async {
+                            await signInWithGoogle();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.015),
+                              child: Image.asset(
+                                'assets/images/google.png',
+                                height:
+                                    MediaQuery.of(context).size.height * 0.04,
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            child: Image.asset(
-                              'assets/images/apple.png',
-                              height: MediaQuery.of(context).size.height * 0.04,
-                            ),
-                          ),
-                        )
+                        SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.02),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.07),
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text('Back To Sign In',
+                      child: Text(
+                        'Back To Sign In',
                         style: GoogleFonts.nunito(
                           textStyle: const TextStyle(
                             color: Colors.blue,
