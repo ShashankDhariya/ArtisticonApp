@@ -30,7 +30,8 @@ class MyApplications extends StatelessWidget {
         foregroundColor: Colors.black,
         backgroundColor: Colors.grey.shade100,
         centerTitle: true,
-        title: Text('My Applications',
+        title: Text(
+          'My Applications',
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -40,16 +41,27 @@ class MyApplications extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.jpg"),
-                fit: BoxFit.cover,
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(),
               ),
-            ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.grey.withOpacity(0.06),
+                ),
+              ),
+            ],
           ),
           StreamBuilder(
-              stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyApplications").orderBy("time", descending: true).snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(userModel.uid.toString())
+                  .collection("MyApplications")
+                  .orderBy("time", descending: true)
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
@@ -57,9 +69,11 @@ class MyApplications extends StatelessWidget {
                     return ListView.builder(
                       itemCount: data.docs.length,
                       itemBuilder: (context, index) {
-                        RentPostModel currApplication = RentPostModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
+                        RentPostModel currApplication = RentPostModel.fromMap(
+                            data.docs[index].data() as Map<String, dynamic>);
                         return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
                           child: Container(
                             height: 130,
                             decoration: BoxDecoration(
@@ -71,23 +85,36 @@ class MyApplications extends StatelessWidget {
                                 Container(
                                   decoration: BoxDecoration(
                                     image: const DecorationImage(
-                                      image: AssetImage("assets/images/list_tile_background.jpg"),fit: BoxFit.cover,),
+                                      image: AssetImage(
+                                          "assets/images/job_tile_background3.jpg"),
+                                      fit: BoxFit.cover,
+                                    ),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
                                 ListTile(
-                                  trailing: Text(currApplication.pay.toString()),
-                                  title: Text(currApplication.provider.toString(),
-                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                                  trailing:
+                                      Text(currApplication.pay.toString()),
+                                  title: Text(
+                                    currApplication.provider.toString(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20),
                                   ),
                                   subtitle: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text(currApplication.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold)),
+                                      Text(currApplication.category.toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold)),
                                       const SizedBox(height: 10),
-                                      Text('${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
+                                      Text(
+                                          '${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
                                       const SizedBox(height: 10),
-                                      Text(currApplication.time.toString().substring(0, 10)),
+                                      Text(currApplication.time
+                                          .toString()
+                                          .substring(0, 10)),
                                     ],
                                   ),
                                 ),
@@ -105,8 +132,7 @@ class MyApplications extends StatelessWidget {
                 } else {
                   return const Center(child: CircularProgressIndicator());
                 }
-              }
-            ),
+              }),
         ],
       ),
     );
