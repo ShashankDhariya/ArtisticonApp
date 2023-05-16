@@ -28,7 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void check() async {
-    String username = '${usernameController.text.trim()}@artistIcon.com';
+    String username = usernameController.text.trim();
     String password = passwordController.text.trim();
     String cpassword = cPasswordController.text.trim();
 
@@ -50,7 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
     else if (password.length <= 5) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
     } 
-    else if (await isEmailTaken(username)) {
+    else if (await isEmailTaken('$username@artistIcon.com')) {
       setState(() {
         state = false;
       });
@@ -61,7 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
       });
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
-          return UserDetails(password: password, username: username);
+          return UserDetails(password: password, username: '$username@artistIcon.com');
         },
       ));
     }

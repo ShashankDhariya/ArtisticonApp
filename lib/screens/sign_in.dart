@@ -22,7 +22,7 @@ class _SignInPageState extends State<SignInPage> {
   bool state = false;
 
   void check() async {
-    String username = '${usernameController.text.trim()}@artistIcon.com';
+    String username = usernameController.text.trim();
     String password = passwordController.text.trim();
 
     if (username.isEmpty && password.isEmpty) {
@@ -39,7 +39,7 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         state = true;
       });
-      signIn(username, password);
+      signIn('$username@artistIcon.com', password);
     }
   }
 
