@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:artist_icon/models/jobpost.dart';
-import 'package:artist_icon/screens/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,6 +28,7 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
   TextEditingController videoLinkController = TextEditingController();
   File? portfolioFile;
   File? img;
+  bool state = false;
 
   void uploadPortfolio() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -64,17 +64,18 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
     }
   }
 
-  Future<void> submit() async {
+  void submit() async {
     String vidLink = videoLinkController.text;
     String name = nameController.text.trim();
 
     if (name.isEmpty || img == null || portfolioFile == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please fill all the fields')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please fill all the fields')));
     } else {
+      setState(() {
+        state = true;
+      });
       var applyJid = const Uuid().v1();
-      UploadTask uploadTask1 =
-          FirebaseStorage.instance.ref('Images').child(applyJid).putFile(img!);
+      UploadTask uploadTask1 = FirebaseStorage.instance.ref('Images').child(applyJid).putFile(img!);
       TaskSnapshot snapshot1 = await uploadTask1;
       String imgUrl = await snapshot1.ref.getDownloadURL();
 
@@ -105,27 +106,12 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
         time: DateTime.now(),
       );
 
-      FirebaseFirestore.instance
-          .collection("Users")
-          .doc(widget.userModel.uid.toString())
-          .collection("MyApplications")
-          .doc(widget.jobpostmodel.jobid.toString())
-          .set(myApplications.toMap());
+      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(widget.jobpostmodel.jobid.toString()).set(myApplications.toMap());
 
-      FirebaseFirestore.instance
-          .collection("Jobs")
-          .doc(widget.jobpostmodel.jobid.toString())
-          .collection("Applications")
-          .doc(widget.userModel.uid.toString())
-          .set(applyjob.toMap())
-          .then((value) {
-        Navigator.popUntil(context, (route) => route.isFirst);
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return HomePage(
-                userModel: widget.userModel, firebaseUser: widget.firebaseUser);
-          },
-        ));
+      FirebaseFirestore.instance.collection("Jobs").doc(widget.jobpostmodel.jobid.toString()).collection("Applications").doc(widget.userModel.uid.toString()).set(applyjob.toMap()).then((value) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Applied successfully...')));
       });
     }
   }
@@ -275,6 +261,9 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
                       ),
                     ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.035),
+
+                  state? const Center(child: CircularProgressIndicator())
+                  :
                   ElevatedButton(
                     onPressed: submit,
                     style: ElevatedButton.styleFrom(
