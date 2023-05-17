@@ -37,7 +37,6 @@ class _RentingServiceState extends State<RentingService> {
   void uploadPhoto() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
       cropImg(pickedFile);
     }
@@ -100,16 +99,13 @@ class _RentingServiceState extends State<RentingService> {
         id: rentid
       );
       FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyListings").doc(rentid).set(listing.toMap());
-
       FirebaseFirestore.instance.collection("Rents").doc(rentid).set(rentPost.toMap()).then((value) {
         Navigator.pop(context);
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Posted successfully...")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Posted successfully...")));
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -150,58 +146,53 @@ class _RentingServiceState extends State<RentingService> {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    prefixIcon: const Icon(Icons.description),
-                    fillColor: Colors.grey.shade100,
-                    filled: true,
-                    hintText: 'Description',
-                    hintStyle: TextStyle(color: Colors.grey.shade500)),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  prefixIcon: const Icon(Icons.description),
+                  fillColor: Colors.grey.shade100,
+                  filled: true,
+                  hintText: 'Description',
+                  hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Address',
               obsecure: false,
-              icon: Icon(Icons.map,
-                  size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.map, size: MediaQuery.of(context).size.height * 0.030),
               controller: addressController,
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'City',
               obsecure: false,
-              icon: Icon(Icons.location_city,
-                  size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.location_city, size: MediaQuery.of(context).size.height * 0.030),
               controller: citycontroller,
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'State',
               obsecure: false,
-              icon: Icon(Icons.location_on,
-                  size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.location_on, size: MediaQuery.of(context).size.height * 0.030),
               controller: stateController,
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Country',
               obsecure: false,
-              icon: Icon(Icons.flag,
-                  size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.flag, size: MediaQuery.of(context).size.height * 0.030),
               controller: countryController,
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Cost/time',
               obsecure: false,
-              icon: Icon(Icons.currency_rupee,
-                  size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.currency_rupee, size: MediaQuery.of(context).size.height * 0.030),
               controller: paycontroller,
             ),
             SizedBox(height: size.height * 0.015),
@@ -216,11 +207,10 @@ class _RentingServiceState extends State<RentingService> {
                   ),
                   backgroundColor: Colors.teal.shade300,
                 ),
-                child: Text(
-                  'Upload Photograph',
+                child: Text('Upload Photograph',
                   style: GoogleFonts.nunito(
-                      textStyle: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
+                    textStyle: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
                 ),
               ),
             ),
@@ -234,15 +224,15 @@ class _RentingServiceState extends State<RentingService> {
                 ),
               ),
             SizedBox(height: size.height * 0.02),
-            st == true
-                ? const CircularProgressIndicator()
-                : MyButton(
-                    text: 'Rent Service',
-                    width: size.width * 0.48,
-                    onPressed: () {
-                      check();
-                    },
-                  )
+            st
+            ? const CircularProgressIndicator()
+            : MyButton(
+                text: 'Rent Service',
+                width: size.width * 0.48,
+                onPressed: () {
+                  check();
+                },
+              )
           ],
         ),
       ),

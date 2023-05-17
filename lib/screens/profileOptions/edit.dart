@@ -13,8 +13,7 @@ import 'package:restart_app/restart_app.dart';
 class EditProfile extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const EditProfile(
-      {super.key, required this.userModel, required this.firebaseUser});
+  const EditProfile({super.key, required this.userModel, required this.firebaseUser});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -83,58 +82,30 @@ class _EditProfileState extends State<EditProfile> {
     String profession = professionController.text.trim();
 
     if (name.isEmpty && phone.isEmpty && profession.isEmpty && img == null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('No Update')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No Update')));
     } else {
       if (name.isNotEmpty) {
-        FirebaseFirestore.instance
-            .collection('Users')
-            .doc(widget.userModel.uid)
-            .update({'name': name})
-            .then((value) {})
-            .catchError((error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Failed to update name: $error')));
-            });
+        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'name': name}).then((value) {}).catchError((error) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update name: $error')));
+        });
       }
       if (phone.isNotEmpty) {
-        FirebaseFirestore.instance
-            .collection('Users')
-            .doc(widget.userModel.uid)
-            .update({'phone': phone})
-            .then((value) {})
-            .catchError((error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Failed to update number: $error')));
-            });
+        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'phone': phone}).then((value) {}).catchError((error) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update number: $error')));
+        });
       }
       if (profession.isNotEmpty) {
-        FirebaseFirestore.instance
-            .collection('Users')
-            .doc(widget.userModel.uid)
-            .update({'profession': profession})
-            .then((value) {})
-            .catchError((error) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Failed to update profession: $error')));
-            });
+        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profession': profession}).then((value) {}).catchError((error) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error')));
+        });
       }
       if (img != null) {
-        UploadTask uploadTask = FirebaseStorage.instance
-            .ref('ProfilePictures')
-            .child(widget.userModel.uid.toString())
-            .putFile(img!);
+        UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(widget.userModel.uid.toString()).putFile(img!);
         TaskSnapshot snapshot = await uploadTask;
         String imgUrl = await snapshot.ref.getDownloadURL();
-        FirebaseFirestore.instance
-            .collection('Users')
-            .doc(widget.userModel.uid)
-            .update({'profilePic': imgUrl})
-            .then((value) {})
-            .catchError((error) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Failed to update profession: $error')));
-            });
+        FirebaseFirestore.instance.collection('Users').doc(widget.userModel.uid).update({'profilePic': imgUrl}).then((value) {}).catchError((error) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update profession: $error')));
+        });
       }
       Restart.restartApp();
     }
@@ -167,10 +138,7 @@ class _EditProfileState extends State<EditProfile> {
         title: Text(
           'Edit Profile',
           style: GoogleFonts.nunito(
-            textStyle: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+            textStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -198,9 +166,7 @@ class _EditProfileState extends State<EditProfile> {
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   CupertinoButton(
-                    onPressed: () {
-                      showInputImgOptions();
-                    },
+                    onPressed: () { showInputImgOptions();},
                     child: Stack(
                       children: [
                         CircleAvatar(
@@ -223,9 +189,7 @@ class _EditProfileState extends State<EditProfile> {
                               color: Color(0xFF43B1B7),
                             ),
                             child: IconButton(
-                              onPressed: () {
-                                showInputImgOptions();
-                              },
+                              onPressed: () { showInputImgOptions();},
                               icon: const Icon(
                                 CupertinoIcons.camera_fill,
                                 color: Colors.white,
@@ -309,8 +273,7 @@ class _EditProfileState extends State<EditProfile> {
                       backgroundColor: const Color(0xFF43B1B7),
                       fixedSize: const Size(150, 48),
                     ),
-                    child: Text(
-                      'Update',
+                    child: Text('Update',
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
                           color: Colors.white,
