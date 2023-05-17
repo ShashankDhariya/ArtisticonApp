@@ -94,11 +94,11 @@ class MyListings extends StatelessWidget {
                                               "assets/images/job_tile_background3.jpg"),
                                           fit: BoxFit.cover,
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                  ),
-                                  ListTile(
-                                    trailing: CupertinoButton(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                    ),
+                                    ListTile(
+                                      trailing: CupertinoButton(
                                         onPressed: () {
                                           showDialog(
                                             context: context,
@@ -130,42 +130,45 @@ class MyListings extends StatelessWidget {
                                             },
                                           );
                                         },
-                                        child: Text('Delete',
-                                            style: GoogleFonts.nunito(
-                                              color: Colors.blue.shade700,
-                                              fontWeight: FontWeight.w700,
-                                            ))),
-                                    leading: Text(currListing.type.toString()),
-                                    title:
-                                        Text(currListing.category.toString()),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(height: 20),
-                                        Text('Rs.${currListing.pay}'),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                            'Date: ${currListing.time.toString().substring(0, 10)}'),
-                                      ],
+                                        child: Text(
+                                          'Delete',
+                                          style: GoogleFonts.nunito(
+                                            color: Colors.blue.shade700,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                      leading:
+                                          Text(currListing.type.toString()),
+                                      title:
+                                          Text(currListing.category.toString()),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(height: 20),
+                                          Text('Rs.${currListing.pay}'),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                              'Date: ${currListing.time.toString().substring(0, 10)}'),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
+                          );
+                        },
+                      );
+                    }
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
                     return const Center(child: Text("Nothing to show..."));
                   }
-                } else {
-                  return const Center(child: CircularProgressIndicator());
                 }
-              }),
+            ),
         ],
       ),
     );
