@@ -71,7 +71,6 @@ class _SignUpPageState extends State<SignUpPage> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
-        fit: StackFit.expand,
         children: [
           Container(
             decoration: const BoxDecoration(
@@ -88,23 +87,20 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.15),
                     Image.asset(
                       'assets/images/Artisticon_logo.png',
                       height: MediaQuery.of(context).size.height * 0.12,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    Text(
-                      'Create your account',
+                    Text('Create your account',
                       style: GoogleFonts.nunito(
-                          textStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold)),
+                        textStyle: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.bold)),
                     ),
-                    SizedBox(
-                      height: size.height * 0.015,
-                    ),
+                    SizedBox(height: size.height * 0.015),
                     MyTextField(
                       hintText: 'Username',
                       obsecure: false,
@@ -130,68 +126,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     SizedBox(height: size.height * 0.025),
                     state
-                        ? const CircularProgressIndicator()
-                        : MyButton(
-                            onPressed: () {
-                              check();
-                            },
-                            text: 'Sign Up',
-                            width: 175,
-                          ),
-                    SizedBox(height: size.height * 0.025),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.02),
-                      child: Row(
-                        children: [
-                          const Expanded(
-                              child: Divider(
-                            thickness: 0.6,
-                          )),
-                          Text(
-                            'Or continue with',
-                            style: GoogleFonts.nunito(
-                              textStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const Expanded(
-                              child: Divider(
-                            thickness: 0.6,
-                          )),
-                        ],
+                    ? const CircularProgressIndicator()
+                    : MyButton(
+                        onPressed: () {
+                          check();
+                        },
+                        text: 'Sign Up',
+                        width: 175,
                       ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.height * 0.015),
-                              child: Image.asset('assets/images/google.png',
-                                height:
-                                    MediaQuery.of(context).size.height * 0.04,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.15),
                     TextButton(
                       onPressed: () => Navigator.pop(context),
                       child: Text(

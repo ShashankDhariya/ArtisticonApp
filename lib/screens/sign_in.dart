@@ -98,10 +98,10 @@ class _SignInPageState extends State<SignInPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.17),
                     Image.asset(
                       'assets/images/Artisticon_logo.png',
-                      height: MediaQuery.of(context).size.height * 0.12,
+                      height: MediaQuery.of(context).size.height * 0.14,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     Text(
@@ -133,8 +133,7 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.035),
+                          horizontal: MediaQuery.of(context).size.height * 0.035),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -142,85 +141,25 @@ class _SignInPageState extends State<SignInPage> {
                             'Forgot Password?',
                             style: GoogleFonts.nunito(
                               textStyle: const TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                     state
-                        ? const CircularProgressIndicator()
-                        : MyButton(
-                            onPressed: () {
-                              check();
-                            },
-                            text: 'Sign In',
-                            width: 175,
-                          ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).size.height * 0.02),
-                      child: Row(
-                        children: [
-                          const Expanded(
-                              child: Divider(
-                            thickness: 0.6,
-                          )),
-                          Text(
-                            'Or continue with',
-                            style: GoogleFonts.nunito(
-                              textStyle: const TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                          ),
-                          const Expanded(
-                              child: Divider(
-                            thickness: 0.6,
-                          )),
-                        ],
+                    ? const CircularProgressIndicator()
+                    : MyButton(
+                        onPressed: () {
+                          check();
+                        },
+                        text: 'Sign In',
+                        width: 175,
                       ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.height * 0.015),
-                            child: Image.asset(
-                              'assets/images/google.png',
-                              height: MediaQuery.of(context).size.height * 0.04,
-                            ),
-                          ),
-                        ),
-                        // SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     color: Colors.transparent,
-                        //     borderRadius: BorderRadius.circular(15),
-                        //   ),
-                        //   child: Padding(
-                        //     padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
-                        //     child: Image.asset('assets/images/apple.png',
-                        //       height: MediaQuery.of(context).size.height * 0.04,
-                        //     ),
-                        //   ),
-                        // )
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.14),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.17),
                     Text(
                       'Don\'t have an account?',
                       style: GoogleFonts.nunito(

@@ -56,12 +56,7 @@ class MyListings extends StatelessWidget {
             ],
           ),
           StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Users")
-                  .doc(userModel.uid.toString())
-                  .collection("MyListings")
-                  .orderBy("time", descending: true)
-                  .snapshots(),
+              stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").orderBy("time", descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
@@ -69,21 +64,20 @@ class MyListings extends StatelessWidget {
                     return ListView.builder(
                       itemCount: data.docs.length,
                       itemBuilder: (context, index) {
-                        MyListingsModel currListing = MyListingsModel.fromMap(
-                            data.docs[index].data() as Map<String, dynamic>);
+                        MyListingsModel currListing = MyListingsModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 12),
                           child: InkWell(
                             onTap: () {
                               showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) => ApplicantsDetails(
-                                      firebaseUser: firebaseUser,
-                                      userModel: userModel,
-                                      listingsModel: currListing));
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => ApplicantsDetails(
+                                  firebaseUser: firebaseUser,
+                                  userModel: userModel,
+                                  listingsModel: currListing));
                             },
                             child: Container(
                               height: 120,
@@ -126,22 +120,9 @@ class MyListings extends StatelessWidget {
                                                     child: const Text('Delete'),
                                                     onPressed: () {
                                                       // Delete the listing
-                                                      FirebaseFirestore.instance
-                                                          .collection("Users")
-                                                          .doc(userModel.uid
-                                                              .toString())
-                                                          .collection(
-                                                              "MyListings")
-                                                          .doc(currListing.id
-                                                              .toString())
-                                                          .delete();
-                                                      FirebaseFirestore.instance
-                                                          .collection(
-                                                              '${currListing.type}s')
-                                                          .doc(currListing.id)
-                                                          .delete();
-                                                      Navigator.of(context)
-                                                          .pop();
+                                                      FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").doc(currListing.id.toString()).delete();
+                                                      FirebaseFirestore.instance.collection('${currListing.type}s').doc(currListing.id).delete();
+                                                      Navigator.of(context).pop();
                                                     },
                                                   ),
                                                 ],
