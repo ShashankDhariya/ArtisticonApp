@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
+import 'package:artist_icon/screens/forget_password.dart';
 import 'package:artist_icon/screens/home.dart';
 import 'package:artist_icon/screens/signup.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,14 +27,11 @@ class _SignInPageState extends State<SignInPage> {
     String password = passwordController.text.trim();
 
     if (username.isEmpty && password.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please Enter Details')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Details')));
     } else if (username.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please Enter Username')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Username')));
     } else if (password.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please Enter Password')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Password')));
     } else {
       log(username.toString());
       setState(() {
@@ -133,13 +131,25 @@ class _SignInPageState extends State<SignInPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            'Forgot Password?',
-                            style: GoogleFonts.nunito(
-                              textStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder:(context) {
+                                    return const ForgetPassword();
+                                  },
+                                )
+                              );
+                            },
+                            child: Text(
+                              'Forgot Password?',
+                              style: GoogleFonts.nunito(
+                                textStyle: const TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                              ),
                             ),
                           ),
                         ],

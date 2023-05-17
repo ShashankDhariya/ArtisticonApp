@@ -127,10 +127,7 @@ class _UserDetailsState extends State<UserDetails> {
 
   void uploadData(String name, String phone, String profession, String uid,
       User firebaseUser) async {
-    UploadTask uploadTask = FirebaseStorage.instance
-        .ref('ProfilePictures')
-        .child(uid)
-        .putFile(img!);
+    UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(uid).putFile(img!);
     TaskSnapshot snapshot = await uploadTask;
     String imgUrl = await snapshot.ref.getDownloadURL();
     UserModel newUser = UserModel(
@@ -141,11 +138,7 @@ class _UserDetailsState extends State<UserDetails> {
       phone: phone,
       profession: profession,
     );
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(uid)
-        .set(newUser.toMap())
-        .then((value) {
+    FirebaseFirestore.instance.collection('Users').doc(uid).set(newUser.toMap()).then((value) {
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
@@ -159,7 +152,7 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Stack(
+      body: Stack(
       fit: StackFit.expand,
       children: [
         Container(
