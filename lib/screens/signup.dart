@@ -34,22 +34,29 @@ class _SignUpPageState extends State<SignUpPage> {
     String cpassword = cPasswordController.text.trim();
 
     if (cpassword.isEmpty && password.isEmpty && username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter details')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter details')));
     } else if (username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter username')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter username')));
     } else if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter password')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter password')));
     } else if (cpassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please confirm password')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please confirm password')));
     } else if (cpassword != password) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Password do not match')));
     } else if (password.length <= 5) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('The password provided is too weak.')));
     } else if (await isEmailTaken('$username@artistIcon.com')) {
       setState(() {
         state = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('The account already exists for that email.')));
     } else {
       setState(() {
         state = false;
@@ -170,9 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            
-                          },
+                          onTap: () {},
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
@@ -181,14 +186,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: Padding(
                               padding: EdgeInsets.all(
                                   MediaQuery.of(context).size.height * 0.015),
-                              child: Image.asset('assets/images/google.png',
+                              child: Image.asset(
+                                'assets/images/google.png',
                                 height:
                                     MediaQuery.of(context).size.height * 0.04,
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(width: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.02),
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.07),
