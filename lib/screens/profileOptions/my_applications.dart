@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../home.dart';
+
 class MyApplications extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
@@ -56,16 +58,64 @@ class MyApplications extends StatelessWidget {
             ],
           ),
           StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Users")
-                  .doc(userModel.uid.toString())
-                  .collection("MyApplications")
-                  .orderBy("time", descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.hasData) {
-                    QuerySnapshot data = snapshot.data as QuerySnapshot;
+            stream: FirebaseFirestore.instance
+                .collection("Users")
+                .doc(userModel.uid.toString())
+                .collection("MyApplications")
+                .orderBy("time", descending: true)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  QuerySnapshot data = snapshot.data as QuerySnapshot;
+                  if (data.docs.isEmpty) {
+                    // Display a message and a button to redirect to the home page
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "You haven't applied to a job or availed a service",
+                          style: GoogleFonts.nunito(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(
+                          width: 200,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage(
+                                        userModel: userModel,
+                                        firebaseUser: firebaseUser)),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              backgroundColor: Colors.teal.shade300,
+                            ),
+                            child: Text(
+                              'Apply or Rent Something',
+                              style: GoogleFonts.nunito(
+                                textStyle: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    // Display the list of applications
                     return ListView.builder(
                       itemCount: data.docs.length,
                       itemBuilder: (context, index) {
@@ -124,15 +174,17 @@ class MyApplications extends StatelessWidget {
                         );
                       },
                     );
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    return const Center(child: Text("Nothing to show..."));
                   }
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: Text("Nothing to show..."));
                 }
-              }),
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
         ],
       ),
     );

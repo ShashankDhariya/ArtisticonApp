@@ -77,7 +77,7 @@ class MyListings extends StatelessWidget {
                               "You haven't listed any job or rented a service.",
                               style: GoogleFonts.nunito(
                                 fontWeight: FontWeight.w700,
-                                fontSize: 18,
+                                fontSize: 16,
                               ),
                             ),
                             SizedBox(
