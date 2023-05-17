@@ -78,7 +78,7 @@ class _RentNowPageState extends State<RentNowPage> {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
             return HomePage(
-                userModel: widget.userModel, firebaseUser: widget.firebaseUser);
+              userModel: widget.userModel, firebaseUser: widget.firebaseUser);
           },
         ));
       });
@@ -116,8 +116,7 @@ class _RentNowPageState extends State<RentNowPage> {
           color: Colors.black,
         ),
         centerTitle: true,
-        title: Text(
-          'Rent Now',
+        title: Text('Rent Now',
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
               color: Colors.white,
@@ -237,9 +236,7 @@ class _RentNowPageState extends State<RentNowPage> {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  state? const Center(child: CircularProgressIndicator())
-                  :
-                  MyButton(text: "Submit", width: double.infinity, onPressed: submit)
+                  state? const Center(child: CircularProgressIndicator()) : MyButton(text: "Submit", width: double.infinity, onPressed: submit)
                 ],
               ),
             ),

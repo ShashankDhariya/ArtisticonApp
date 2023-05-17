@@ -15,8 +15,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class UserDetails extends StatefulWidget {
   final String password;
   final String username;
-  const UserDetails(
-      {super.key, required this.password, required this.username});
+  const UserDetails({super.key, required this.password, required this.username});
   @override
   State<UserDetails> createState() => _UserDetailsState();
 }
