@@ -160,15 +160,18 @@ class MyListings extends StatelessWidget {
                             ),
                           );
                         },
-                      );
-                    }
+                      );          
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
                     return const Center(child: Text("Nothing to show..."));
                   }
-                }
-            ),
+              }
+              else{
+                return const Center(child: Text("No listings to show..."));
+              }
+            }
+          ),
         ],
       ),
     );
