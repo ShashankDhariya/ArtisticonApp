@@ -64,7 +64,7 @@ class _SignUpPageState extends State<SignUpPage> {
         MaterialPageRoute(
           builder: (context) {
             return UserDetails(
-                password: password, username: '$username@artistIcon.com');
+                password: password, username: username);
           },
         ),
       );

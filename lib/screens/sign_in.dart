@@ -39,7 +39,7 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         state = true;
       });
-      signIn('$username@artistIcon.com', password);
+      signIn(username, password);
     }
   }
 
