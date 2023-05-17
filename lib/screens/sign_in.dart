@@ -205,19 +205,6 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                           ),
                         ),
-                        // SizedBox(width: MediaQuery.of(context).size.height * 0.02),
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     color: Colors.transparent,
-                        //     borderRadius: BorderRadius.circular(15),
-                        //   ),
-                        //   child: Padding(
-                        //     padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.015),
-                        //     child: Image.asset('assets/images/apple.png',
-                        //       height: MediaQuery.of(context).size.height * 0.04,
-                        //     ),
-                        //   ),
-                        // )
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.14),
