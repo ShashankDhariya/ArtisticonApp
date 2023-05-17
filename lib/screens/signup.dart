@@ -20,7 +20,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<bool> isEmailTaken(String email) async {
     try {
-      final signInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      final signInMethods =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
       return signInMethods.isNotEmpty;
     } catch (e) {
       return false;
@@ -49,7 +50,8 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() {
         state = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The account already exists for that email.')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('The account already exists for that email.')));
     } else {
       setState(() {
         state = false;
@@ -58,8 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return UserDetails(
-                password: password, username: username);
+            return UserDetails(password: password, username: username);
           },
         ),
       );
@@ -90,15 +91,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.15),
                     Image.asset(
                       'assets/images/Artisticon_logo.png',
-                      height: MediaQuery.of(context).size.height * 0.12,
+                      height: MediaQuery.of(context).size.height * 0.14,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                    Text('Create your account',
+                    Text(
+                      'Create your account',
                       style: GoogleFonts.nunito(
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[700],
-                          fontWeight: FontWeight.bold)),
+                          textStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(height: size.height * 0.015),
                     MyTextField(
@@ -126,14 +128,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     SizedBox(height: size.height * 0.025),
                     state
-                    ? const CircularProgressIndicator()
-                    : MyButton(
-                        onPressed: () {
-                          check();
-                        },
-                        text: 'Sign Up',
-                        width: 175,
-                      ),
+                        ? const CircularProgressIndicator()
+                        : MyButton(
+                            onPressed: () {
+                              check();
+                            },
+                            text: 'Sign Up',
+                            width: 175,
+                          ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.15),
                     TextButton(
                       onPressed: () => Navigator.pop(context),
