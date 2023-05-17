@@ -1,10 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/models/jobpost.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 import 'job_detail.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+var logger = Logger();
+// Define the background message handler function
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  logger.d('Handling a background message: ${message.messageId}');
+  showLocalNotification(message);
+}
+
+// Function to show a local notification when a new job is received
+void showLocalNotification(RemoteMessage message) {
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  const AndroidNotificationDetails androidPlatformChannelSpecifics =
+      AndroidNotificationDetails('your_channel_id', 'your_channel_name',
+          importance: Importance.max, priority: Priority.high);
+  const NotificationDetails platformChannelSpecifics =
+      NotificationDetails(android: androidPlatformChannelSpecifics);
+  flutterLocalNotificationsPlugin.show(
+    0,
+    message.notification!.title,
+    message.notification!.body,
+    platformChannelSpecifics,
+    payload: 'job',
+  );
+}
 
 class JobList extends StatefulWidget {
   final UserModel userModel;
@@ -19,309 +49,375 @@ class JobList extends StatefulWidget {
 class _JobListState extends State<JobList> {
   String search = "";
   String location = "";
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   @override
-  Widget build(context) {
+  void initState() {
+    super.initState();
+    _configureFirebaseMessaging();
+  }
+
+  void _configureFirebaseMessaging() {
+    _firebaseMessaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    // Foreground message listener
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      logger.d('Received foreground message: ${message.notification!.title}');
+      showLocalNotification(message);
+    });
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height * 0.9,
-      child: Column(children: [
-        // Search Option Bar
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          height: 230,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            image: const DecorationImage(
-              image: AssetImage('assets/images/search_bg.png'),
-              fit: BoxFit.cover,
+      child: Column(
+        children: [
+          // Search Option Bar
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            height: 230,
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              image: const DecorationImage(
+                image: AssetImage('assets/images/search_bg.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Fast Search',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Search quickly for the job you want',
+                  style: TextStyle(
+                    height: 1.8,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              search = value;
+                            });
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Profession',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Image.asset(
+                          'assets/images/search.png',
+                          height: 20,
+                          width: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              location = value;
+                            });
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'Location',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Image.asset(
+                          'assets/images/search.png',
+                          height: 20,
+                          width: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Fast Search',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Search quickly for the job you want',
-                style: TextStyle(
-                  height: 1.8,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        onChanged: (value) {
-                          setState(() {
-                            search = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: 'Profession',
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        'assets/images/search.png',
-                        height: 20,
-                        width: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        onChanged: (value) {
-                          setState(() {
-                            location = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          hintText: 'Location',
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        'assets/images/search.png',
-                        height: 20,
-                        width: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
 
-        // List of Available Jobs
-        Expanded(
-          child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("Jobs")
-                .orderBy("time", descending: true)
-                .snapshots(),
-            builder: (context, snapshot) {
-              return snapshot.connectionState == ConnectionState.waiting
-                  ? const Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        JobPostModel currJob = JobPostModel.fromMap(
-                            snapshot.data!.docs[index].data());
+          // List of Available Jobs
+          Expanded(
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Jobs")
+                  .orderBy("time", descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasData) {
+                  final jobDocs = snapshot.data!.docs;
+                  if (jobDocs.isEmpty) {
+                    return Center(
+                        child: Text(
+                      'No jobs listed right now.',
+                      style: GoogleFonts.nunito(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
+                    ));
+                  }
+                  return ListView.builder(
+                    itemCount: jobDocs.length,
+                    itemBuilder: (context, index) {
+                      JobPostModel currJob =
+                          JobPostModel.fromMap(jobDocs[index].data());
 
-                        if (search.isEmpty && location.isEmpty) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.05,
-                                vertical: size.height * 0.01),
-                            child: GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    backgroundColor: Colors.transparent,
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) => JobDetail(
-                                        currJob: currJob,
-                                        firebaseUser: widget.firebaseUser,
-                                        userModel: widget.userModel));
-                              },
-                              child: Container(
-                                  height: 120,
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      image: const DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/job_tile_background3.jpg"),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                      if (search.isEmpty && location.isEmpty) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.05,
+                              vertical: size.height * 0.01),
+                          child: GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => JobDetail(
+                                  currJob: currJob,
+                                  firebaseUser: widget.firebaseUser,
+                                  userModel: widget.userModel,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 120,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/job_tile_background3.jpg"),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
-                                            children: [
-                                              Text(currJob.provider.toString(),
-                                                  style: const TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ))
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        children: [
-                                          Text(currJob.category.toString(),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16)),
-                                          Expanded(
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                'Rs.${currJob.pay}',
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
+                                          Text(
+                                            currJob.provider.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          IconText(Icons.location_on_outlined,
-                                              '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}'),
-                                        ],
-                                      )
                                     ],
-                                  )),
-                            ),
-                          );
-                        }
-
-                        if ((currJob.city
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(location.toLowerCase().trim()) ||
-                                currJob.state
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(location.toLowerCase().trim())) &&
-                            currJob.category
-                                .toString()
-                                .toLowerCase()
-                                .contains(search.toLowerCase().trim())) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.05,
-                                vertical: size.height * 0.01),
-                            child: GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    backgroundColor: Colors.transparent,
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) => JobDetail(
-                                        currJob: currJob,
-                                        firebaseUser: widget.firebaseUser,
-                                        userModel: widget.userModel));
-                              },
-                              child: Container(
-                                  height: 120,
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      image: const DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/job_tile_background3.jpg"),
-                                        fit: BoxFit.cover,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        currJob.category.toString(),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            'Rs.${currJob.pay}',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconText(
+                                        Icons.location_on_outlined,
+                                        '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}',
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
+                      if ((currJob.city
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(location.toLowerCase().trim()) ||
+                              currJob.state
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(location.toLowerCase().trim())) &&
+                          currJob.category
+                              .toString()
+                              .toLowerCase()
+                              .contains(search.toLowerCase().trim())) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.05,
+                              vertical: size.height * 0.01),
+                          child: GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => JobDetail(
+                                  currJob: currJob,
+                                  firebaseUser: widget.firebaseUser,
+                                  userModel: widget.userModel,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 120,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/job_tile_background3.jpg"),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
-                                            children: [
-                                              Text(currJob.provider.toString(),
-                                                  style: const TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ))
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        children: [
-                                          Text(currJob.category.toString(),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16)),
-                                          Expanded(
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                'Rs.${currJob.pay}',
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
+                                          Text(
+                                            currJob.provider.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          IconText(Icons.location_on_outlined,
-                                              '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}'),
-                                        ],
-                                      )
                                     ],
-                                  )),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        currJob.category.toString(),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            'Rs.${currJob.pay}',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconText(
+                                        Icons.location_on_outlined,
+                                        '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}',
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          );
-                        }
-                        return Container();
-                      },
-                    );
-            },
-          ),
-        )
-      ]),
+                          ),
+                        );
+                      }
+                      return Container();
+                    },
+                  );
+                } else {
+                  return const Center(
+                      child: Text(
+                    'No jobs listed right now.',
+                  ));
+                }
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }
