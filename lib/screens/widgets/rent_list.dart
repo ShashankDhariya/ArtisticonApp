@@ -9,7 +9,9 @@ import 'icon_text.dart';
 class RentList extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const RentList({Key? key,required this.userModel,required this.firebaseUser}) : super(key: key);
+  const RentList(
+      {Key? key, required this.userModel, required this.firebaseUser})
+      : super(key: key);
 
   @override
   State<RentList> createState() => _RentListState();
@@ -73,7 +75,7 @@ class _RentListState extends State<RentList> {
                           });
                         },
                         decoration: const InputDecoration(
-                          hintText: 'Search',
+                          hintText: 'Profession',
                           border: InputBorder.none,
                         ),
                       ),
@@ -113,7 +115,8 @@ class _RentListState extends State<RentList> {
                     ),
                     Container(
                       padding: const EdgeInsets.all(10),
-                      child: Image.asset('assets/images/search.png',
+                      child: Image.asset(
+                        'assets/images/search.png',
                         height: 20,
                         width: 20,
                       ),
@@ -128,159 +131,194 @@ class _RentListState extends State<RentList> {
         // List of Available Jobs
         Expanded(
           child: StreamBuilder(
-            stream: FirebaseFirestore.instance.collection("Rents").orderBy("time", descending: true).snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection("Rents")
+                .orderBy("time", descending: true)
+                .snapshots(),
             builder: (context, snapshot) {
               return snapshot.connectionState == ConnectionState.waiting
-              ? const Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    RentPostModel currRent = RentPostModel.fromMap(snapshot.data!.docs[index].data());
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        RentPostModel currRent = RentPostModel.fromMap(
+                            snapshot.data!.docs[index].data());
 
-                    if (search.isEmpty && location.isEmpty) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.05,vertical: size.height * 0.01),
-                        child: GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                              backgroundColor: Colors.transparent,
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) => RentDetail(
-                                currRent: currRent,
-                                firebaseUser: widget.firebaseUser,
-                                userModel: widget.userModel));
-                          },
-                          child: Container(
-                              height: 120,
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                image: const DecorationImage(
-                                  image: AssetImage("assets/images/job_tile_background3.jpg"), fit: BoxFit.cover,),
-                                borderRadius: BorderRadius.circular(20)),
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        if (search.isEmpty && location.isEmpty) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.05,
+                                vertical: size.height * 0.01),
+                            child: GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) => RentDetail(
+                                        currRent: currRent,
+                                        firebaseUser: widget.firebaseUser,
+                                        userModel: widget.userModel));
+                              },
+                              child: Container(
+                                  height: 120,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/job_tile_background3.jpg"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(currRent.provider.toString(),
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            )
+                                          Row(
+                                            children: [
+                                              Text(currRent.provider.toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
                                           )
                                         ],
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
                                         children: [
-                                          Text(currRent.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                                          Text(currRent.category.toString(),
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16)),
                                           Expanded(
                                             child: Align(
                                               alignment: Alignment.centerRight,
                                               child: Text(
-                                                'Rs.${currRent.pay}',style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                'Rs.${currRent.pay}',
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      IconText(Icons.location_on_outlined,'${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}'),
-                                    ],
-                                  )
-                                ],
-                              )
-                            ),
-                        ),
-                      );
-                    }
-
-                    if((currRent.city.toString().toLowerCase().contains(location.toLowerCase()) ||
-                        currRent.state.toString().toLowerCase().contains(location.toLowerCase())) &&
-                        currRent.category.toString().toLowerCase().contains(search.toLowerCase())) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.05,
-                            vertical: size.height * 0.01),
-                        child: GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                              backgroundColor: Colors.transparent,
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) => RentDetail(
-                                currRent: currRent,
-                                firebaseUser: widget.firebaseUser,
-                                userModel: widget.userModel));
-                          },
-                          child: Container(
-                              height: 120,
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                image: const DecorationImage(
-                                  image: AssetImage("assets/images/job_tile_background3.jpg"), fit: BoxFit.cover,),
-                                borderRadius: BorderRadius.circular(20)),
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(currRent.provider.toString(),
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            )
-                                          )
+                                          IconText(Icons.location_on_outlined,
+                                              '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}'),
                                         ],
                                       )
                                     ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
+                                  )),
+                            ),
+                          );
+                        }
+
+                        if ((currRent.city
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(location.toLowerCase()) ||
+                                currRent.state
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(location.toLowerCase())) &&
+                            currRent.category
+                                .toString()
+                                .toLowerCase()
+                                .contains(search.toLowerCase())) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.05,
+                                vertical: size.height * 0.01),
+                            child: GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) => RentDetail(
+                                        currRent: currRent,
+                                        firebaseUser: widget.firebaseUser,
+                                        userModel: widget.userModel));
+                              },
+                              child: Container(
+                                  height: 120,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/job_tile_background3.jpg"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(currRent.category.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                                          Row(
+                                            children: [
+                                              Text(currRent.provider.toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          Text(currRent.category.toString(),
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16)),
                                           Expanded(
                                             child: Align(
                                               alignment: Alignment.centerRight,
                                               child: Text(
-                                                'Rs.${currRent.pay}',style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                                'Rs.${currRent.pay}',
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      IconText(Icons.location_on_outlined,'${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}'),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconText(Icons.location_on_outlined,
+                                              '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}'),
+                                        ],
+                                      )
                                     ],
-                                  )
-                                ],
-                              )
+                                  )),
                             ),
-                        ),
-                      );
-                    }
-                    return Container();
-                  },
-                );
+                          );
+                        }
+                        return Container();
+                      },
+                    );
             },
           ),
         )

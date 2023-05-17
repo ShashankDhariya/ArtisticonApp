@@ -46,20 +46,16 @@ class _SignInPageState extends State<SignInPage> {
   void signIn(String username, String password) async {
     UserCredential? credential;
     try {
-      credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: username, password: password);
+      credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: username, password: password);
       String uid = credential.user!.uid;
-      DocumentSnapshot userData =
-          await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-      UserModel userModel =
-          UserModel.fromMap(userData.data() as Map<String, dynamic>);
-
+      DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
+      UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => HomePage(
-                  firebaseUser: credential!.user!, userModel: userModel)));
+              builder: (context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)
+          ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         setState(() {

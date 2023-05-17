@@ -20,8 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<bool> isEmailTaken(String email) async {
     try {
-      final signInMethods =
-          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      final signInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
       return signInMethods.isNotEmpty;
     } catch (e) {
       return false;
@@ -34,17 +33,23 @@ class _SignUpPageState extends State<SignUpPage> {
     String cpassword = cPasswordController.text.trim();
 
     if (cpassword.isEmpty && password.isEmpty && username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter details')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter details')));
     } else if (username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter username')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter username')));
     } else if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter password')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please enter password')));
     } else if (cpassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please confirm password')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please confirm password')));
     } else if (cpassword != password) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Password do not match')));
     } else if (password.length <= 5) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('The password provided is too weak.')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('The password provided is too weak.')));
     } else if (await isEmailTaken('$username@artistIcon.com')) {
       setState(() {
         state = false;
