@@ -1,12 +1,14 @@
-import 'package:artist_icon/models/user.dart';
-import 'package:artist_icon/screens/home.dart';
-import 'package:artist_icon/screens/land_screen.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'package:artist_icon/models/user.dart';
+import 'package:artist_icon/screens/home.dart';
+import 'package:artist_icon/screens/land_screen.dart';
+
 class Splash extends StatefulWidget {
-  const Splash({Key? key});
+  const Splash({super.key});
   @override
   State<Splash> createState() => _SplashState();
 }
@@ -58,7 +60,7 @@ class SplashLoggedIn extends StatefulWidget {
     Key? key,
     required this.userModel,
     required this.firebaseUser,
-  });
+  }) : super(key: key);
   @override
   State<SplashLoggedIn> createState() => _SplashLoggedInState();
 }

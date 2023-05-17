@@ -80,25 +80,24 @@ class _UserDetailsState extends State<UserDetails> {
   void check() {
     String name = nameController.text.trim();
     String phone = phoneController.text.trim();
+    String profession = professionController.text.trim();
+
     if (img == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Select profile picture')));
-    } else if (name == '') {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Enter name')));
-    } else if (phone == '') {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Enter phone number')));
-    } else if (phone.length != 10 ||
-        phone[0] == '5' ||
-        phone[0] == '4' ||
-        phone[0] == '3' ||
-        phone[0] == '2' ||
-        phone[0] == '1' ||
-        phone[0] == '0') {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Enter valid number')));
-    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Select profile picture')));
+    }
+    else if (name == '') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter name')));
+    }
+    else if (phone == '') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter phone number')));
+    }
+    else if (profession == '') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter phone number')));
+    }
+    else if (phone.length != 10 || phone[0] == '5' || phone[0] == '4' || phone[0] == '3' || phone[0] == '2' || phone[0] == '1' || phone[0] == '0') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter valid number')));
+    } 
+    else {
       setState(() {
         state = true;
       });

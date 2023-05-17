@@ -1,7 +1,5 @@
 import 'package:artist_icon/applicants/applicants_details.dart';
 import 'package:artist_icon/models/mylistings.dart';
-import 'package:artist_icon/screens/home.dart';
-import 'package:artist_icon/screens/widgets/jobtype.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,97 +56,39 @@ class MyListings extends StatelessWidget {
             ],
           ),
           StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Users")
-                  .doc(userModel.uid.toString())
-                  .collection("MyListings")
-                  .orderBy("time", descending: true)
-                  .snapshots(),
+              stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").orderBy("time", descending: true).snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
                     QuerySnapshot data = snapshot.data as QuerySnapshot;
-                    if (data.docs.isEmpty) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "You haven't listed any job or rented a service.",
-                              style: GoogleFonts.nunito(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 16,
+                    return ListView.builder(
+                      itemCount: data.docs.length,
+                      itemBuilder: (context, index) {
+                        MyListingsModel currListing = MyListingsModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          child: InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => ApplicantsDetails(
+                                  firebaseUser: firebaseUser,
+                                  userModel: userModel,
+                                  listingsModel: currListing));
+                            },
+                            child: Container(
+                              height: 120,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                            ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            SizedBox(
-                              width: 150,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => HomePage(
-                                            userModel: userModel,
-                                            firebaseUser: firebaseUser)),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
-                                  ),
-                                  backgroundColor: Colors.teal.shade300,
-                                ),
-                                child: Text(
-                                  'Add Listing',
-                                  style: GoogleFonts.nunito(
-                                    textStyle: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return ListView.builder(
-                        itemCount: data.docs.length,
-                        itemBuilder: (context, index) {
-                          MyListingsModel currListing = MyListingsModel.fromMap(
-                              data.docs[index].data() as Map<String, dynamic>);
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            child: InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) => ApplicantsDetails(
-                                    firebaseUser: firebaseUser,
-                                    userModel: userModel,
-                                    listingsModel: currListing,
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
                                         image: const DecorationImage(
                                           image: AssetImage(
                                               "assets/images/job_tile_background3.jpg"),
@@ -180,22 +120,9 @@ class MyListings extends StatelessWidget {
                                                     child: const Text('Delete'),
                                                     onPressed: () {
                                                       // Delete the listing
-                                                      FirebaseFirestore.instance
-                                                          .collection("Users")
-                                                          .doc(userModel.uid
-                                                              .toString())
-                                                          .collection(
-                                                              "MyListings")
-                                                          .doc(currListing.id
-                                                              .toString())
-                                                          .delete();
-                                                      FirebaseFirestore.instance
-                                                          .collection(
-                                                              '${currListing.type}s')
-                                                          .doc(currListing.id)
-                                                          .delete();
-                                                      Navigator.of(context)
-                                                          .pop();
+                                                      FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").doc(currListing.id.toString()).delete();
+                                                      FirebaseFirestore.instance.collection('${currListing.type}s').doc(currListing.id).delete();
+                                                      Navigator.of(context).pop();
                                                     },
                                                   ),
                                                 ],
@@ -240,10 +167,8 @@ class MyListings extends StatelessWidget {
                   } else {
                     return const Center(child: Text("Nothing to show..."));
                   }
-                } else {
-                  return const Center(child: CircularProgressIndicator());
                 }
-              }),
+            ),
         ],
       ),
     );
