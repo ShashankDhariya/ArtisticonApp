@@ -49,10 +49,10 @@ class MyAppLoggedIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SplashLoggedIn(
-          firebaseUser: firebaseUser,
-          userModel: userModel,
-        ));
+      debugShowCheckedModeBanner: false,
+      home: SplashLoggedIn(
+        firebaseUser: firebaseUser,
+        userModel: userModel,
+      ));
   }
 }

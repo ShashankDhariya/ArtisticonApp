@@ -4,7 +4,6 @@ import 'package:velocity_x/velocity_x.dart';
 
 class Information extends StatefulWidget {
   const Information({Key? key}) : super(key: key);
-
   @override
   State<Information> createState() => _InformationState();
 }
@@ -62,8 +61,7 @@ class _InformationState extends State<Information> {
                     children: [
                       ...List.generate(
                           demodata.length,
-                          (index) => Padding(
-                                padding: const EdgeInsets.only(right: 4),
+                          (index) => Padding(padding: const EdgeInsets.only(right: 4),
                                 child: Indicator(isActive: index == _pageIndex),
                               )),
                       const Spacer(),
@@ -77,13 +75,8 @@ class _InformationState extends State<Information> {
                               duration: const Duration(milliseconds: 300),
                             );
                           },
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                          ),
-                          child: Image.asset(
-                            "assets/images/arrow.png",
-                            color: Colors.white,
-                          )),
+                          style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                          child: Image.asset("assets/images/arrow.png",color: Colors.white)),
                       ),
                     ],
                   )
@@ -98,10 +91,7 @@ class _InformationState extends State<Information> {
 }
 
 class Indicator extends StatelessWidget {
-  const Indicator({
-    Key? key,
-    this.isActive = false,
-  }) : super(key: key);
+  const Indicator({Key? key,this.isActive = false}) : super(key: key);
   final bool isActive;
 
   @override
@@ -112,8 +102,8 @@ class Indicator extends StatelessWidget {
       width: 4,
       decoration: BoxDecoration(
         color: isActive
-          ? Vx.randomPrimaryColor
-          : Vx.randomPrimaryColor.withOpacity(0.4),
+        ? Vx.randomPrimaryColor
+        : Vx.randomPrimaryColor.withOpacity(0.4),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
     );
@@ -123,11 +113,7 @@ class Indicator extends StatelessWidget {
 class Info {
   final String image, title, description;
 
-  Info({
-    required this.image,
-    required this.title,
-    required this.description,
-  });
+  Info({required this.image,required this.title,required this.description});
 }
 
 final List<Info> demodata = [
@@ -154,13 +140,7 @@ final List<Info> demodata = [
 ];
 
 class InformationContent extends StatelessWidget {
-  const InformationContent({
-    Key? key,
-    required this.image,
-    required this.title,
-    required this.description,
-  }) : super(key: key);
-
+  const InformationContent({Key? key,required this.image,required this.title,required this.description}) : super(key: key);
   final String image, title, description;
   @override
   Widget build(BuildContext context) {
@@ -171,28 +151,17 @@ class InformationContent extends StatelessWidget {
           image,
           height: 250,
         ),
-        // const Spacer(),
-        const SizedBox(
-          height: 40,
-        ),
-        Text(
-          title,
+        const SizedBox(height: 40),
+        Text(title,
           textAlign: TextAlign.center,
           style: GoogleFonts.nunito(
-            textStyle:
-              const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
+            textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         ),
-        const SizedBox(
-          height: 40,
-        ),
-        Text(
-          description,
+        const SizedBox(height: 40),
+        Text(description,
           textAlign: TextAlign.center,
           style: GoogleFonts.nunito(
-            textStyle: const TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
-          ),
+            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
         ),
         const Spacer()
       ],

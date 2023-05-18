@@ -14,7 +14,6 @@ class EditProfile extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
   const EditProfile({super.key, required this.userModel, required this.firebaseUser});
-
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
@@ -127,19 +126,12 @@ class _EditProfileState extends State<EditProfile> {
         elevation: 0.4,
         leading: IconButton(
           icon: const Icon(CupertinoIcons.left_chevron),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () { Navigator.pop(context); },
         ),
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
+        iconTheme: const IconThemeData(color: Colors.black),
         centerTitle: true,
-        title: Text(
-          'Edit Profile',
-          style: GoogleFonts.nunito(
-            textStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
+        title: Text('Edit Profile',
+          style: GoogleFonts.nunito(textStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
         ),
       ),
       body: Stack(
@@ -173,12 +165,9 @@ class _EditProfileState extends State<EditProfile> {
                           backgroundColor: const Color(0xFFF5CEB8),
                           foregroundColor: Colors.white,
                           radius: MediaQuery.of(context).size.height * 0.1,
-                          backgroundImage: NetworkImage(
-                              widget.userModel.profilePic.toString()),
+                          backgroundImage: NetworkImage(widget.userModel.profilePic.toString()),
                           foregroundImage: img != null ? FileImage(img!) : null,
-                          child: widget.userModel.profilePic == null
-                              ? const Icon(Icons.person, size: 70)
-                              : null,
+                          child: widget.userModel.profilePic == null? const Icon(Icons.person, size: 70) : null,
                         ),
                         Positioned(
                           bottom: 0,
@@ -190,10 +179,7 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                             child: IconButton(
                               onPressed: () { showInputImgOptions();},
-                              icon: const Icon(
-                                CupertinoIcons.camera_fill,
-                                color: Colors.white,
-                              ),
+                              icon: const Icon(CupertinoIcons.camera_fill,color: Colors.white),
                             ),
                           ),
                         ),
@@ -267,9 +253,7 @@ class _EditProfileState extends State<EditProfile> {
                     onPressed: submit,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
-                      ),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
                       backgroundColor: const Color(0xFF43B1B7),
                       fixedSize: const Size(150, 48),
                     ),

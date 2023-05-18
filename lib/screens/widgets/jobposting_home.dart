@@ -7,7 +7,6 @@ class JobPost extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
   const JobPost({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
-
   @override
   State<JobPost> createState() => _JobPostState();
 }
@@ -36,10 +35,7 @@ class _JobPostState extends State<JobPost> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                JobPosting(
-                  firebaseUser: widget.firebaseUser,
-                  userModel: widget.userModel,
-                )
+                JobPosting(firebaseUser: widget.firebaseUser,userModel: widget.userModel)
               ],
             ),
           )

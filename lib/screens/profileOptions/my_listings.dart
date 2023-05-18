@@ -6,17 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../home.dart';
+import 'package:artist_icon/screens/home.dart';
 
 class MyListings extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const MyListings({
-    Key? key,
-    required this.userModel,
-    required this.firebaseUser,
-  }) : super(key: key);
+  const MyListings({Key? key,required this.userModel,required this.firebaseUser}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +30,7 @@ class MyListings extends StatelessWidget {
         foregroundColor: Colors.black,
         backgroundColor: Colors.grey.shade100,
         centerTitle: true,
-        title: Text(
-          'My Listings',
+        title: Text('My Listings',
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -60,12 +54,7 @@ class MyListings extends StatelessWidget {
             ],
           ),
           StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("Users")
-                .doc(userModel.uid.toString())
-                .collection("MyListings")
-                .orderBy("time", descending: true)
-                .snapshots(),
+            stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").orderBy("time", descending: true).snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
@@ -75,38 +64,26 @@ class MyListings extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "You haven't listed any job or rented a service",
-                            style: GoogleFonts.nunito(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                            ),
+                          Text("You haven't listed any job or rented a service",
+                            style: GoogleFonts.nunito(fontWeight: FontWeight.w700,fontSize: 16),
                           ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                          SizedBox(height:MediaQuery.of(context).size.height * 0.02),
                           SizedBox(
                             width: 200,
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage(
-                                          userModel: userModel,
-                                          firebaseUser: firebaseUser)),
-                                );
+                                  MaterialPageRoute(builder: (context) => HomePage(userModel: userModel,firebaseUser: firebaseUser)));
                               },
                               style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
+                                padding: const EdgeInsets.symmetric(vertical: 16),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18),
                                 ),
                                 backgroundColor: Colors.teal.shade300,
                               ),
-                              child: Text(
-                                'List Something',
+                              child: Text('List Something',
                                 style: GoogleFonts.nunito(
                                   textStyle: const TextStyle(
                                     color: Colors.white,
@@ -123,22 +100,16 @@ class MyListings extends StatelessWidget {
                   return ListView.builder(
                     itemCount: data.docs.length,
                     itemBuilder: (context, index) {
-                      MyListingsModel currListing = MyListingsModel.fromMap(
-                          data.docs[index].data() as Map<String, dynamic>);
+                      MyListingsModel currListing = MyListingsModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(
                               backgroundColor: Colors.transparent,
                               isScrollControlled: true,
                               context: context,
-                              builder: (context) => ApplicantsDetails(
-                                firebaseUser: firebaseUser,
-                                userModel: userModel,
-                                listingsModel: currListing,
-                              ),
+                              builder: (context) => ApplicantsDetails(firebaseUser: firebaseUser,userModel: userModel,listingsModel: currListing),
                             );
                           },
                           child: Container(
@@ -152,8 +123,7 @@ class MyListings extends StatelessWidget {
                                 Container(
                                   decoration: BoxDecoration(
                                     image: const DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/job_tile_background3.jpg"),
+                                      image: AssetImage("assets/images/job_tile_background3.jpg"),
                                       fit: BoxFit.cover,
                                     ),
                                     borderRadius: BorderRadius.circular(20),
@@ -167,8 +137,7 @@ class MyListings extends StatelessWidget {
                                         builder: (BuildContext context) {
                                           return AlertDialog(
                                             title: const Text('Confirmation'),
-                                            content: const Text(
-                                                'Are you sure you want to delete this listing?'),
+                                            content: const Text('Are you sure you want to delete this listing?'),
                                             actions: [
                                               TextButton(
                                                 child: const Text('Cancel'),
@@ -178,21 +147,9 @@ class MyListings extends StatelessWidget {
                                               ),
                                               TextButton(
                                                 child: const Text('Delete'),
-                                                onPressed: () {
-                                                  // Delete the listing
-                                                  FirebaseFirestore.instance
-                                                      .collection("Users")
-                                                      .doc(userModel.uid
-                                                          .toString())
-                                                      .collection("MyListings")
-                                                      .doc(currListing.id
-                                                          .toString())
-                                                      .delete();
-                                                  FirebaseFirestore.instance
-                                                      .collection(
-                                                          '${currListing.type}s')
-                                                      .doc(currListing.id)
-                                                      .delete();
+                                                onPressed: () { // Delete the listing
+                                                  FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyListings").doc(currListing.id.toString()).delete();
+                                                  FirebaseFirestore.instance.collection('${currListing.type}s').doc(currListing.id).delete();
                                                   Navigator.of(context).pop();
                                                 },
                                               ),
@@ -201,8 +158,7 @@ class MyListings extends StatelessWidget {
                                         },
                                       );
                                     },
-                                    child: Text(
-                                      'Delete',
+                                    child: Text('Delete',
                                       style: GoogleFonts.nunito(
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.w700,
@@ -212,14 +168,12 @@ class MyListings extends StatelessWidget {
                                   leading: Text(currListing.type.toString()),
                                   title: Text(currListing.category.toString()),
                                   subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment:CrossAxisAlignment.start,
                                     children: [
                                       const SizedBox(height: 20),
                                       Text('Rs.${currListing.pay}'),
                                       const SizedBox(height: 10),
-                                      Text(
-                                          'Date: ${currListing.time.toString().substring(0, 10)}'),
+                                      Text('Date: ${currListing.time.toString().substring(0, 10)}'),
                                     ],
                                   ),
                                 ),

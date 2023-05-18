@@ -1,46 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/models/jobpost.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
 import 'job_detail.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-var logger = Logger();
-// Define the background message handler function
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  logger.d('Handling a background message: ${message.messageId}');
-  showLocalNotification(message);
-}
-
-// Function to show a local notification when a new job is received
-void showLocalNotification(RemoteMessage message) {
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  const AndroidNotificationDetails androidPlatformChannelSpecifics =
-      AndroidNotificationDetails('your_channel_id', 'your_channel_name',
-          importance: Importance.max, priority: Priority.high);
-  const NotificationDetails platformChannelSpecifics =
-      NotificationDetails(android: androidPlatformChannelSpecifics);
-  flutterLocalNotificationsPlugin.show(
-    0,
-    message.notification!.title,
-    message.notification!.body,
-    platformChannelSpecifics,
-    payload: 'job',
-  );
-}
 
 class JobList extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const JobList({Key? key, required this.userModel, required this.firebaseUser})
-      : super(key: key);
+  const JobList({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
 
   @override
   State<JobList> createState() => _JobListState();
@@ -49,29 +19,6 @@ class JobList extends StatefulWidget {
 class _JobListState extends State<JobList> {
   String search = "";
   String location = "";
-
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    _configureFirebaseMessaging();
-  }
-
-  void _configureFirebaseMessaging() {
-    _firebaseMessaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
-    // Foreground message listener
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      logger.d('Received foreground message: ${message.notification!.title}');
-      showLocalNotification(message);
-    });
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +43,7 @@ class _JobListState extends State<JobList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Fast Search',
+                const Text('Fast Search',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,

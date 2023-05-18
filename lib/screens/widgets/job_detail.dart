@@ -12,27 +12,20 @@ class JobDetail extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
 
-  const JobDetail(
-      {Key? key,
-      required this.currJob,
-      required this.userModel,
-      required this.firebaseUser})
-      : super(key: key);
+  const JobDetail({Key? key,required this.currJob,required this.userModel,required this.firebaseUser}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String location =
-        '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}';
+    String location = '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}';
     var size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: size.height * 0.01, horizontal: size.width * 0.05),
+      padding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.05),
       decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          )),
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+      )),
       height: size.height * 0.5,
       child: SingleChildScrollView(
         child: Column(
@@ -50,14 +43,12 @@ class JobDetail extends StatelessWidget {
                   children: [
                     const Icon(Icons.person),
                     SizedBox(width: size.width * 0.03),
-                    Text(currJob.provider.toString(),
-                        style: const TextStyle(fontSize: 20)),
+                    Text(currJob.provider.toString(),style: const TextStyle(fontSize: 20)),
                   ],
                 ),
                 SizedBox(height: size.height * 0.025),
                 Text(currJob.category.toString(),
-                    style: const TextStyle(
-                        fontSize: 26, fontWeight: FontWeight.bold)),
+                    style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
                 SizedBox(height: size.height * 0.025),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,10 +58,7 @@ class JobDetail extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: size.height * 0.030),
-                const Text('Requirements: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
+                const Text('Requirements: ', style: TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(height: size.height * 0.01),
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
@@ -79,40 +67,32 @@ class JobDetail extends StatelessWidget {
                       children: [
                         SizedBox(width: size.width * 0.025),
                         ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: 300,
-                          ),
+                          constraints: const BoxConstraints(maxWidth: 300),
                           child: Text(
                             currJob.desc.toString(),
                             style: GoogleFonts.nunito(
-                                wordSpacing: 2,
-                                height: 1.5,
-                                fontWeight: FontWeight.w500),
+                              wordSpacing: 2,
+                              height: 1.5,
+                              fontWeight: FontWeight.w500),
                           ),
                         )
                       ],
                     )),
                 SizedBox(height: size.height * 0.025),
                 currJob.uid.toString() == userModel.uid.toString()
-                    ? MyButton(
-                        text: "Can't apply to own job",
-                        width: double.infinity,
-                        onPressed: () {},
-                      )
-                    : MyButton(
-                        text: 'Apply Now',
-                        width: double.infinity,
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return ApplyNowScreen(
-                                  firebaseUser: firebaseUser,
-                                  jobpostmodel: currJob,
-                                  userModel: userModel);
-                            },
-                          ));
-                        },
-                      )
+                ? MyButton(
+                    text: "Can't apply to own job",
+                    width: double.infinity,
+                    onPressed: () {},
+                  )
+                : MyButton(
+                    text: 'Apply Now',
+                    width: double.infinity,
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) { return ApplyNowScreen(firebaseUser: firebaseUser,jobpostmodel: currJob,userModel: userModel);}));
+                    },
+                  )
               ],
             )
           ],

@@ -26,9 +26,7 @@ class _RentArtistState extends State<RentArtist> {
               ),
               Expanded(
                 flex: 1,
-                child: Container(
-                  color: Colors.grey.withOpacity(0.1),
-                ),
+                child: Container(color: Colors.grey.withOpacity(0.1)),
               ),
             ],
           ),

@@ -20,8 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<bool> isEmailTaken(String email) async {
     try {
-      final signInMethods =
-          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      final signInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
       return signInMethods.isNotEmpty;
     } catch (e) {
       return false;
@@ -40,8 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } else if (password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter password')));
     } else if (cpassword.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please confirm password')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please confirm password')));
     } else if (cpassword != password) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Password do not match')));
     } else if (password.length <= 5) {
@@ -97,14 +95,14 @@ class _SignUpPageState extends State<SignUpPage> {
                     Text(
                       'Create your account',
                       style: GoogleFonts.nunito(
-                          textStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold)),
+                        textStyle: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(height: size.height * 0.015),
                     MyTextField(
-                      hintText: 'Username',
+                      hintText: 'Email',
                       obsecure: false,
                       icon: Icon(Icons.person,
                           size: MediaQuery.of(context).size.height * 0.027),

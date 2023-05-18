@@ -20,10 +20,7 @@ class PostOrRentModal extends StatelessWidget {
           horizontal: size.width * 0.04, vertical: size.height * 0.009),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30),),
       ),
       height: size.height * 0.30,
       child: Row(
@@ -34,10 +31,7 @@ class PostOrRentModal extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) {
-                    return JobPost(
-                        firebaseUser: firebaseUser, userModel: userModel);
-                  },
+                  builder: (context) { return JobPost(firebaseUser: firebaseUser, userModel: userModel);},
                 ),
               );
             },
@@ -51,15 +45,13 @@ class PostOrRentModal extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.work_outline,
-                      size: 40, color: Colors.grey.shade100),
+                  Icon(Icons.work_outline, size: 40, color: Colors.grey.shade100),
                   SizedBox(height: size.height * 0.01),
-                  Text(
-                    'Post a Job',
+                  Text('Post a Job',
                     style: GoogleFonts.nunito(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade100,
-                        fontSize: 18),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade100,
+                      fontSize: 18),
                   ),
                 ],
               ),
@@ -69,12 +61,7 @@ class PostOrRentModal extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return RentService(
-                        firebaseUser: firebaseUser, userModel: userModel);
-                  },
-                ),
+                MaterialPageRoute(builder: (context) { return RentService(firebaseUser: firebaseUser, userModel: userModel);}),
               );
             },
             child: Container(
@@ -87,15 +74,13 @@ class PostOrRentModal extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.home_work_outlined,
-                      size: 40, color: Colors.grey.shade100),
+                  Icon(Icons.home_work_outlined,size: 40, color: Colors.grey.shade100),
                   SizedBox(height: size.height * 0.01),
-                  Text(
-                    'Rent a Service',
+                  Text('Rent a Service',
                     style: GoogleFonts.nunito(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade100,
-                        fontSize: 18),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade100,
+                      fontSize: 18),
                   ),
                 ],
               ),

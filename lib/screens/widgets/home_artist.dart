@@ -7,7 +7,6 @@ class HomeArtist extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
   const HomeArtist({super.key, required this.userModel, required this.firebaseUser});
-
   @override
   State<HomeArtist> createState() => _HomeArtistState();
 }
@@ -31,8 +30,7 @@ class _HomeArtistState extends State<HomeArtist> {
                 ),
               ),
             ],
-          ),
-            JobList(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
+          ), JobList(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
         ],
       ),
     );

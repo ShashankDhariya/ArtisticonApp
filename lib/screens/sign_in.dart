@@ -29,7 +29,7 @@ class _SignInPageState extends State<SignInPage> {
     if (username.isEmpty && password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Details')));
     } else if (username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Username')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Email')));
     } else if (password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Password')));
     } else {
@@ -101,18 +101,17 @@ class _SignInPageState extends State<SignInPage> {
                     Text(
                       'Please login to your account',
                       style: GoogleFonts.nunito(
-                          textStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.bold)),
+                        textStyle: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(
                         height: MediaQuery.of(context).size.height * 0.020),
                     MyTextField(
-                      hintText: 'Username',
+                      hintText: 'Email',
                       obsecure: false,
-                      icon: Icon(Icons.person,
-                          size: MediaQuery.of(context).size.height * 0.030),
+                      icon: Icon(Icons.person, size: MediaQuery.of(context).size.height * 0.030),
                       controller: usernameController,
                     ),
                     SizedBox(
@@ -120,14 +119,12 @@ class _SignInPageState extends State<SignInPage> {
                     MyTextField(
                       hintText: 'Password',
                       obsecure: true,
-                      icon: Icon(Icons.lock,
-                          size: MediaQuery.of(context).size.height * 0.030),
+                      icon: Icon(Icons.lock, size: MediaQuery.of(context).size.height * 0.030),
                       controller: passwordController,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.height * 0.035),
+                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.035),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -170,16 +167,17 @@ class _SignInPageState extends State<SignInPage> {
                       'Don\'t have an account?',
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.height * 0.07),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
                           return const SignUpPage();
                         }));
                       },

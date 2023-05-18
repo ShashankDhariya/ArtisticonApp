@@ -9,10 +9,7 @@ import 'icon_text.dart';
 class RentList extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const RentList(
-      {Key? key, required this.userModel, required this.firebaseUser})
-      : super(key: key);
-
+  const RentList({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
   @override
   State<RentList> createState() => _RentListState();
 }
@@ -35,15 +32,12 @@ class _RentListState extends State<RentList> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             image: const DecorationImage(
-              image: AssetImage('assets/images/search_bg.png'),
-              fit: BoxFit.cover,
-            ),
+              image: AssetImage('assets/images/search_bg.png'),fit: BoxFit.cover),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Fast Search',
+              const Text('Fast Search',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 25,
@@ -82,8 +76,7 @@ class _RentListState extends State<RentList> {
                     ),
                     Container(
                       padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        'assets/images/search.png',
+                      child: Image.asset('assets/images/search.png',
                         height: 20,
                         width: 20,
                       ),

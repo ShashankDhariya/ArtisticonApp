@@ -5,15 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:artist_icon/models/user.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../home.dart';
+import 'package:artist_icon/screens/home.dart';
 
 class MyApplications extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const MyApplications(
-      {Key? key, required this.userModel, required this.firebaseUser})
-      : super(key: key);
+  const MyApplications({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +23,11 @@ class MyApplications extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        iconTheme: const IconThemeData(
-          color: Colors.black,
-        ),
+        iconTheme: const IconThemeData(color: Colors.black),
         foregroundColor: Colors.black,
         backgroundColor: Colors.grey.shade100,
         centerTitle: true,
-        title: Text(
-          'My Applications',
+        title: Text('My Applications',
           style: GoogleFonts.nunito(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -58,41 +52,26 @@ class MyApplications extends StatelessWidget {
             ],
           ),
           StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("Users")
-                .doc(userModel.uid.toString())
-                .collection("MyApplications")
-                .orderBy("time", descending: true)
-                .snapshots(),
+            stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyApplications").orderBy("time", descending: true).snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
                   QuerySnapshot data = snapshot.data as QuerySnapshot;
-                  if (data.docs.isEmpty) {
-                    // Display a message and a button to redirect to the home page
+                  if (data.docs.isEmpty) {  // Display a message and a button to redirect to the home page
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "You haven't applied to a job or availed a service",
-                          style: GoogleFonts.nunito(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
+                        Text("You haven't applied to a job or availed a service",
+                          style: GoogleFonts.nunito(fontWeight: FontWeight.w700,fontSize: 16),
                         ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                         SizedBox(
                           width: 200,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage(
-                                        userModel: userModel,
-                                        firebaseUser: firebaseUser)),
-                              );
+                                MaterialPageRoute(builder: (context) => HomePage(userModel: userModel,firebaseUser: firebaseUser)));
                             },
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -101,8 +80,7 @@ class MyApplications extends StatelessWidget {
                               ),
                               backgroundColor: Colors.teal.shade300,
                             ),
-                            child: Text(
-                              'Apply or Rent Something',
+                            child: Text('Apply or Rent Something',
                               style: GoogleFonts.nunito(
                                 textStyle: const TextStyle(
                                   color: Colors.white,
@@ -115,7 +93,6 @@ class MyApplications extends StatelessWidget {
                       ],
                     );
                   } else {
-                    // Display the list of applications
                     return ListView.builder(
                       itemCount: data.docs.length,
                       itemBuilder: (context, index) {
@@ -135,36 +112,26 @@ class MyApplications extends StatelessWidget {
                                 Container(
                                   decoration: BoxDecoration(
                                     image: const DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/job_tile_background3.jpg"),
+                                      image: AssetImage("assets/images/job_tile_background3.jpg"),
                                       fit: BoxFit.cover,
                                     ),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
                                 ListTile(
-                                  trailing:
-                                      Text(currApplication.pay.toString()),
-                                  title: Text(
-                                    currApplication.provider.toString(),
+                                  trailing: Text(currApplication.pay.toString()),
+                                  title: Text(currApplication.provider.toString(),
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20),
+                                      fontWeight: FontWeight.w600, fontSize: 20),
                                   ),
                                   subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(currApplication.category.toString(),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
+                                      Text(currApplication.category.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
                                       const SizedBox(height: 10),
-                                      Text(
-                                          '${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
+                                      Text('${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
                                       const SizedBox(height: 10),
-                                      Text(currApplication.time
-                                          .toString()
-                                          .substring(0, 10)),
+                                      Text(currApplication.time.toString().substring(0, 10)),
                                     ],
                                   ),
                                 ),
@@ -190,4 +157,3 @@ class MyApplications extends StatelessWidget {
     );
   }
 }
-//done
