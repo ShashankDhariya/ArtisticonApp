@@ -41,15 +41,7 @@ class RentDetail extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Container(
-                      height: 20,
-                      width: 20,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.grey.withOpacity(0.1),
-                      ),
-                    ),
+                    const Icon(Icons.person),
                     SizedBox(width: size.width * 0.03),
                     Text(currRent.provider.toString(),
                       style: const TextStyle(
