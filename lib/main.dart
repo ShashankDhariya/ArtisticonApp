@@ -16,7 +16,8 @@ void main() async {
     UserModel? fetchUserModel =
         await FirebaseHelper.getuserModelById(currentUser.uid);
     if (fetchUserModel != null) {
-      runApp(MyAppLoggedIn(userModel: fetchUserModel, firebaseUser: currentUser));
+      runApp(
+          MyAppLoggedIn(userModel: fetchUserModel, firebaseUser: currentUser));
     } else {
       runApp(const MyApp());
     }
@@ -49,10 +50,10 @@ class MyAppLoggedIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashLoggedIn(
-        firebaseUser: firebaseUser,
-        userModel: userModel,
-      ));
+        debugShowCheckedModeBanner: false,
+        home: SplashLoggedIn(
+          firebaseUser: firebaseUser,
+          userModel: userModel,
+        ));
   }
 }

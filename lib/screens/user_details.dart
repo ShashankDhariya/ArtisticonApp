@@ -15,7 +15,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 class UserDetails extends StatefulWidget {
   final String password;
   final String username;
-  const UserDetails({super.key, required this.password, required this.username});
+  const UserDetails(
+      {super.key, required this.password, required this.username});
   @override
   State<UserDetails> createState() => _UserDetailsState();
 }
@@ -82,21 +83,27 @@ class _UserDetailsState extends State<UserDetails> {
     String profession = professionController.text.trim();
 
     if (img == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Select profile picture')));
-    }
-    else if (name == '') {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter name')));
-    }
-    else if (phone == '') {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter phone number')));
-    }
-    else if (profession == '') {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter phone number')));
-    }
-    else if (phone.length != 10 || phone[0] == '5' || phone[0] == '4' || phone[0] == '3' || phone[0] == '2' || phone[0] == '1' || phone[0] == '0') {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter valid number')));
-    } 
-    else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Select profile picture')));
+    } else if (name == '') {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Enter name')));
+    } else if (phone == '') {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Enter phone number')));
+    } else if (profession == '') {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Enter phone number')));
+    } else if (phone.length != 10 ||
+        phone[0] == '5' ||
+        phone[0] == '4' ||
+        phone[0] == '3' ||
+        phone[0] == '2' ||
+        phone[0] == '1' ||
+        phone[0] == '0') {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Enter valid number')));
+    } else {
       setState(() {
         state = true;
       });
@@ -112,6 +119,9 @@ class _UserDetailsState extends State<UserDetails> {
         password: password,
       );
     } catch (e) {
+      setState(() {
+        state = false;
+      });
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
@@ -126,7 +136,10 @@ class _UserDetailsState extends State<UserDetails> {
 
   void uploadData(String name, String phone, String profession, String uid,
       User firebaseUser) async {
-    UploadTask uploadTask = FirebaseStorage.instance.ref('ProfilePictures').child(uid).putFile(img!);
+    UploadTask uploadTask = FirebaseStorage.instance
+        .ref('ProfilePictures')
+        .child(uid)
+        .putFile(img!);
     TaskSnapshot snapshot = await uploadTask;
     String imgUrl = await snapshot.ref.getDownloadURL();
     UserModel newUser = UserModel(
@@ -137,7 +150,11 @@ class _UserDetailsState extends State<UserDetails> {
       phone: phone,
       profession: profession,
     );
-    FirebaseFirestore.instance.collection('Users').doc(uid).set(newUser.toMap()).then((value) {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .set(newUser.toMap())
+        .then((value) {
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
@@ -151,7 +168,7 @@ class _UserDetailsState extends State<UserDetails> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
+        body: Stack(
       fit: StackFit.expand,
       children: [
         Container(
