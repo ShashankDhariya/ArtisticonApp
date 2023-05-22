@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:artist_icon/models/jobpost.dart';
+import 'package:artist_icon/models/myapplications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -92,18 +93,15 @@ class _ApplyNowScreenState extends State<ApplyNowScreen> {
         vid: vidLink,
       );
 
-      JobPostModel myApplications = JobPostModel(
-        jobid: widget.jobpostmodel.jobid.toString(),
-        provider: widget.jobpostmodel.provider.toString(),
-        desc: widget.jobpostmodel.desc.toString(),
+      MyApplicationsModel myApplications = MyApplicationsModel(
+        appyid: applyJid,
+        id: widget.jobpostmodel.jobid.toString(),
+        name: widget.jobpostmodel.provider.toString(),
         category: widget.jobpostmodel.category.toString(),
-        phone: widget.jobpostmodel.phone.toString(),
-        address: widget.jobpostmodel.address.toString(),
-        city: widget.jobpostmodel.city.toString(),
-        state: widget.jobpostmodel.state.toString(),
-        country: widget.jobpostmodel.country.toString(),
+        type: "Job",
+        address: '${widget.jobpostmodel.address}, ${widget.jobpostmodel.city}\n${widget.jobpostmodel.state}, ${widget.jobpostmodel.country}',
         pay: widget.jobpostmodel.pay.toString(),
-        time: DateTime.now(),
+        date: DateTime.now(),
       );
 
       FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyApplications").doc(widget.jobpostmodel.jobid.toString()).set(myApplications.toMap());

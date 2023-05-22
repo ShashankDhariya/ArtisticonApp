@@ -1,3 +1,4 @@
+import 'package:artist_icon/models/myapplications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,17 +57,15 @@ class _RentNowPageState extends State<RentNowPage> {
         people: people,
       );
       // More Details can Also be added
-      RentPostModel myApplications = RentPostModel(
-        rentid: widget.rentPostModel.rentid.toString(),
-        provider: widget.rentPostModel.provider.toString(),
-        desc: widget.rentPostModel.desc.toString(),
+      MyApplicationsModel myApplications = MyApplicationsModel(
+        appyid: applyRid,
+        id: widget.rentPostModel.rentid.toString(),
+        name: widget.rentPostModel.provider.toString(),
         category: widget.rentPostModel.category.toString(),
-        address: widget.rentPostModel.address.toString(),
-        city: widget.rentPostModel.city.toString(),
-        state: widget.rentPostModel.state.toString(),
-        country: widget.rentPostModel.country.toString(),
+        type: "Rent",
+        address: '${widget.rentPostModel.address}, ${widget.rentPostModel.city}\n${widget.rentPostModel.state}, ${widget.rentPostModel.country}',
         pay: widget.rentPostModel.pay.toString(),
-        time: DateTime.now(),
+        date: DateTime.now(),
       );
 
       setState(() {

@@ -1,4 +1,4 @@
-import 'package:artist_icon/models/rentpost.dart';
+import 'package:artist_icon/models/myapplications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,7 +52,7 @@ class MyApplications extends StatelessWidget {
             ],
           ),
           StreamBuilder(
-            stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyApplications").orderBy("time", descending: true).snapshots(),
+            stream: FirebaseFirestore.instance.collection("Users").doc(userModel.uid).collection("MyApplications").snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
@@ -96,8 +96,7 @@ class MyApplications extends StatelessWidget {
                     return ListView.builder(
                       itemCount: data.docs.length,
                       itemBuilder: (context, index) {
-                        RentPostModel currApplication = RentPostModel.fromMap(
-                            data.docs[index].data() as Map<String, dynamic>);
+                        MyApplicationsModel currApplication = MyApplicationsModel.fromMap(data.docs[index].data() as Map<String, dynamic>);
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 12),
@@ -119,8 +118,15 @@ class MyApplications extends StatelessWidget {
                                   ),
                                 ),
                                 ListTile(
-                                  trailing: Text(currApplication.pay.toString()),
-                                  title: Text(currApplication.provider.toString(),
+                                  leading: Text(currApplication.type.toString()),
+                                  trailing: CupertinoButton(
+                                    onPressed: () {  
+                                      FirebaseFirestore.instance.collection("Users").doc(userModel.uid.toString()).collection("MyApplications").doc(currApplication.id.toString()).delete();
+                                      FirebaseFirestore.instance.collection('${currApplication.type}s').doc(currApplication.id).collection('Applications').doc(userModel.uid.toString()).delete();
+                                    },
+                                    child: const Text("Delete")
+                                    ), 
+                                  title: Text(currApplication.name.toString(),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w600, fontSize: 20),
                                   ),
@@ -129,9 +135,15 @@ class MyApplications extends StatelessWidget {
                                     children: [
                                       Text(currApplication.category.toString(), style: const TextStyle(fontWeight: FontWeight.bold)),
                                       const SizedBox(height: 10),
-                                      Text('${currApplication.address} ${currApplication.city}\n${currApplication.state} ${currApplication.country}'),
+                                      Text(currApplication.address.toString()),
                                       const SizedBox(height: 10),
-                                      Text(currApplication.time.toString().substring(0, 10)),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(currApplication.date.toString().substring(0, 10)),
+                                          Text('Rs.${currApplication.pay}'),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
