@@ -20,8 +20,6 @@ class JobList extends StatefulWidget {
 class _JobListState extends State<JobList> {
   String search = "";
   String location = "";
-  late bool isSearchbyProfession;
-  late bool isSearchbyLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -140,30 +138,6 @@ class _JobListState extends State<JobList> {
                   .orderBy("time", descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
-                if (search.isNotEmpty || location.isNotEmpty) {
-                  if (isSearchbyProfession) {
-                    return Center(
-                      child: Text(
-                        'No search results for profession "$search"',
-                        style: GoogleFonts.nunito(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    );
-                  } else if (isSearchbyLocation) {
-                    return Center(
-                      child: Text(
-                        'No jobs found in location "$location"',
-                        style: GoogleFonts.nunito(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
-                      ),
-                    );
-                  }
-                }
-
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
