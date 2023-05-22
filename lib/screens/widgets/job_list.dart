@@ -10,7 +10,8 @@ import 'job_detail.dart';
 class JobList extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const JobList({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
+  const JobList({Key? key, required this.userModel, required this.firebaseUser})
+      : super(key: key);
 
   @override
   State<JobList> createState() => _JobListState();
@@ -43,7 +44,8 @@ class _JobListState extends State<JobList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Fast Search',
+                const Text(
+                  'Fast Search',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
