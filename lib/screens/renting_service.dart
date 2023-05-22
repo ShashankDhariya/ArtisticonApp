@@ -229,7 +229,7 @@ class _RentingServiceState extends State<RentingService> {
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
-              hintText: 'Link to video/photos',
+              hintText: 'Link to video/photos (Optional)',
               obsecure: false,
               icon: Icon(Icons.link,
                   size: MediaQuery.of(context).size.height * 0.030),
