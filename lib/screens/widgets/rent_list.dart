@@ -236,10 +236,22 @@ class _RentListState extends State<RentList> {
                     );
                   }
 
-                  if ((currRent.city.toString().toLowerCase().contains(location.toLowerCase()) ||
-                      currRent.state.toString().toLowerCase().contains(location.toLowerCase()) ||
-                      currRent.country.toString().toLowerCase().contains(location.toLowerCase())) &&
-                      currRent.category.toString().toLowerCase().contains(search.toLowerCase())) {
+                  if ((currRent.city
+                              .toString()
+                              .toLowerCase()
+                              .contains(location.toLowerCase()) ||
+                          currRent.state
+                              .toString()
+                              .toLowerCase()
+                              .contains(location.toLowerCase()) ||
+                          currRent.country
+                              .toString()
+                              .toLowerCase()
+                              .contains(location.toLowerCase())) &&
+                      currRent.category
+                          .toString()
+                          .toLowerCase()
+                          .contains(search.toLowerCase())) {
                     return Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: size.width * 0.05,
