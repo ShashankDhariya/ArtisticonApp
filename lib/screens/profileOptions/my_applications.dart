@@ -141,19 +141,49 @@ class MyApplications extends StatelessWidget {
                                           fontWeight: FontWeight.w700)),
                                   trailing: CupertinoButton(
                                     onPressed: () {
-                                      FirebaseFirestore.instance
-                                          .collection("Users")
-                                          .doc(userModel.uid.toString())
-                                          .collection("MyApplications")
-                                          .doc(currApplication.id.toString())
-                                          .delete();
-                                      FirebaseFirestore.instance
-                                          .collection(
-                                              '${currApplication.type}s')
-                                          .doc(currApplication.id)
-                                          .collection('Applications')
-                                          .doc(userModel.uid.toString())
-                                          .delete();
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title:
+                                                const Text('Confirm Deletion'),
+                                            content: const Text(
+                                                'Are you sure you want to delete this item?'),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: const Text('Cancel'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: const Text('Delete'),
+                                                onPressed: () {
+                                                  FirebaseFirestore.instance
+                                                      .collection("Users")
+                                                      .doc(userModel.uid
+                                                          .toString())
+                                                      .collection(
+                                                          "MyApplications")
+                                                      .doc(currApplication.id
+                                                          .toString())
+                                                      .delete();
+                                                  FirebaseFirestore.instance
+                                                      .collection(
+                                                          '${currApplication.type}s')
+                                                      .doc(currApplication.id)
+                                                      .collection(
+                                                          'Applications')
+                                                      .doc(userModel.uid
+                                                          .toString())
+                                                      .delete();
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Text("Delete",
                                         style: GoogleFonts.nunito(
