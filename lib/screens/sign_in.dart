@@ -27,11 +27,14 @@ class _SignInPageState extends State<SignInPage> {
     String password = passwordController.text.trim();
 
     if (username.isEmpty && password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Details')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please Enter Details')));
     } else if (username.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Email')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please Enter Email')));
     } else if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please Enter Password')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please Enter Password')));
     } else {
       log(username.toString());
       setState(() {
@@ -44,30 +47,25 @@ class _SignInPageState extends State<SignInPage> {
   void signIn(String username, String password) async {
     UserCredential? credential;
     try {
-      credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: username, password: password);
+      credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: username, password: password);
       String uid = credential.user!.uid;
-      DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
-      UserModel userModel = UserModel.fromMap(userData.data() as Map<String, dynamic>);
+      DocumentSnapshot userData =
+          await FirebaseFirestore.instance.collection("Users").doc(uid).get();
+      UserModel userModel =
+          UserModel.fromMap(userData.data() as Map<String, dynamic>);
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => HomePage(firebaseUser: credential!.user!, userModel: userModel)
-          ));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        setState(() {
-          state = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('No user found for that email.')));
-      } else if (e.code == 'wrong-password') {
-        setState(() {
-          state = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Wrong password provided for that user.')));
-      }
+              builder: (context) => HomePage(
+                  firebaseUser: credential!.user!, userModel: userModel)));
+    } catch (e) {
+      setState(() {
+        state = false;
+      });
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -101,17 +99,18 @@ class _SignInPageState extends State<SignInPage> {
                     Text(
                       'Please login to your account',
                       style: GoogleFonts.nunito(
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[700],
-                          fontWeight: FontWeight.bold)),
+                          textStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(
                         height: MediaQuery.of(context).size.height * 0.020),
                     MyTextField(
                       hintText: 'Email',
                       obsecure: false,
-                      icon: Icon(Icons.person, size: MediaQuery.of(context).size.height * 0.030),
+                      icon: Icon(Icons.person,
+                          size: MediaQuery.of(context).size.height * 0.030),
                       controller: usernameController,
                     ),
                     SizedBox(
@@ -119,65 +118,65 @@ class _SignInPageState extends State<SignInPage> {
                     MyTextField(
                       hintText: 'Password',
                       obsecure: true,
-                      icon: Icon(Icons.lock, size: MediaQuery.of(context).size.height * 0.030),
+                      icon: Icon(Icons.lock,
+                          size: MediaQuery.of(context).size.height * 0.030),
                       controller: passwordController,
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.035),
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).size.height * 0.035),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context, 
-                                MaterialPageRoute(
-                                  builder:(context) {
-                                    return const ForgetPassword();
-                                  },
-                                )
-                              );
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return const ForgetPassword();
+                                },
+                              ));
                             },
                             child: Text(
                               'Forgot Password?',
                               style: GoogleFonts.nunito(
                                 textStyle: const TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.025),
                     state
-                    ? const CircularProgressIndicator()
-                    : MyButton(
-                        onPressed: () {
-                          check();
-                        },
-                        text: 'Sign In',
-                        width: 175,
-                      ),
+                        ? const CircularProgressIndicator()
+                        : MyButton(
+                            onPressed: () {
+                              check();
+                            },
+                            text: 'Sign In',
+                            width: 175,
+                          ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.17),
                     Text(
                       'Don\'t have an account?',
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.height * 0.07),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
                           return const SignUpPage();
                         }));
                       },

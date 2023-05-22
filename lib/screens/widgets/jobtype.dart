@@ -20,71 +20,94 @@ class PostOrRentModal extends StatelessWidget {
           horizontal: size.width * 0.04, vertical: size.height * 0.009),
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30),),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
       ),
       height: size.height * 0.30,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) { return JobPost(firebaseUser: firebaseUser, userModel: userModel);},
-                ),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF43B1B7),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              width: size.width * 0.44,
-              height: size.height * 0.10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.work_outline, size: 40, color: Colors.grey.shade100),
-                  SizedBox(height: size.height * 0.01),
-                  Text('Post a Job',
-                    style: GoogleFonts.nunito(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade100,
-                      fontSize: 18),
-                  ),
-                ],
-              ),
-            ),
+          Container(
+            width: 70,
+            height: 5,
+            color: Colors.grey.withOpacity(0.3),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) { return RentService(firebaseUser: firebaseUser, userModel: userModel);}),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF43B1B7),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              width: size.width * 0.44,
-              height: size.height * 0.10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.home_work_outlined,size: 40, color: Colors.grey.shade100),
-                  SizedBox(height: size.height * 0.01),
-                  Text('Rent a Service',
-                    style: GoogleFonts.nunito(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade100,
-                      fontSize: 18),
+          SizedBox(height: size.height * 0.028),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return JobPost(
+                            firebaseUser: firebaseUser, userModel: userModel);
+                      },
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF43B1B7),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                ],
+                  width: size.width * 0.44,
+                  height: size.height * 0.10,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.work_outline,
+                          size: 40, color: Colors.grey.shade100),
+                      SizedBox(height: size.height * 0.01),
+                      Text(
+                        'Post a Job',
+                        style: GoogleFonts.nunito(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade100,
+                            fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return RentService(
+                          firebaseUser: firebaseUser, userModel: userModel);
+                    }),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF43B1B7),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  width: size.width * 0.44,
+                  height: size.height * 0.10,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.home_work_outlined,
+                          size: 40, color: Colors.grey.shade100),
+                      SizedBox(height: size.height * 0.01),
+                      Text(
+                        'Rent a Service',
+                        style: GoogleFonts.nunito(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade100,
+                            fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
