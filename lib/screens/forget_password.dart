@@ -29,8 +29,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           ),
           Center(
               child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.27),
+              Image.asset(
+                'assets/images/Artisticon_logo.png',
+                height: MediaQuery.of(context).size.height * 0.14,
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               MyTextField(
                 hintText: 'Enter your Email',
                 obsecure: false,

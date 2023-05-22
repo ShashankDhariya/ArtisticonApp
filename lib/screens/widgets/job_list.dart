@@ -10,7 +10,8 @@ import 'job_detail.dart';
 class JobList extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const JobList({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
+  const JobList({Key? key, required this.userModel, required this.firebaseUser})
+      : super(key: key);
 
   @override
   State<JobList> createState() => _JobListState();
@@ -19,6 +20,8 @@ class JobList extends StatefulWidget {
 class _JobListState extends State<JobList> {
   String search = "";
   String location = "";
+  late bool isSearchbyProfession;
+  late bool isSearchbyLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,8 @@ class _JobListState extends State<JobList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Fast Search',
+                const Text(
+                  'Fast Search',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
@@ -136,6 +140,30 @@ class _JobListState extends State<JobList> {
                   .orderBy("time", descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
+                if (search.isNotEmpty || location.isNotEmpty) {
+                  if (isSearchbyProfession) {
+                    return Center(
+                      child: Text(
+                        'No search results for profession "$search"',
+                        style: GoogleFonts.nunito(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    );
+                  } else if (isSearchbyLocation) {
+                    return Center(
+                      child: Text(
+                        'No jobs found in location "$location"',
+                        style: GoogleFonts.nunito(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    );
+                  }
+                }
+
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
