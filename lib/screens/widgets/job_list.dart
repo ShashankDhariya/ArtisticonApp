@@ -248,18 +248,10 @@ class _JobListState extends State<JobList> {
                         );
                       }
 
-                      if ((currJob.city
-                                  .toString()
-                                  .toLowerCase()
-                                  .contains(location.toLowerCase().trim()) ||
-                              currJob.state
-                                  .toString()
-                                  .toLowerCase()
-                                  .contains(location.toLowerCase().trim())) &&
-                          currJob.category
-                              .toString()
-                              .toLowerCase()
-                              .contains(search.toLowerCase().trim())) {
+                      if ((currJob.city.toString().toLowerCase().contains(location.toLowerCase().trim()) ||
+                          currJob.state.toString().toLowerCase().contains(location.toLowerCase().trim()) ||
+                          currJob.country.toString().toLowerCase().contains(location.toLowerCase().trim())) &&
+                          currJob.category.toString().toLowerCase().contains(search.toLowerCase().trim())) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.05,
