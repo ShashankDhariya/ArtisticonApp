@@ -118,7 +118,7 @@ class MyApplications extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 12),
                           child: Container(
-                            height: 130,
+                            height: 150,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade200,
                               borderRadius: BorderRadius.circular(20),
@@ -207,21 +207,18 @@ class MyApplications extends StatelessWidget {
                                           style: GoogleFonts.nunito(
                                               fontWeight: FontWeight.w500)),
                                       const SizedBox(height: 7),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                              currApplication.date
-                                                  .toString()
-                                                  .substring(0, 10),
-                                              style: GoogleFonts.nunito(
-                                                  fontWeight: FontWeight.w500)),
-                                          Text('Rs.${currApplication.pay}',
-                                              style: GoogleFonts.nunito(
-                                                  fontWeight: FontWeight.w500)),
-                                        ],
+                                      Text(
+                                          currApplication.date
+                                              .toString()
+                                              .substring(0, 10),
+                                          style: GoogleFonts.nunito(
+                                              fontWeight: FontWeight.w500)),
+                                      const SizedBox(
+                                        height: 7,
                                       ),
+                                      Text('Rs.${currApplication.pay}',
+                                          style: GoogleFonts.nunito(
+                                              fontWeight: FontWeight.w500)),
                                     ],
                                   ),
                                 ),
