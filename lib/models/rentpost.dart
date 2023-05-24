@@ -11,7 +11,7 @@ class RentPostModel {
   String? country;
   String? pay;
   String? pic;
-  String? links;
+  String? link;
   DateTime? time;
 
   RentPostModel({
@@ -27,7 +27,7 @@ class RentPostModel {
     this.country,
     this.pay,
     this.pic,
-    this.links,
+    this.link,
     this.time,
   });
 
@@ -44,7 +44,7 @@ class RentPostModel {
     country = map["country"];
     pay = map["pay"];
     pic = map["pic"];
-    links = map["links"];
+    link = map["link"];
     time = map["time"].toDate();
   }
 
@@ -62,7 +62,7 @@ class RentPostModel {
       "country": country,
       "pay": pay,
       "pic": pic,
-      "links": links,
+      "link": link,
       "time": time,
     };
   }
