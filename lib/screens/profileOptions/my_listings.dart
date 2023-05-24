@@ -202,17 +202,25 @@ class MyListings extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  leading: Text(currListing.type.toString()),
-                                  title: Text(currListing.category.toString()),
+                                  leading: Text(currListing.type.toString(),
+                                      style: GoogleFonts.nunito(
+                                          fontWeight: FontWeight.w700)),
+                                  title: Text(currListing.category.toString(),
+                                      style: GoogleFonts.nunito(
+                                          fontWeight: FontWeight.w700)),
                                   subtitle: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       const SizedBox(height: 20),
-                                      Text('Rs.${currListing.pay}'),
+                                      Text('Rs.${currListing.pay}',
+                                          style: GoogleFonts.nunito(
+                                              fontWeight: FontWeight.w700)),
                                       const SizedBox(height: 10),
                                       Text(
-                                          'Date: ${currListing.time.toString().substring(0, 10)}'),
+                                          'Date: ${currListing.time.toString().substring(0, 10)}',
+                                          style: GoogleFonts.nunito(
+                                              fontWeight: FontWeight.w700)),
                                     ],
                                   ),
                                 ),

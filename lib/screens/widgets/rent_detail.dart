@@ -12,20 +12,27 @@ class RentDetail extends StatelessWidget {
   final RentPostModel currRent;
   final UserModel userModel;
   final User firebaseUser;
-  const RentDetail({Key? key,required this.currRent,required this.userModel,required this.firebaseUser}) : super(key: key);
+  const RentDetail(
+      {Key? key,
+      required this.currRent,
+      required this.userModel,
+      required this.firebaseUser})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String location ='${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}';
+    String location =
+        '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}';
     var size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: size.height * 0.01, horizontal: size.width * 0.05),
+      padding: EdgeInsets.symmetric(
+          vertical: size.height * 0.01, horizontal: size.width * 0.05),
       decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-      )),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          )),
       height: size.height * 0.5,
       child: SingleChildScrollView(
         child: Column(
@@ -43,10 +50,10 @@ class RentDetail extends StatelessWidget {
                   children: [
                     const Icon(Icons.person),
                     SizedBox(width: size.width * 0.03),
-                    Text(currRent.provider.toString(),
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
+                    Text(
+                      currRent.provider.toString(),
+                      style: GoogleFonts.nunito(
+                          fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -55,19 +62,21 @@ class RentDetail extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(currRent.category.toString(),
-                      style: const TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                      )),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context, 
-                            MaterialPageRoute(builder:(context) {return PicPage(img: currRent.pic.toString());})
-                          );
-                        },
-                        child: CircleAvatar(backgroundImage: NetworkImage(currRent.pic.toString())),
-                      )
+                        style: GoogleFonts.nunito(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                        )),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return PicPage(img: currRent.pic.toString());
+                        }));
+                      },
+                      child: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(currRent.pic.toString())),
+                    )
                   ],
                 ),
                 SizedBox(height: size.height * 0.025),
@@ -79,10 +88,10 @@ class RentDetail extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: size.height * 0.030),
-                const Text('Requirements',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                )),
+                Text('Requirements',
+                    style: GoogleFonts.nunito(
+                      fontWeight: FontWeight.bold,
+                    )),
                 SizedBox(height: size.height * 0.015),
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
@@ -92,31 +101,37 @@ class RentDetail extends StatelessWidget {
                         SizedBox(width: size.width * 0.025),
                         ConstrainedBox(
                           constraints: const BoxConstraints(maxWidth: 300),
-                          child: Text(currRent.desc.toString(),
+                          child: Text(
+                            currRent.desc.toString(),
                             style: GoogleFonts.nunito(
-                              wordSpacing: 2,
-                              height: 1.5,
-                              fontWeight: FontWeight.w500),
+                                wordSpacing: 2,
+                                height: 1.5,
+                                fontWeight: FontWeight.w500),
                           ),
                         )
                       ],
                     )),
                 SizedBox(height: size.height * 0.025),
                 currRent.uid.toString() == userModel.uid.toString()
-                ? MyButton(text: "Can't apply to own service",width: double.infinity,onPressed: () {})
-                : MyButton(text: 'Rent Now',width: double.infinity,
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return RentNowPage(
-                            rentPostModel: currRent,
-                            userModel: userModel,
-                            firebaseUser: firebaseUser,
-                          );
+                    ? MyButton(
+                        text: "Can't apply to own service",
+                        width: double.infinity,
+                        onPressed: () {})
+                    : MyButton(
+                        text: 'Rent Now',
+                        width: double.infinity,
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return RentNowPage(
+                                rentPostModel: currRent,
+                                userModel: userModel,
+                                firebaseUser: firebaseUser,
+                              );
+                            },
+                          ));
                         },
-                      ));
-                    },
-                  )
+                      )
               ],
             )
           ],

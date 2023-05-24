@@ -44,17 +44,17 @@ class _JobListState extends State<JobList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Fast Search',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     color: Colors.white,
                     fontSize: 25,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Search quickly for the job you want',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     height: 1.8,
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
@@ -198,7 +198,7 @@ class _JobListState extends State<JobList> {
                                         children: [
                                           Text(
                                             currJob.provider.toString(),
-                                            style: const TextStyle(
+                                            style: GoogleFonts.nunito(
                                               color: Colors.grey,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
@@ -208,12 +208,12 @@ class _JobListState extends State<JobList> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       Text(
                                         currJob.category.toString(),
-                                        style: const TextStyle(
+                                        style: GoogleFonts.nunito(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
                                         ),
@@ -223,16 +223,16 @@ class _JobListState extends State<JobList> {
                                           alignment: Alignment.centerRight,
                                           child: Text(
                                             'Rs.${currJob.pay}',
-                                            style: const TextStyle(
+                                            style: GoogleFonts.nunito(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 15,
+                                              fontSize: 13,
                                             ),
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 7),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -250,10 +250,22 @@ class _JobListState extends State<JobList> {
                         );
                       }
 
-                      if ((currJob.city.toString().toLowerCase().contains(location.toLowerCase().trim()) ||
-                          currJob.state.toString().toLowerCase().contains(location.toLowerCase().trim()) ||
-                          currJob.country.toString().toLowerCase().contains(location.toLowerCase().trim())) &&
-                          currJob.category.toString().toLowerCase().contains(search.toLowerCase().trim())) {
+                      if ((currJob.city
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(location.toLowerCase().trim()) ||
+                              currJob.state
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(location.toLowerCase().trim()) ||
+                              currJob.country
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(location.toLowerCase().trim())) &&
+                          currJob.category
+                              .toString()
+                              .toLowerCase()
+                              .contains(search.toLowerCase().trim())) {
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.05,
@@ -293,7 +305,7 @@ class _JobListState extends State<JobList> {
                                         children: [
                                           Text(
                                             currJob.provider.toString(),
-                                            style: const TextStyle(
+                                            style: GoogleFonts.nunito(
                                               color: Colors.grey,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,

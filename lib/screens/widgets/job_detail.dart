@@ -20,7 +20,8 @@ class JobDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String location = '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}';
+    String location =
+        '${currJob.address}, ${currJob.city}\n${currJob.state}, ${currJob.country}';
     var size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(
@@ -49,13 +50,14 @@ class JobDetail extends StatelessWidget {
                     const Icon(Icons.person),
                     SizedBox(width: size.width * 0.03),
                     Text(currJob.provider.toString(),
-                        style: const TextStyle(fontSize: 20)),
+                        style: GoogleFonts.nunito(
+                            fontSize: 18, fontWeight: FontWeight.w600)),
                   ],
                 ),
                 SizedBox(height: size.height * 0.025),
                 Text(currJob.category.toString(),
-                    style: const TextStyle(
-                        fontSize: 26, fontWeight: FontWeight.bold)),
+                    style: GoogleFonts.nunito(
+                        fontSize: 22, fontWeight: FontWeight.w700)),
                 SizedBox(height: size.height * 0.025),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,8 +67,8 @@ class JobDetail extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: size.height * 0.030),
-                const Text('Requirements: ',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('Requirements: ',
+                    style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
                 SizedBox(height: size.height * 0.01),
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),

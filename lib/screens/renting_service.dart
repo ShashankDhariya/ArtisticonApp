@@ -16,7 +16,9 @@ import 'package:image_picker/image_picker.dart';
 class RentingService extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const RentingService({Key? key, required this.userModel, required this.firebaseUser}): super(key: key);
+  const RentingService(
+      {Key? key, required this.userModel, required this.firebaseUser})
+      : super(key: key);
 
   @override
   State<RentingService> createState() => _RentingServiceState();
@@ -31,6 +33,7 @@ class _RentingServiceState extends State<RentingService> {
   TextEditingController countryController = TextEditingController();
   TextEditingController paycontroller = TextEditingController();
   TextEditingController durationController = TextEditingController();
+  TextEditingController linkController = TextEditingController();
   bool st = false;
   File? img;
 
@@ -63,14 +66,25 @@ class _RentingServiceState extends State<RentingService> {
     String country = countryController.text.trim();
     String pay = paycontroller.text.trim();
 
-    if (category.isEmpty || desc.isEmpty || address.isEmpty || city.isEmpty || state.isEmpty || country.isEmpty || pay.isEmpty || img == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill out all the Fields")));
+    if (category.isEmpty ||
+        desc.isEmpty ||
+        address.isEmpty ||
+        city.isEmpty ||
+        state.isEmpty ||
+        country.isEmpty ||
+        pay.isEmpty ||
+        img == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Fill out all the Fields")));
     } else {
       setState(() {
         st = true;
       });
       String rentid = uuid.v1();
-      UploadTask uploadTask = FirebaseStorage.instance.ref('Rent_Images').child(rentid).putFile(img!);
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref('Rent_Images')
+          .child(rentid)
+          .putFile(img!);
       TaskSnapshot snapshot = await uploadTask;
       String imgUrl = await snapshot.ref.getDownloadURL();
 
@@ -91,21 +105,31 @@ class _RentingServiceState extends State<RentingService> {
       );
 
       MyListingsModel listing = MyListingsModel(
-        category: category,
-        address: address,
-        type: "Rent",
-        pay: pay,
-        time: DateTime.now(),
-        id: rentid
-      );
-      FirebaseFirestore.instance.collection("Users").doc(widget.userModel.uid.toString()).collection("MyListings").doc(rentid).set(listing.toMap());
-      FirebaseFirestore.instance.collection("Rents").doc(rentid).set(rentPost.toMap()).then((value) {
+          category: category,
+          address: address,
+          type: "Rent",
+          pay: pay,
+          time: DateTime.now(),
+          id: rentid);
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(widget.userModel.uid.toString())
+          .collection("MyListings")
+          .doc(rentid)
+          .set(listing.toMap());
+      FirebaseFirestore.instance
+          .collection("Rents")
+          .doc(rentid)
+          .set(rentPost.toMap())
+          .then((value) {
         Navigator.pop(context);
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Posted successfully...")));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Posted successfully...")));
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -119,11 +143,14 @@ class _RentingServiceState extends State<RentingService> {
                   height: size.height * 0.045,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.32,vertical: size.height * 0.02),
-                  child: Text('Service Details',
+                  padding: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.32,
+                      vertical: size.height * 0.02),
+                  child: Text(
+                    'Service Details',
                     style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -146,54 +173,67 @@ class _RentingServiceState extends State<RentingService> {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20)),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  prefixIcon: const Icon(Icons.description),
-                  fillColor: Colors.grey.shade100,
-                  filled: true,
-                  hintText: 'Description',
-                  hintStyle: TextStyle(color: Colors.grey.shade500)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    prefixIcon: const Icon(Icons.description),
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Description',
+                    hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Address',
               obsecure: false,
-              icon: Icon(Icons.map, size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.map,
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: addressController,
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'City',
               obsecure: false,
-              icon: Icon(Icons.location_city, size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.location_city,
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: citycontroller,
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'State',
               obsecure: false,
-              icon: Icon(Icons.location_on, size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.location_on,
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: stateController,
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Country',
               obsecure: false,
-              icon: Icon(Icons.flag, size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.flag,
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: countryController,
             ),
             SizedBox(height: size.height * 0.015),
             MyTextField(
               hintText: 'Cost/time',
               obsecure: false,
-              icon: Icon(Icons.currency_rupee, size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.currency_rupee,
+                  size: MediaQuery.of(context).size.height * 0.030),
               controller: paycontroller,
+            ),
+            SizedBox(height: size.height * 0.015),
+            MyTextField(
+              hintText: 'Link to video/photos (Optional)',
+              obsecure: false,
+              icon: Icon(Icons.link,
+                  size: MediaQuery.of(context).size.height * 0.030),
+              controller: linkController,
             ),
             SizedBox(height: size.height * 0.015),
             SizedBox(
@@ -207,10 +247,11 @@ class _RentingServiceState extends State<RentingService> {
                   ),
                   backgroundColor: Colors.teal.shade300,
                 ),
-                child: Text('Upload Photograph',
+                child: Text(
+                  'Upload Photograph',
                   style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold)),
+                      textStyle: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
                 ),
               ),
             ),
@@ -225,14 +266,14 @@ class _RentingServiceState extends State<RentingService> {
               ),
             SizedBox(height: size.height * 0.02),
             st
-            ? const CircularProgressIndicator()
-            : MyButton(
-                text: 'Rent Service',
-                width: size.width * 0.48,
-                onPressed: () {
-                  check();
-                },
-              )
+                ? const CircularProgressIndicator()
+                : MyButton(
+                    text: 'Rent Service',
+                    width: size.width * 0.48,
+                    onPressed: () {
+                      check();
+                    },
+                  )
           ],
         ),
       ),

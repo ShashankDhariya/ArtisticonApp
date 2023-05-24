@@ -13,11 +13,45 @@ import 'package:google_fonts/google_fonts.dart';
 class Profile extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const Profile(
-      {super.key, required this.userModel, required this.firebaseUser});
+  const Profile({
+    Key? key,
+    required this.userModel,
+    required this.firebaseUser,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _showLogoutConfirmationDialog() async {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Confirm Logout'),
+            content: const Text('Are you sure you want to logout?'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Logout'),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Splash()),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade100,
@@ -61,15 +95,17 @@ class Profile extends StatelessWidget {
           SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.width * 0.05),
+                vertical: MediaQuery.of(context).size.width * 0.05,
+              ),
               child: Column(
                 children: [
                   CupertinoButton(
                     onPressed: () {},
                     child: CircleAvatar(
-                        radius: MediaQuery.of(context).size.height * 0.08,
-                        backgroundImage:
-                            NetworkImage(userModel.profilePic.toString())),
+                      radius: MediaQuery.of(context).size.height * 0.08,
+                      backgroundImage:
+                          NetworkImage(userModel.profilePic.toString()),
+                    ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.010),
                   Text(
@@ -90,12 +126,17 @@ class Profile extends StatelessWidget {
                     text: 'My Applications',
                     color: Colors.black,
                     ontap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return MyApplications(
-                              firebaseUser: firebaseUser, userModel: userModel);
-                        },
-                      ));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MyApplications(
+                              firebaseUser: firebaseUser,
+                              userModel: userModel,
+                            );
+                          },
+                        ),
+                      );
                     },
                   ),
                   ListOption(
@@ -103,12 +144,17 @@ class Profile extends StatelessWidget {
                     text: 'My Listings',
                     color: Colors.black,
                     ontap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return MyListings(
-                              userModel: userModel, firebaseUser: firebaseUser);
-                        },
-                      ));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MyListings(
+                              userModel: userModel,
+                              firebaseUser: firebaseUser,
+                            );
+                          },
+                        ),
+                      );
                     },
                   ),
                   ListOption(
@@ -116,12 +162,17 @@ class Profile extends StatelessWidget {
                     text: 'Edit Profile',
                     color: Colors.black,
                     ontap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return EditProfile(
-                              userModel: userModel, firebaseUser: firebaseUser);
-                        },
-                      ));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return EditProfile(
+                              userModel: userModel,
+                              firebaseUser: firebaseUser,
+                            );
+                          },
+                        ),
+                      );
                     },
                   ),
                   ListOption(
@@ -129,25 +180,22 @@ class Profile extends StatelessWidget {
                     text: 'About App',
                     color: Colors.black,
                     ontap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const Information();
-                        },
-                      ));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const Information();
+                          },
+                        ),
+                      );
                     },
                   ),
                   ListOption(
-                      icon: const Icon(Icons.exit_to_app),
-                      text: 'Log out',
-                      color: Colors.red,
-                      ontap: () {
-                        FirebaseAuth.instance.signOut();
-                        Navigator.popUntil(context, (route) => route.isFirst);
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Splash()));
-                      }),
+                    icon: const Icon(Icons.exit_to_app),
+                    text: 'Log out',
+                    color: Colors.red,
+                    ontap: _showLogoutConfirmationDialog,
+                  ),
                 ],
               ),
             ),
