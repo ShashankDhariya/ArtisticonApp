@@ -7,6 +7,13 @@ import 'package:artist_icon/screens/components/my_button.dart';
 import 'package:artist_icon/screens/rent_now.dart';
 import 'package:artist_icon/screens/widgets/icon_text.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+bool isLink(String text) {
+  Uri? uri = Uri.tryParse(text);
+  if (uri == null) return false;
+  return uri.hasScheme && uri.hasAuthority;
+}
 
 class RentDetail extends StatelessWidget {
   final RentPostModel currRent;
@@ -92,7 +99,7 @@ class RentDetail extends StatelessWidget {
                     style: GoogleFonts.nunito(
                       fontWeight: FontWeight.bold,
                     )),
-                SizedBox(height: size.height * 0.015),
+                SizedBox(height: size.height * 0.01),
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Row(
@@ -111,27 +118,64 @@ class RentDetail extends StatelessWidget {
                         )
                       ],
                     )),
+                SizedBox(height: size.height * 0.015),
+                Text('Gallery',
+                  style: GoogleFonts.nunito(
+                    fontWeight: FontWeight.bold,
+                  )),
+                SizedBox(height: size.height * 0.01),
+                isLink(currRent.link.toString())
+                ? GestureDetector(
+                    onTap: () async {
+                      if (!await launchUrl(
+                        Uri.parse(currRent.link.toString()),
+                        mode: LaunchMode.externalApplication,
+                      )) {
+                        throw Exception(
+                            'Could not launch $Uri.parse(currApplicant.vid.toString()');
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        Text('Link',
+                          style: GoogleFonts.nunito(
+                              decoration:
+                                  TextDecoration.underline,
+                              color: const Color(0xFF43B1B7),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15),
+                        ),
+                        const Icon(Icons.link)
+                      ],
+                    ),
+                  )
+                : Text("No photo/video attached",
+                  style: GoogleFonts.nunito(
+                    color: const Color(0xFF43B1B7),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15),
+                ),
                 SizedBox(height: size.height * 0.025),
                 currRent.uid.toString() == userModel.uid.toString()
-                    ? MyButton(
-                        text: "Can't apply to own service",
-                        width: double.infinity,
-                        onPressed: () {})
-                    : MyButton(
-                        text: 'Rent Now',
-                        width: double.infinity,
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return RentNowPage(
-                                rentPostModel: currRent,
-                                userModel: userModel,
-                                firebaseUser: firebaseUser,
-                              );
-                            },
-                          ));
+                ? MyButton(
+                    text: "Can't apply to own service",
+                    width: double.infinity,
+                    onPressed: () {})
+                : MyButton(
+                    text: 'Rent Now',
+                    width: double.infinity,
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return RentNowPage(
+                            rentPostModel: currRent,
+                            userModel: userModel,
+                            firebaseUser: firebaseUser,
+                          );
                         },
-                      )
+                      ));
+                    },
+                  )
               ],
             )
           ],

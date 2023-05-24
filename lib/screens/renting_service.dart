@@ -64,27 +64,17 @@ class _RentingServiceState extends State<RentingService> {
     String city = citycontroller.text.trim();
     String state = stateController.text.trim();
     String country = countryController.text.trim();
+    String link = linkController.text.trim();
     String pay = paycontroller.text.trim();
 
-    if (category.isEmpty ||
-        desc.isEmpty ||
-        address.isEmpty ||
-        city.isEmpty ||
-        state.isEmpty ||
-        country.isEmpty ||
-        pay.isEmpty ||
-        img == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Fill out all the Fields")));
+    if (category.isEmpty || desc.isEmpty || address.isEmpty || city.isEmpty || state.isEmpty || country.isEmpty || pay.isEmpty || img == null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Fill out all the Fields")));
     } else {
       setState(() {
         st = true;
       });
       String rentid = uuid.v1();
-      UploadTask uploadTask = FirebaseStorage.instance
-          .ref('Rent_Images')
-          .child(rentid)
-          .putFile(img!);
+      UploadTask uploadTask = FirebaseStorage.instance.ref('Rent_Images').child(rentid).putFile(img!);
       TaskSnapshot snapshot = await uploadTask;
       String imgUrl = await snapshot.ref.getDownloadURL();
 
@@ -101,6 +91,7 @@ class _RentingServiceState extends State<RentingService> {
         country: country,
         pay: pay,
         pic: imgUrl,
+        link: link,
         time: DateTime.now(),
       );
 
@@ -163,7 +154,7 @@ class _RentingServiceState extends State<RentingService> {
                   size: MediaQuery.of(context).size.height * 0.030),
               controller: categoryController,
             ),
-            SizedBox(height: size.height * 0.015),
+            SizedBox(height: size.height * 0.013),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.height * 0.03,
@@ -187,7 +178,7 @@ class _RentingServiceState extends State<RentingService> {
                     hintStyle: TextStyle(color: Colors.grey.shade500)),
               ),
             ),
-            SizedBox(height: size.height * 0.015),
+            SizedBox(height: size.height * 0.013),
             MyTextField(
               hintText: 'Address',
               obsecure: false,
@@ -195,7 +186,7 @@ class _RentingServiceState extends State<RentingService> {
                   size: MediaQuery.of(context).size.height * 0.030),
               controller: addressController,
             ),
-            SizedBox(height: size.height * 0.015),
+            SizedBox(height: size.height * 0.013),
             MyTextField(
               hintText: 'City',
               obsecure: false,
@@ -203,7 +194,7 @@ class _RentingServiceState extends State<RentingService> {
                   size: MediaQuery.of(context).size.height * 0.030),
               controller: citycontroller,
             ),
-            SizedBox(height: size.height * 0.015),
+            SizedBox(height: size.height * 0.013),
             MyTextField(
               hintText: 'State',
               obsecure: false,
@@ -211,7 +202,7 @@ class _RentingServiceState extends State<RentingService> {
                   size: MediaQuery.of(context).size.height * 0.030),
               controller: stateController,
             ),
-            SizedBox(height: size.height * 0.015),
+            SizedBox(height: size.height * 0.013),
             MyTextField(
               hintText: 'Country',
               obsecure: false,
@@ -219,7 +210,7 @@ class _RentingServiceState extends State<RentingService> {
                   size: MediaQuery.of(context).size.height * 0.030),
               controller: countryController,
             ),
-            SizedBox(height: size.height * 0.015),
+            SizedBox(height: size.height * 0.013),
             MyTextField(
               hintText: 'Cost/time',
               obsecure: false,
@@ -227,15 +218,14 @@ class _RentingServiceState extends State<RentingService> {
                   size: MediaQuery.of(context).size.height * 0.030),
               controller: paycontroller,
             ),
-            SizedBox(height: size.height * 0.015),
+            SizedBox(height: size.height * 0.013),
             MyTextField(
               hintText: 'Link to video/photos (Optional)',
               obsecure: false,
-              icon: Icon(Icons.link,
-                  size: MediaQuery.of(context).size.height * 0.030),
+              icon: Icon(Icons.link, size: MediaQuery.of(context).size.height * 0.030),
               controller: linkController,
             ),
-            SizedBox(height: size.height * 0.015),
+            SizedBox(height: size.height * 0.010),
             SizedBox(
               width: 200,
               child: ElevatedButton(
