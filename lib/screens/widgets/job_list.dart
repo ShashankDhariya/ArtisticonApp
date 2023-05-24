@@ -44,17 +44,17 @@ class _JobListState extends State<JobList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Fast Search',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     color: Colors.white,
                     fontSize: 25,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Search quickly for the job you want',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     height: 1.8,
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
