@@ -192,7 +192,7 @@ class _RentListState extends State<RentList> {
                                     Row(
                                       children: [
                                         Text(currRent.provider.toString(),
-                                            style: const TextStyle(
+                                            style: GoogleFonts.nunito(
                                               color: Colors.grey,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
@@ -205,7 +205,7 @@ class _RentListState extends State<RentList> {
                                 Row(
                                   children: [
                                     Text(currRent.category.toString(),
-                                        style: const TextStyle(
+                                        style: GoogleFonts.nunito(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16)),
                                     Expanded(
@@ -213,9 +213,9 @@ class _RentListState extends State<RentList> {
                                         alignment: Alignment.centerRight,
                                         child: Text(
                                           'Rs.${currRent.pay}',
-                                          style: const TextStyle(
+                                          style: GoogleFonts.nunito(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 15),
+                                              fontSize: 13),
                                         ),
                                       ),
                                     ),
@@ -226,8 +226,10 @@ class _RentListState extends State<RentList> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    IconText(Icons.location_on_outlined,
-                                        '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}'),
+                                    IconText(
+                                      Icons.location_on_outlined,
+                                      '${currRent.address}, ${currRent.city}\n${currRent.state}, ${currRent.country}',
+                                    ),
                                   ],
                                 )
                               ],
@@ -287,7 +289,7 @@ class _RentListState extends State<RentList> {
                                     Row(
                                       children: [
                                         Text(currRent.provider.toString(),
-                                            style: const TextStyle(
+                                            style: GoogleFonts.nunito(
                                               color: Colors.grey,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
@@ -300,7 +302,7 @@ class _RentListState extends State<RentList> {
                                 Row(
                                   children: [
                                     Text(currRent.category.toString(),
-                                        style: const TextStyle(
+                                        style: GoogleFonts.nunito(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16)),
                                     Expanded(
@@ -308,7 +310,7 @@ class _RentListState extends State<RentList> {
                                         alignment: Alignment.centerRight,
                                         child: Text(
                                           'Rs.${currRent.pay}',
-                                          style: const TextStyle(
+                                          style: GoogleFonts.nunito(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15),
                                         ),

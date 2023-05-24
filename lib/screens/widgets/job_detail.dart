@@ -51,13 +51,13 @@ class JobDetail extends StatelessWidget {
                     SizedBox(width: size.width * 0.03),
                     Text(currJob.provider.toString(),
                         style: GoogleFonts.nunito(
-                            fontSize: 20, fontWeight: FontWeight.w600)),
+                            fontSize: 18, fontWeight: FontWeight.w600)),
                   ],
                 ),
                 SizedBox(height: size.height * 0.025),
                 Text(currJob.category.toString(),
                     style: GoogleFonts.nunito(
-                        fontSize: 26, fontWeight: FontWeight.w700)),
+                        fontSize: 22, fontWeight: FontWeight.w700)),
                 SizedBox(height: size.height * 0.025),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
