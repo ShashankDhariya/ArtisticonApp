@@ -30,12 +30,7 @@ class _RentArtistState extends State<RentArtist> {
               ),
             ],
           ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [RentList(firebaseUser: widget.firebaseUser, userModel: widget.userModel)],
-            ),
-          )
+          RentList(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
         ],
       ),
     );

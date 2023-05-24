@@ -155,7 +155,7 @@ class _RentListState extends State<RentList> {
                 itemBuilder: (context, index) {
                   RentPostModel currRent =
                       RentPostModel.fromMap(snapshot.data!.docs[index].data());
-
+          
                   if (search.isEmpty && location.isEmpty) {
                     return Padding(
                       padding: EdgeInsets.symmetric(
@@ -237,7 +237,7 @@ class _RentListState extends State<RentList> {
                       ),
                     );
                   }
-
+          
                   if ((currRent.city
                               .toString()
                               .toLowerCase()

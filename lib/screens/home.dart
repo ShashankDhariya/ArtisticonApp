@@ -25,10 +25,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> widgetOptions = [
-      HomeArtist(
-          firebaseUser: widget.firebaseUser, userModel: widget.userModel),
-      PostOrRentModal(
-          firebaseUser: widget.firebaseUser, userModel: widget.userModel),
+      HomeArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel),
+      PostOrRentModal(firebaseUser: widget.firebaseUser, userModel: widget.userModel),
       RentArtist(firebaseUser: widget.firebaseUser, userModel: widget.userModel)
     ];
     return Scaffold(
