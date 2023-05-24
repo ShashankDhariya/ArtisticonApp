@@ -21,7 +21,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _showLogoutConfirmationDialog() async {
+    Future<void> showLogoutConfirmationDialog() async {
       return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -194,7 +194,7 @@ class Profile extends StatelessWidget {
                     icon: const Icon(Icons.exit_to_app),
                     text: 'Log out',
                     color: Colors.red,
-                    ontap: _showLogoutConfirmationDialog,
+                    ontap: showLogoutConfirmationDialog,
                   ),
                 ],
               ),

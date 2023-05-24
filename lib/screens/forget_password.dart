@@ -21,10 +21,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         children: [
           Container(
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.jpg"),
-                fit: BoxFit.cover,
-              ),
+              color: Colors.black,
             ),
           ),
           Center(

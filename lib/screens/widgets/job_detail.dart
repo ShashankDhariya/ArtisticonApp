@@ -59,17 +59,13 @@ class JobDetail extends StatelessWidget {
                     style: GoogleFonts.nunito(
                         fontSize: 22, fontWeight: FontWeight.w700)),
                 SizedBox(height: size.height * 0.025),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconText(Icons.location_on_outlined, location),
-                    IconText(Icons.currency_rupee, currJob.pay.toString()),
-                  ],
-                ),
-                SizedBox(height: size.height * 0.030),
+                IconText(Icons.location_on_outlined, location),
+                SizedBox(height: size.height * 0.015),
+                IconText(Icons.currency_rupee, currJob.pay.toString()),
+                SizedBox(height: size.height * 0.020),
                 Text('Requirements: ',
                     style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
-                SizedBox(height: size.height * 0.01),
+                SizedBox(height: size.height * 0.007),
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Row(
