@@ -59,8 +59,7 @@ class RentDetail extends StatelessWidget {
                     SizedBox(width: size.width * 0.03),
                     Text(
                       currRent.provider.toString(),
-                      style: GoogleFonts.nunito(
-                          fontSize: 18, fontWeight: FontWeight.w600),
+                      style: GoogleFonts.nunito(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -81,25 +80,20 @@ class RentDetail extends StatelessWidget {
                         }));
                       },
                       child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(currRent.pic.toString())),
+                          backgroundImage:NetworkImage(currRent.pic.toString())),
                     )
                   ],
                 ),
                 SizedBox(height: size.height * 0.025),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconText(Icons.location_on_outlined, location),
-                    IconText(Icons.currency_rupee, currRent.pay.toString()),
-                  ],
-                ),
-                SizedBox(height: size.height * 0.030),
+                IconText(Icons.location_on_outlined, location),
+                SizedBox(height: size.height * 0.015),
+                IconText(Icons.currency_rupee, currRent.pay.toString()),
+                SizedBox(height: size.height * 0.02),
                 Text('Requirements',
                     style: GoogleFonts.nunito(
                       fontWeight: FontWeight.bold,
                     )),
-                SizedBox(height: size.height * 0.01),
+                SizedBox(height: size.height * 0.007),
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Row(
