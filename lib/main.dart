@@ -13,11 +13,9 @@ void main() async {
   await Firebase.initializeApp();
   User? currentUser = FirebaseAuth.instance.currentUser;
   if (currentUser != null) {
-    UserModel? fetchUserModel =
-        await FirebaseHelper.getuserModelById(currentUser.uid);
+    UserModel? fetchUserModel = await FirebaseHelper.getuserModelById(currentUser.uid);
     if (fetchUserModel != null) {
-      runApp(
-          MyAppLoggedIn(userModel: fetchUserModel, firebaseUser: currentUser));
+      runApp(MyAppLoggedIn(userModel: fetchUserModel, firebaseUser: currentUser));
     } else {
       runApp(const MyApp());
     }
@@ -30,8 +28,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -45,15 +42,12 @@ class MyApp extends StatelessWidget {
 class MyAppLoggedIn extends StatelessWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const MyAppLoggedIn(
-      {super.key, required this.userModel, required this.firebaseUser});
+  const MyAppLoggedIn({super.key, required this.userModel, required this.firebaseUser});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SplashLoggedIn(
-          firebaseUser: firebaseUser,
-          userModel: userModel,
-        ));
+      debugShowCheckedModeBanner: false,
+      home: SplashLoggedIn(firebaseUser: firebaseUser,userModel: userModel)
+    );
   }
 }

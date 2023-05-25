@@ -144,7 +144,7 @@ class MyApplications extends StatelessWidget {
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return AlertDialog(
+                                          return CupertinoAlertDialog(
                                             title:
                                                 const Text('Confirm Deletion'),
                                             content: const Text(

@@ -158,7 +158,7 @@ class MyListings extends StatelessWidget {
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
-                                          return AlertDialog(
+                                          return CupertinoAlertDialog(
                                             title: const Text('Confirmation'),
                                             content: const Text(
                                                 'Are you sure you want to delete this listing?'),

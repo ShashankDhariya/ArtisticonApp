@@ -4,6 +4,7 @@ import 'package:artist_icon/screens/profileOptions/edit.dart';
 import 'package:artist_icon/screens/profileOptions/information.dart';
 import 'package:artist_icon/screens/profileOptions/my_applications.dart';
 import 'package:artist_icon/screens/profileOptions/my_listings.dart';
+import 'package:artist_icon/screens/widgets/picture.dart';
 import 'package:artist_icon/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +26,7 @@ class Profile extends StatelessWidget {
       return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
+          return CupertinoAlertDialog(
             title: const Text('Confirm Logout'),
             content: const Text('Are you sure you want to logout?'),
             actions: <Widget>[
@@ -100,7 +101,16 @@ class Profile extends StatelessWidget {
               child: Column(
                 children: [
                   CupertinoButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:(context) {
+                            return PicPage(img: userModel.profilePic.toString());
+                          },
+                        )
+                      );
+                    },
                     child: CircleAvatar(
                       radius: MediaQuery.of(context).size.height * 0.08,
                       backgroundImage:

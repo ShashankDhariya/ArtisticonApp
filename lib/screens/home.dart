@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:artist_icon/screens/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,12 +9,13 @@ import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/widgets/home_artist.dart';
 import 'package:artist_icon/screens/widgets/jobtype.dart';
 import 'package:artist_icon/screens/widgets/rent_artist.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class HomePage extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const HomePage(
-      {super.key, required this.userModel, required this.firebaseUser});
+
+  const HomePage({Key? key, required this.userModel, required this.firebaseUser}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -21,6 +23,38 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  bool _isConnected = true;
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectivity();
+    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      setState(() {
+        _isConnected = result != ConnectivityResult.none;
+      });
+      if (!_isConnected) {
+        showDialogBox();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _connectivitySubscription.cancel();
+    super.dispose();
+  }
+
+  Future<void> checkConnectivity() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      _isConnected = connectivityResult != ConnectivityResult.none;
+    });
+    if (!_isConnected) {
+      showDialogBox();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,26 +69,25 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         title: Text('Welcome ${widget.userModel.name}',
-            style:
-                GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 16)),
+            style: GoogleFonts.nunito(fontWeight: FontWeight.bold, fontSize: 16)),
         actions: [
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return Profile(
-                      firebaseUser: widget.firebaseUser,
-                      userModel: widget.userModel);
+                  return Profile(firebaseUser: widget.firebaseUser,userModel: widget.userModel);
                 },
               ));
             },
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: CircleAvatar(
-                  maxRadius: 23,
-                  backgroundImage: NetworkImage(
-                    widget.userModel.profilePic.toString(),
-                  )),
+                backgroundColor: Colors.white,
+                maxRadius: 23,
+                backgroundImage: _isConnected?
+                      NetworkImage(widget.userModel.profilePic.toString(),)
+                    : const AssetImage('assets/images/user.png') as ImageProvider<Object>?,
+              ),
             ),
           ),
         ],
@@ -108,6 +141,24 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: widgetOptions[_selectedIndex],
+    );
+  }
+
+  showDialogBox() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: const Text("No Connection"),
+          content: const Text("Please check your internet connection"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
