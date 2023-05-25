@@ -56,11 +56,7 @@ class _SplashState extends State<Splash> {
 class SplashLoggedIn extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
-  const SplashLoggedIn({
-    Key? key,
-    required this.userModel,
-    required this.firebaseUser,
-  }) : super(key: key);
+  const SplashLoggedIn({Key? key, required this.userModel, required this.firebaseUser}) : super(key: key);
   @override
   State<SplashLoggedIn> createState() => _SplashLoggedInState();
 }
