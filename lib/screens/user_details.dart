@@ -119,11 +119,11 @@ class _UserDetailsState extends State<UserDetails> {
         password: password,
       );
     } catch (e) {
+      int len = e.toString().indexOf(']');
       setState(() {
         state = false;
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString().substring(len))));
     }
     String name = nameController.text.trim();
     String phone = phoneController.text.trim();

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:artist_icon/models/user.dart';
 import 'package:artist_icon/screens/components/my_text_field.dart';
 import 'package:artist_icon/screens/components/my_button.dart';
@@ -36,7 +35,6 @@ class _SignInPageState extends State<SignInPage> {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Please Enter Password')));
     } else {
-      log(username.toString());
       setState(() {
         state = true;
       });
@@ -58,10 +56,11 @@ class _SignInPageState extends State<SignInPage> {
               builder: (context) => HomePage(
                   firebaseUser: credential!.user!, userModel: userModel)));
     } catch (e) {
+      int len = e.toString().indexOf(']');
       setState(() {
         state = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString().substring(len+2))));
     }
   }
 
