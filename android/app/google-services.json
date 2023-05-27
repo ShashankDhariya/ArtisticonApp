@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "796105886392",
-    "project_id": "aryisticicon2",
-    "storage_bucket": "aryisticicon2.appspot.com"
+    "project_number": "898718268173",
+    "project_id": "artisticon-6a122",
+    "storage_bucket": "artisticon-6a122.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:796105886392:android:0228e8cc2bd3fb36efc24d",
+        "mobilesdk_app_id": "1:898718268173:android:b8c56ef9f06125d739ce44",
         "android_client_info": {
-          "package_name": "com.example.artist_icon"
+          "package_name": "com.addy.artist_icon"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "796105886392-gvid2f7p0b9e6pvmf45s23e349a980p6.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB55Kr53qYn_FWsPiA5nbvRq3J3S7Bh6XI"
+          "current_key": "AIzaSyBOLZsad7WtwW9jYHEUy8xMf490K_Hygl8"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "796105886392-gvid2f7p0b9e6pvmf45s23e349a980p6.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
