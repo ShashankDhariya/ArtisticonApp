@@ -4,6 +4,7 @@ import 'package:artist_icon/screens/profileOptions/edit.dart';
 import 'package:artist_icon/screens/profileOptions/information.dart';
 import 'package:artist_icon/screens/profileOptions/my_applications.dart';
 import 'package:artist_icon/screens/profileOptions/my_listings.dart';
+import 'package:artist_icon/screens/profileOptions/privacy_policy.dart';
 import 'package:artist_icon/screens/widgets/picture.dart';
 import 'package:artist_icon/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   final UserModel userModel;
   final User firebaseUser;
   const Profile({
@@ -19,6 +20,13 @@ class Profile extends StatelessWidget {
     required this.userModel,
     required this.firebaseUser,
   }) : super(key: key);
+
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  bool showPrivacyPolicy = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +61,26 @@ class Profile extends StatelessWidget {
       );
     }
 
+    void showPrivacyPolicyDialog(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Privacy Policy'),
+            content: const Text('Add your privacy policy content here.'),
+            actions: [
+              TextButton(
+                child: const Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade100,
@@ -76,6 +104,16 @@ class Profile extends StatelessWidget {
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () {
+              setState(() {
+                showPrivacyPolicy = !showPrivacyPolicy;
+              });
+            },
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -102,31 +140,29 @@ class Profile extends StatelessWidget {
                 children: [
                   CupertinoButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:(context) {
-                            return PicPage(img: userModel.profilePic.toString());
-                          },
-                        )
-                      );
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return PicPage(
+                              img: widget.userModel.profilePic.toString());
+                        },
+                      ));
                     },
                     child: CircleAvatar(
                       radius: MediaQuery.of(context).size.height * 0.08,
                       backgroundImage:
-                          NetworkImage(userModel.profilePic.toString()),
+                          NetworkImage(widget.userModel.profilePic.toString()),
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.010),
                   Text(
-                    userModel.name.toString(),
+                    widget.userModel.name.toString(),
                     style: GoogleFonts.montserrat(),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.015),
-                  Text(userModel.username.toString()),
+                  Text(widget.userModel.username.toString()),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                   Text(
-                    userModel.profession.toString(),
+                    widget.userModel.profession.toString(),
                     style: GoogleFonts.pacifico(),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -141,8 +177,8 @@ class Profile extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return MyApplications(
-                              firebaseUser: firebaseUser,
-                              userModel: userModel,
+                              firebaseUser: widget.firebaseUser,
+                              userModel: widget.userModel,
                             );
                           },
                         ),
@@ -159,8 +195,8 @@ class Profile extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return MyListings(
-                              userModel: userModel,
-                              firebaseUser: firebaseUser,
+                              userModel: widget.userModel,
+                              firebaseUser: widget.firebaseUser,
                             );
                           },
                         ),
@@ -177,8 +213,8 @@ class Profile extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) {
                             return EditProfile(
-                              userModel: userModel,
-                              firebaseUser: firebaseUser,
+                              userModel: widget.userModel,
+                              firebaseUser: widget.firebaseUser,
                             );
                           },
                         ),
@@ -207,6 +243,32 @@ class Profile extends StatelessWidget {
                     ontap: showLogoutConfirmationDialog,
                   ),
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: kToolbarHeight + MediaQuery.of(context).padding.top - 100,
+            right: -11,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const PrivacyPolicy();
+                }));
+              },
+              child: Visibility(
+                visible: showPrivacyPolicy,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    'Privacy Policy',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
               ),
             ),
           ),
