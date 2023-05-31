@@ -118,7 +118,7 @@ class MyApplications extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 12),
                           child: Container(
-                            height: 150,
+                            height: 160,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade200,
                               borderRadius: BorderRadius.circular(20),
