@@ -123,7 +123,7 @@ class _UserDetailsState extends State<UserDetails> {
       setState(() {
         state = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString().substring(len))));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString().substring(len+2))));
     }
     String name = nameController.text.trim();
     String phone = phoneController.text.trim();

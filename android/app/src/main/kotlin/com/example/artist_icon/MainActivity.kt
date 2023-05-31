@@ -1,4 +1,4 @@
-package com.example.artist_icon
+package com.addy.artist_icon
 
 import io.flutter.embedding.android.FlutterActivity
 
