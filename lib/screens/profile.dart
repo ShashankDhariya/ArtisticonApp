@@ -61,26 +61,6 @@ class _ProfileState extends State<Profile> {
       );
     }
 
-    void showPrivacyPolicyDialog(BuildContext context) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Privacy Policy'),
-            content: const Text('Add your privacy policy content here.'),
-            actions: [
-              TextButton(
-                child: const Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade100,
@@ -264,9 +244,10 @@ class _ProfileState extends State<Profile> {
                     color: Colors.grey.shade300,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Privacy Policy',
-                    style: TextStyle(fontSize: 16),
+                    style: GoogleFonts.nunito(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
