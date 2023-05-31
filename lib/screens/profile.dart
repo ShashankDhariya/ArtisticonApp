@@ -30,7 +30,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> showLogoutConfirmationDialog() async {
+    var size = MediaQuery.of(context).size;
+    void showLogoutConfirmationDialog() async {
       return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -86,7 +87,7 @@ class _ProfileState extends State<Profile> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.info_outline),
+            icon: const Icon(CupertinoIcons.info),
             onPressed: () {
               setState(() {
                 showPrivacyPolicy = !showPrivacyPolicy;
@@ -114,7 +115,7 @@ class _ProfileState extends State<Profile> {
           SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.width * 0.05,
+                vertical: size.width * 0.05,
               ),
               child: Column(
                 children: [
@@ -128,24 +129,24 @@ class _ProfileState extends State<Profile> {
                       ));
                     },
                     child: CircleAvatar(
-                      radius: MediaQuery.of(context).size.height * 0.08,
+                      radius: size.height * 0.08,
                       backgroundImage:
                           NetworkImage(widget.userModel.profilePic.toString()),
                     ),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.010),
+                  SizedBox(height: size.height * 0.010),
                   Text(
                     widget.userModel.name.toString(),
                     style: GoogleFonts.montserrat(),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                  SizedBox(height: size.height * 0.015),
                   Text(widget.userModel.username.toString()),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                  SizedBox(height: size.height * 0.015),
                   Text(
                     widget.userModel.profession.toString(),
                     style: GoogleFonts.pacifico(),
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  SizedBox(height: size.height * 0.01),
                   const Divider(),
                   ListOption(
                     icon: const Icon(Icons.book),
@@ -227,8 +228,8 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           Positioned(
-            top: kToolbarHeight + MediaQuery.of(context).padding.top - 100,
-            right: -11,
+            top: kToolbarHeight + MediaQuery.of(context).padding.top - size.height * 0.12,
+            right: -size.width * 0.04,
             child: GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {

@@ -1,25 +1,23 @@
-import 'package:artist_icon/main.dart';
+import 'package:artist_icon/splash.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../components/list_options.dart';
-
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Future<void> showDeleteConfirmationDialog() async {
+    void showDeleteConfirmationDialog() async {
       return showDialog(
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
             title: const Text('Confirm Account Deletion'),
             content:
-                const Text('Are you sure you want to delete your account?'),
+                const Text('\nAre you sure you want to delete your account?\n\nAfter account deletion you no longer will be able to use this account.'),
             actions: <Widget>[
               TextButton(
                 child: const Text('Cancel'),
@@ -29,30 +27,25 @@ class PrivacyPolicy extends StatelessWidget {
               ),
               TextButton(
                 child: const Text('Delete'),
-                onPressed: () async {
-                  // Delete the user account from Firebase
+                onPressed: () async {                
                   try {
                     User? user = FirebaseAuth.instance.currentUser;
                     if (user != null) {
                       await user.delete();
-                      FirebaseFirestore.instance
-                          .collection('Users')
-                          .doc(user.uid.toString())
-                          .delete();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Account deleted successfully')));
-                      // You can perform additional actions after deleting the account
+                      FirebaseFirestore.instance.collection('Users').doc(user.uid.toString()).delete();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Account deleted successfully')));
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Splash()),
+                      ); 
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                              'User is already logged out or does not exist')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('User is already logged out or does not exist')));
                     }
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content:
-                            Text('Error occurred while deleting the account')));
-                  }
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  } 
+                  catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content:Text('Error occurred while deleting the account')));
+                  }               
                 },
               ),
             ],
@@ -135,12 +128,27 @@ If you have any questions, concerns, or requests regarding this Privacy Policy o
                     fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
-            ListOption(
-              icon: const Icon(Icons.delete),
-              text: 'Delete Account',
-              color: Colors.red,
-              ontap: showDeleteConfirmationDialog,
-            ),
+            GestureDetector(
+              onTap: showDeleteConfirmationDialog, 
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(CupertinoIcons.delete, 
+                      color: Colors.red,
+                    ),
+                    const SizedBox(height: 5),
+                    Text('Delete Account', 
+                      style: GoogleFonts.nunito(
+                        color: Colors.red,
+                        fontSize: 18
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            )
           ],
         ),
       ),
